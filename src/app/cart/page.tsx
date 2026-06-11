@@ -1,0 +1,508 @@
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import { useApp } from "../../context/AppContext";
+import { Trash2, ShoppingBag, Plus, Minus, CheckCircle, ArrowRight, ClipboardCopy } from "lucide-react";
+
+interface FormFields {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  zip: string;
+  city: string;
+  country: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  zip?: string;
+  city?: string;
+  country?: string;
+}
+
+export default function Cart() {
+  const { cart, removeFromCart, updateCartQuantity, clearCart, language, t } = useApp();
+  const [orderNotes, setOrderNotes] = useState("");
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [orderId, setOrderId] = useState("");
+
+  const [form, setForm] = useState<FormFields>({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    zip: "",
+    city: "",
+    country: language === "pt" ? "Portugal" : "United Kingdom",
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+
+  const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  
+  // Tax breakdown (VAT 23%)
+  const subtotalExclVat = cartTotal / 1.23;
+  const vatAmount = cartTotal - subtotalExclVat;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const tempErrors: FormErrors = {};
+    let isValid = true;
+
+    if (!form.name.trim()) {
+      tempErrors.name = t("inputRequired");
+      isValid = false;
+    }
+    
+    if (!form.email.trim()) {
+      tempErrors.email = t("inputRequired");
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+      tempErrors.email = t("invalidEmail");
+      isValid = false;
+    }
+
+    if (!form.phone.trim()) {
+      tempErrors.phone = t("inputRequired");
+      isValid = false;
+    }
+
+    if (!form.address.trim()) {
+      tempErrors.address = t("inputRequired");
+      isValid = false;
+    }
+
+    if (!form.zip.trim()) {
+      tempErrors.zip = t("inputRequired");
+      isValid = false;
+    }
+
+    if (!form.city.trim()) {
+      tempErrors.city = t("inputRequired");
+      isValid = false;
+    }
+
+    if (!form.country.trim()) {
+      tempErrors.country = t("inputRequired");
+      isValid = false;
+    }
+
+    setErrors(tempErrors);
+    return isValid;
+  };
+
+  const handleCheckoutSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    // Simulate ordering
+    const generatedOrderId = "VG-" + Math.floor(100000 + Math.random() * 900000);
+    setOrderId(generatedOrderId);
+    setSuccessModalOpen(true);
+  };
+
+  const closeSuccessModal = () => {
+    setSuccessModalOpen(false);
+    clearCart();
+    setForm({
+      name: "",
+      email: "",
+      phone: "",
+      address: "",
+      zip: "",
+      city: "",
+      country: language === "pt" ? "Portugal" : "United Kingdom",
+    });
+    setOrderNotes("");
+  };
+
+  if (cart.length === 0) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-24 flex flex-col items-center justify-center text-center">
+        <div className="bg-indigo-50 dark:bg-slate-900 p-6 rounded-full text-indigo-600 dark:text-indigo-400 mb-6">
+          <ShoppingBag className="h-12 w-12" />
+        </div>
+        <h1 className="text-3xl font-extrabold text-slate-950 dark:text-slate-50 mb-3">
+          {t("cartEmpty")}
+        </h1>
+        <p className="text-slate-500 dark:text-slate-400 text-sm max-w-md mb-8">
+          Ainda não adicionou produtos ao seu carrinho. Explore as nossas coleções para encontrar o seu estilo.
+        </p>
+        <Link
+          href="/categories"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-8 rounded-full shadow-md hover:shadow-indigo-500/20 transition-all flex items-center space-x-2 text-sm"
+        >
+          <span>{t("btnContinue")}</span>
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full flex-grow relative">
+      <h1 className="text-3xl font-black text-slate-950 dark:text-slate-50 mb-8 flex items-center gap-2">
+        <ShoppingBag className="h-7 w-7 text-indigo-600 dark:text-indigo-400" />
+        <span>{t("cartTitle")}</span>
+      </h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Side: Items list, Notes, Client Info Form */}
+        <div className="lg:col-span-7 space-y-8">
+          {/* Cart Items List */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+            <div className="p-6 border-b border-slate-100 dark:border-slate-800">
+              <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50">
+                Produtos selecionados ({cart.length})
+              </h2>
+            </div>
+
+            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+              {cart.map((item) => (
+                <div key={item.cartItemId} className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  {/* Image & Main Info */}
+                  <div className="flex items-center space-x-4">
+                    <img
+                      src={item.image}
+                      alt={language === "pt" ? item.namePt : item.nameEn}
+                      className="w-16 h-16 object-cover rounded-xl border border-slate-200 dark:border-slate-800 flex-shrink-0"
+                    />
+                    <div>
+                      <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 line-clamp-1">
+                        {language === "pt" ? item.namePt : item.nameEn}
+                      </h3>
+                      
+                      {/* Configuration Details */}
+                      <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-400 mt-1 font-medium">
+                        {item.selectedSize && (
+                          <span>
+                            {t("labelSize")}: <span className="text-slate-600 dark:text-slate-350">{item.selectedSize}</span>
+                          </span>
+                        )}
+                        {item.selectedColor && (
+                          <span>
+                            {t("labelColor")}: <span className="text-slate-600 dark:text-slate-350">{item.selectedColor}</span>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Quantity and Price adjustment */}
+                  <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto">
+                    {/* Quantity controls */}
+                    <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-lg">
+                      <button
+                        onClick={() => updateCartQuantity(item.cartItemId, item.quantity - 1)}
+                        className="p-1.5 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors"
+                      >
+                        <Minus className="h-3.5 w-3.5" />
+                      </button>
+                      <span className="px-3 text-xs font-bold font-mono text-slate-800 dark:text-slate-100 min-w-8 text-center">
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() => updateCartQuantity(item.cartItemId, item.quantity + 1)}
+                        className="p-1.5 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors"
+                      >
+                        <Plus className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+
+                    {/* Price and removal */}
+                    <div className="flex items-center space-x-4">
+                      <div className="text-right">
+                        <span className="block text-sm font-bold text-slate-900 dark:text-slate-100 font-mono">
+                          {(item.price * item.quantity).toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
+                            style: "currency",
+                            currency: "EUR",
+                          })}
+                        </span>
+                        {item.quantity > 1 && (
+                          <span className="block text-[10px] text-slate-400 font-mono mt-0.5">
+                            {item.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", { style: "currency", currency: "EUR" })} / un
+                          </span>
+                        )}
+                      </div>
+
+                      <button
+                        onClick={() => removeFromCart(item.cartItemId)}
+                        className="p-2 text-slate-400 hover:text-red-500 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors"
+                        title="Remover produto"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Order Notes Area */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 mb-3">
+              {t("cartNotes")}
+            </h2>
+            <textarea
+              value={orderNotes}
+              onChange={(e) => setOrderNotes(e.target.value)}
+              placeholder={t("cartNotesPlaceholder")}
+              rows={3}
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors"
+            />
+          </div>
+
+          {/* Client Shipping Form */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 mb-6">
+              {t("custDataTitle")}
+            </h2>
+
+            <form onSubmit={handleCheckoutSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  {t("custName")} *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={handleInputChange}
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                    errors.name ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  }`}
+                />
+                {errors.name && <span className="text-red-500 text-xs mt-1 block">{errors.name}</span>}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                    {t("custEmail")} *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleInputChange}
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                      errors.email ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
+                  />
+                  {errors.email && <span className="text-red-500 text-xs mt-1 block">{errors.email}</span>}
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                    {t("custPhone")} *
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleInputChange}
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                      errors.phone ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
+                  />
+                  {errors.phone && <span className="text-red-500 text-xs mt-1 block">{errors.phone}</span>}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  {t("custAddress")} *
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  value={form.address}
+                  onChange={handleInputChange}
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                    errors.address ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  }`}
+                />
+                {errors.address && <span className="text-red-500 text-xs mt-1 block">{errors.address}</span>}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                    {t("custZip")} *
+                  </label>
+                  <input
+                    type="text"
+                    name="zip"
+                    value={form.zip}
+                    onChange={handleInputChange}
+                    placeholder="e.g. 1000-000"
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                      errors.zip ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
+                  />
+                  {errors.zip && <span className="text-red-500 text-xs mt-1 block">{errors.zip}</span>}
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                    {t("custCity")} *
+                  </label>
+                  <input
+                    type="text"
+                    name="city"
+                    value={form.city}
+                    onChange={handleInputChange}
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                      errors.city ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
+                  />
+                  {errors.city && <span className="text-red-500 text-xs mt-1 block">{errors.city}</span>}
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                    {t("custCountry")} *
+                  </label>
+                  <input
+                    type="text"
+                    name="country"
+                    value={form.country}
+                    onChange={handleInputChange}
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                      errors.country ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
+                  />
+                  {errors.country && <span className="text-red-500 text-xs mt-1 block">{errors.country}</span>}
+                </div>
+              </div>
+              <button type="submit" id="hidden-submit" className="hidden" />
+            </form>
+          </div>
+        </div>
+
+        {/* Right Side: Order Summary Card (Sticky) */}
+        <div className="lg:col-span-5 sticky top-24">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
+            <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 border-b border-slate-100 dark:border-slate-800 pb-4">
+              {t("summaryTitle")}
+            </h2>
+
+            {/* Calculations details */}
+            <div className="space-y-3 text-sm font-medium">
+              <div className="flex justify-between text-slate-500">
+                <span>{t("summarySubtotal")} (Excl. IVA)</span>
+                <span className="font-mono">
+                  {subtotalExclVat.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
+                    style: "currency",
+                    currency: "EUR",
+                  })}
+                </span>
+              </div>
+              <div className="flex justify-between text-slate-500">
+                <span>{t("summaryVat")}</span>
+                <span className="font-mono">
+                  {vatAmount.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
+                    style: "currency",
+                    currency: "EUR",
+                  })}
+                </span>
+              </div>
+              
+              <hr className="border-slate-100 dark:border-slate-800 my-4" />
+
+              <div className="flex justify-between items-baseline text-slate-900 dark:text-white font-extrabold">
+                <span className="text-base">{t("summaryTotal")}</span>
+                <span className="text-2xl font-black font-mono text-indigo-600 dark:text-indigo-400">
+                  {cartTotal.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
+                    style: "currency",
+                    currency: "EUR",
+                  })}
+                </span>
+              </div>
+            </div>
+
+            {/* Checkout Action Button */}
+            <button
+              onClick={() => {
+                const submitBtn = document.getElementById("hidden-submit");
+                if (submitBtn) submitBtn.click();
+              }}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-6 rounded-xl shadow-lg hover:shadow-indigo-500/20 transition-all flex items-center justify-center space-x-2 text-base"
+            >
+              <span>{t("btnCheckout")}</span>
+              <ArrowRight className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Success Modal Overlay */}
+      {successModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 max-w-lg w-full rounded-3xl p-8 shadow-2xl space-y-6 text-center animate-scale-up relative">
+            
+            {/* Checked Icon */}
+            <div className="bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 w-16 h-16 rounded-full flex items-center justify-center mx-auto shadow-inner">
+              <CheckCircle className="h-8 w-8" />
+            </div>
+
+            {/* Success text */}
+            <div className="space-y-2">
+              <h2 className="text-2xl font-black text-slate-950 dark:text-slate-50">
+                {t("checkoutSuccessTitle")}
+              </h2>
+              <p className="text-sm text-slate-500 dark:text-slate-450">
+                {t("checkoutSuccessMsg")}
+              </p>
+            </div>
+
+            {/* Order details details */}
+            <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-4 border border-slate-200 dark:border-slate-850 text-left space-y-3 font-medium text-xs text-slate-500 dark:text-slate-400">
+              <div className="flex justify-between items-center">
+                <span>Encomenda ID</span>
+                <span className="font-mono font-bold text-slate-900 dark:text-white flex items-center gap-1.5 bg-slate-200 dark:bg-slate-800 px-2 py-1 rounded">
+                  <ClipboardCopy className="h-3.5 w-3.5 text-slate-400" />
+                  {orderId}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span>Cliente</span>
+                <span className="text-slate-800 dark:text-white">{form.name}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Total Pago (com IVA)</span>
+                <span className="font-mono text-slate-800 dark:text-white">
+                  {cartTotal.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
+                    style: "currency",
+                    currency: "EUR",
+                  })}
+                </span>
+              </div>
+            </div>
+
+            {/* Continue Shopping button */}
+            <button
+              onClick={closeSuccessModal}
+              className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl transition-all"
+            >
+              {t("btnContinue")}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
