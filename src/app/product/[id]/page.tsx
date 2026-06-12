@@ -14,7 +14,6 @@ export default function ProductDetail() {
   const { language, addToCart, t } = useApp();
 
   const [product, setProduct] = useState<Product | null>(null);
-  const [activeTab, setActiveTab] = useState<"standard" | "360">("standard");
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [customSizeText, setCustomSizeText] = useState("");
@@ -37,11 +36,7 @@ export default function ProductDetail() {
       if (foundProduct.colors.length > 0) {
         setSelectedColor(foundProduct.colors[0]);
       }
-      
-      // If product only has 360 view (or starts with it), set tab
-      if (foundProduct.has360 && foundProduct.images.length === 0) {
-        setActiveTab("360");
-      }
+
     }
   }, [params.id]);
 
@@ -145,60 +140,30 @@ export default function ProductDetail() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* Left Column: Media (Gallery & 360 Viewer) */}
         <div className="lg:col-span-7 flex flex-col space-y-6">
-          {/* Main Viewer Switcher Tabs */}
-          {product.has360 && (
-            <div className="flex space-x-2 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl w-fit self-center">
-              <button
-                onClick={() => setActiveTab("standard")}
-                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                  activeTab === "standard"
-                    ? "bg-white dark:bg-slate-800 shadow-sm text-slate-900 dark:text-white"
-                    : "text-slate-500 hover:text-slate-800 dark:hover:text-white"
-                }`}
-              >
-                {t("viewStatic")}
-              </button>
-              <button
-                onClick={() => setActiveTab("360")}
-                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                  activeTab === "360"
-                    ? "bg-white dark:bg-slate-800 shadow-sm text-slate-900 dark:text-white"
-                    : "text-slate-500 hover:text-slate-800 dark:hover:text-white"
-                }`}
-              >
-                {t("view360").split(" (")[0]}
-              </button>
-            </div>
-          )}
-
           {/* Viewer area */}
           <div className="w-full flex justify-center">
-            {activeTab === "360" && product.has360 ? (
-              <Viewer360 productId={product.id} productName={name} />
-            ) : (
-              <div className="relative w-full aspect-square max-w-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-sm flex items-center justify-center">
-                <img
-                  src={selectedImage}
-                  alt={name}
-                  className="w-full h-full object-cover object-center"
-                />
-                
-                {product.has360 && (
-                  <button
-                    onClick={() => setIs360ModalOpen(true)}
-                    className="absolute bottom-4 right-4 z-10 flex items-center justify-center bg-white/95 hover:bg-indigo-650 dark:bg-slate-900/95 dark:hover:bg-indigo-600 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-indigo-500/20 px-4 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-850 dark:text-slate-100 hover:text-white dark:hover:text-white group font-extrabold text-xs tracking-wider gap-2 cursor-pointer"
-                    title={t("btnOpen360")}
-                  >
-                    <RotateCw className="h-4 w-4 animate-spin-slow group-hover:rotate-180 transition-transform duration-700" />
-                    <span>360°</span>
-                  </button>
-                )}
-              </div>
-            )}
+            <div className="relative w-full aspect-square max-w-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-sm flex items-center justify-center">
+              <img
+                src={selectedImage}
+                alt={name}
+                className="w-full h-full object-cover object-center"
+              />
+              
+              {product.has360 && (
+                <button
+                  onClick={() => setIs360ModalOpen(true)}
+                  className="absolute bottom-4 right-4 z-10 flex items-center justify-center bg-white/95 hover:bg-indigo-650 dark:bg-slate-900/95 dark:hover:bg-indigo-600 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-indigo-500/20 px-4 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-850 dark:text-slate-100 hover:text-white dark:hover:text-white group font-extrabold text-xs tracking-wider gap-2 cursor-pointer"
+                  title={t("btnOpen360")}
+                >
+                  <RotateCw className="h-4 w-4 animate-spin-slow group-hover:rotate-180 transition-transform duration-700" />
+                  <span>360°</span>
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Secondary Thumbnail Gallery */}
-          {activeTab === "standard" && product.images.length > 1 && (
+          {product.images.length > 1 && (
             <div className="flex justify-center space-x-3 overflow-x-auto py-2">
               {product.images.map((img, idx) => (
                 <button
@@ -408,28 +373,18 @@ export default function ProductDetail() {
           />
 
           {/* Modal Container */}
-          <div className="relative w-full max-w-4xl bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 flex flex-col shadow-2xl z-10 max-h-[90vh] overflow-y-auto">
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
-              <div>
-                <h3 className="text-xl font-black text-slate-950 dark:text-slate-50">
-                  {name}
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  {t("view360")}
-                </p>
-              </div>
-              <button
-                onClick={() => setIs360ModalOpen(false)}
-                className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-850 dark:hover:text-white transition-colors border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
-                title={t("close")}
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
+          <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-4 md:p-6 flex flex-col items-center shadow-2xl z-10 max-h-[90vh] overflow-hidden">
+            {/* Close button in the top-right corner */}
+            <button
+              onClick={() => setIs360ModalOpen(false)}
+              className="absolute top-4 right-4 z-30 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-850 dark:hover:text-white transition-colors border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
+              title={t("close")}
+            >
+              <X className="h-5 w-5" />
+            </button>
 
             {/* Content Body: Large 360 Viewer */}
-            <div className="flex-grow flex items-center justify-center py-2">
+            <div className="w-full flex-grow flex flex-col items-center justify-center">
               <Viewer360 productId={product.id} productName={name} isModal={true} />
             </div>
           </div>

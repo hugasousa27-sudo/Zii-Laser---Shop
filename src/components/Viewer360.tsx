@@ -110,11 +110,13 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
   const imageSrc = `/images/product-${productId}-360-${currentFrame}.svg`;
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className={`flex flex-col items-center w-full ${isModal ? "mt-6 md:mt-8" : ""}`}>
       {/* 360 Viewer Canvas Container */}
       <div
-        className={`relative w-full aspect-square bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-inner flex items-center justify-center select-none ${
-          isModal ? "max-w-2xl lg:max-w-3xl" : "max-w-lg"
+        className={`relative w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-inner flex items-center justify-center select-none ${
+          isModal 
+            ? "max-h-[60vh] sm:max-h-[65vh] aspect-square w-auto h-auto max-w-full" 
+            : "aspect-square max-w-lg"
         } ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
@@ -132,86 +134,112 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
         />
 
         {/* 360 Badge Overlay */}
-        <div className="absolute top-4 left-4 bg-slate-900/75 dark:bg-slate-950/75 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-full flex items-center gap-1.5 pointer-events-none">
-          <RotateCw className="h-3 w-3 animate-spin-slow" />
-          <span>360° INTERACTIVE</span>
-        </div>
+        {!isModal && (
+          <div className="absolute top-4 left-4 bg-slate-900/75 dark:bg-slate-950/75 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-full flex items-center gap-1.5 pointer-events-none">
+            <RotateCw className="h-3 w-3 animate-spin-slow" />
+            <span>360° INTERACTIVE</span>
+          </div>
+        )}
 
         {/* Help tooltip overlay */}
-        <div className="absolute bottom-4 right-4 bg-slate-950/40 hover:bg-slate-950/70 text-white rounded-full p-1.5 transition-colors pointer-events-none">
-          <HelpCircle className="h-4 w-4" />
-        </div>
+        {!isModal && (
+          <div className="absolute bottom-4 right-4 bg-slate-950/40 hover:bg-slate-950/70 text-white rounded-full p-1.5 transition-colors pointer-events-none">
+            <HelpCircle className="h-4 w-4" />
+          </div>
+        )}
 
         {/* Manual Arrow Buttons Overlay */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            stepPrev();
-          }}
-          className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md text-slate-800 dark:text-slate-100 hover:scale-105 transition-all"
-          aria-label="Frame anterior"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            stepNext();
-          }}
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md text-slate-800 dark:text-slate-100 hover:scale-105 transition-all"
-          aria-label="Próximo frame"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </button>
+        {!isModal && (
+          <>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                stepPrev();
+              }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md text-slate-800 dark:text-slate-100 hover:scale-105 transition-all"
+              aria-label="Frame anterior"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                stepNext();
+              }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md text-slate-800 dark:text-slate-100 hover:scale-105 transition-all"
+              aria-label="Próximo frame"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </>
+        )}
       </div>
 
-      {/* Control Panel */}
-      <div className="mt-4 flex items-center space-x-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-full shadow-sm">
-        <button
-          onClick={stepPrev}
-          className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
-          title="Girar para a Esquerda"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </button>
+      {/* Control Panel / Play Button */}
+      {isModal ? (
+        <div className="mt-4 md:mt-6 flex justify-center">
+          <button
+            onClick={() => setIsPlaying(!isPlaying)}
+            className="flex items-center justify-center w-14 h-14 rounded-full bg-indigo-650 hover:bg-indigo-700 text-white shadow-lg hover:shadow-indigo-500/20 active:scale-95 hover:scale-105 transition-all cursor-pointer border-2 border-white dark:border-slate-900"
+            title={isPlaying ? "Pausar" : "Iniciar Rotação"}
+          >
+            {isPlaying ? (
+              <Pause className="h-6 w-6 fill-current" />
+            ) : (
+              <Play className="h-6 w-6 fill-current ml-1" />
+            )}
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="mt-4 flex items-center space-x-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-full shadow-sm">
+            <button
+              onClick={stepPrev}
+              className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
+              title="Girar para a Esquerda"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
 
-        <button
-          onClick={() => setIsPlaying(!isPlaying)}
-          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-            isPlaying
-              ? "bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400"
-              : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
-          }`}
-        >
-          {isPlaying ? (
-            <>
-              <Pause className="h-3.5 w-3.5 fill-current" />
-              <span>PAUSE</span>
-            </>
-          ) : (
-            <>
-              <Play className="h-3.5 w-3.5 fill-current" />
-              <span>AUTO PLAY</span>
-            </>
-          )}
-        </button>
+            <button
+              onClick={() => setIsPlaying(!isPlaying)}
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                isPlaying
+                  ? "bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400"
+                  : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+              }`}
+            >
+              {isPlaying ? (
+                <>
+                  <Pause className="h-3.5 w-3.5 fill-current" />
+                  <span>PAUSE</span>
+                </>
+              ) : (
+                <>
+                  <Play className="h-3.5 w-3.5 fill-current" />
+                  <span>AUTO PLAY</span>
+                </>
+              )}
+            </button>
 
-        <button
-          onClick={stepNext}
-          className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
-          title="Girar para a Direita"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </button>
+            <button
+              onClick={stepNext}
+              className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
+              title="Girar para a Direita"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
 
-        <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 border-l border-slate-200 dark:border-slate-800 pl-3">
-          FRAME {currentFrame}/{totalFrames}
-        </span>
-      </div>
+            <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 border-l border-slate-200 dark:border-slate-800 pl-3">
+              FRAME {currentFrame}/{totalFrames}
+            </span>
+          </div>
 
-      <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 text-center">
-        {t("view360")}
-      </p>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 text-center">
+            {t("view360")}
+          </p>
+        </>
+      )}
     </div>
   );
 };
