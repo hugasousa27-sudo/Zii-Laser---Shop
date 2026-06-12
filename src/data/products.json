@@ -205,5 +205,28 @@
     ],
     "featured": false,
     "has360": false
+  },
+  {
+    "id": "13",
+    "namePt": "Carro Desportivo Concept",
+    "nameEn": "Concept Sports Car",
+    "descriptionPt": "Um modelo de testes em 360 graus de um espetacular veículo desportivo concept, ideal para validar a interatividade e fluidez do visualizador.",
+    "descriptionEn": "A 360-degree test model of a spectacular concept sports car, ideal for validating the interactivity and fluidity of the viewer.",
+    "price": 45000.00,
+    "category": "Automóvel",
+    "sizes": ["Padrão"],
+    "colors": ["Vermelho"],
+    "images": [
+      "/carroteste/77aa895f6dd99b5813438e556a50564f-0000.jpg"
+    ],
+    "featured": true,
+    "has360": true,
+    "images360": {
+      "path": "/carroteste/77aa895f6dd99b5813438e556a50564f-",
+      "count": 38,
+      "ext": "jpg",
+      "padZeroes": 4,
+      "zeroIndexed": true
+    }
   }
 ]

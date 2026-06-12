@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { RotateCw, Play, Pause, ChevronLeft, ChevronRight, HelpCircle } from "lucide-react";
 import { useApp } from "../context/AppContext";
+import productsData from "../data/products.json";
 
 interface Viewer360Props {
   productId: string;
@@ -12,13 +13,17 @@ interface Viewer360Props {
 
 export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, isModal = false }) => {
   const { t } = useApp();
+
+  // Find product configurations
+  const product = productsData.find((p) => p.id === productId);
+  const images360 = product?.images360;
+  const totalFrames = images360?.count ?? 8;
+
   const [currentFrame, setCurrentFrame] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const startX = useRef(0);
   const playInterval = useRef<NodeJS.Timeout | null>(null);
-
-  const totalFrames = 8;
   const dragThreshold = 15; // Pixels required to switch to the next frame
 
   // Handle auto-rotation play/pause
@@ -38,7 +43,7 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
         clearInterval(playInterval.current);
       }
     };
-  }, [isPlaying]);
+  }, [isPlaying, totalFrames]);
 
   // Drag start
   const handleDragStart = (clientX: number) => {
@@ -107,7 +112,14 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
   };
 
   // Image source path
-  const imageSrc = `/images/product-${productId}-360-${currentFrame}.svg`;
+  const isZeroIndexed = images360?.zeroIndexed ?? false;
+  const frameIndex = isZeroIndexed ? currentFrame - 1 : currentFrame;
+  const frameStr = images360?.padZeroes
+    ? frameIndex.toString().padStart(images360.padZeroes, "0")
+    : frameIndex.toString();
+  const imageSrc = images360?.path
+    ? `${images360.path}${frameStr}.${images360.ext || "jpg"}`
+    : `/images/product-${productId}-360-${currentFrame}.svg`;
 
   return (
     <div className={`flex flex-col items-center w-full ${isModal ? "mt-6 md:mt-8" : ""}`}>
