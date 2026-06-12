@@ -7,9 +7,10 @@ import { useApp } from "../context/AppContext";
 interface Viewer360Props {
   productId: string;
   productName: string;
+  isModal?: boolean;
 }
 
-export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName }) => {
+export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, isModal = false }) => {
   const { t } = useApp();
   const [currentFrame, setCurrentFrame] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
@@ -109,12 +110,12 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName }) 
   const imageSrc = `/images/product-${productId}-360-${currentFrame}.svg`;
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center w-full">
       {/* 360 Viewer Canvas Container */}
       <div
-        className={`relative w-full aspect-square max-w-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-inner flex items-center justify-center select-none ${
-          isDragging ? "cursor-grabbing" : "cursor-grab"
-        }`}
+        className={`relative w-full aspect-square bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-inner flex items-center justify-center select-none ${
+          isModal ? "max-w-2xl lg:max-w-3xl" : "max-w-lg"
+        } ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={handleDragEnd}

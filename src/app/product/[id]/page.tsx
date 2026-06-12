@@ -6,7 +6,7 @@ import productsData from "../../../data/products.json";
 import { Viewer360 } from "../../../components/Viewer360";
 import { useApp } from "../../../context/AppContext";
 import { Product } from "../../../components/ProductCard";
-import { ShoppingCart, Plus, Minus, ArrowLeft, RefreshCw, CheckCircle } from "lucide-react";
+import { ShoppingCart, Plus, Minus, ArrowLeft, RefreshCw, CheckCircle, RotateCw, X } from "lucide-react";
 
 export default function ProductDetail() {
   const params = useParams();
@@ -22,6 +22,7 @@ export default function ProductDetail() {
   const [customColorText, setCustomColorText] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [addedMessage, setAddedMessage] = useState(false);
+  const [is360ModalOpen, setIs360ModalOpen] = useState(false);
 
   useEffect(() => {
     const foundProduct = productsData.find((p) => p.id === params.id) as Product;
@@ -43,6 +44,31 @@ export default function ProductDetail() {
       }
     }
   }, [params.id]);
+
+  useEffect(() => {
+    if (is360ModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [is360ModalOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIs360ModalOpen(false);
+      }
+    };
+    if (is360ModalOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [is360ModalOpen]);
 
   if (!product) {
     return (
@@ -156,6 +182,17 @@ export default function ProductDetail() {
                   alt={name}
                   className="w-full h-full object-cover object-center"
                 />
+                
+                {product.has360 && (
+                  <button
+                    onClick={() => setIs360ModalOpen(true)}
+                    className="absolute bottom-4 right-4 z-10 flex items-center justify-center bg-white/95 hover:bg-indigo-650 dark:bg-slate-900/95 dark:hover:bg-indigo-600 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-indigo-500/20 px-4 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-850 dark:text-slate-100 hover:text-white dark:hover:text-white group font-extrabold text-xs tracking-wider gap-2 cursor-pointer"
+                    title={t("btnOpen360")}
+                  >
+                    <RotateCw className="h-4 w-4 animate-spin-slow group-hover:rotate-180 transition-transform duration-700" />
+                    <span>360°</span>
+                  </button>
+                )}
               </div>
             )}
           </div>
@@ -360,6 +397,44 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+
+      {/* 360 Interactive Modal Overlay */}
+      {is360ModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-slate-950/80 backdrop-blur-md transition-opacity duration-300">
+          {/* Backdrop clickable zone */}
+          <div
+            className="absolute inset-0 cursor-default"
+            onClick={() => setIs360ModalOpen(false)}
+          />
+
+          {/* Modal Container */}
+          <div className="relative w-full max-w-4xl bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 flex flex-col shadow-2xl z-10 max-h-[90vh] overflow-y-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+              <div>
+                <h3 className="text-xl font-black text-slate-950 dark:text-slate-50">
+                  {name}
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  {t("view360")}
+                </p>
+              </div>
+              <button
+                onClick={() => setIs360ModalOpen(false)}
+                className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-850 dark:hover:text-white transition-colors border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+                title={t("close")}
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Content Body: Large 360 Viewer */}
+            <div className="flex-grow flex items-center justify-center py-2">
+              <Viewer360 productId={product.id} productName={name} isModal={true} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
