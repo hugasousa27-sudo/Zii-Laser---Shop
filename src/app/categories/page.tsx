@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import productsData from "../../data/products.json";
 import { ProductCard, Product } from "../../components/ProductCard";
 import { useApp } from "../../context/AppContext";
@@ -16,10 +17,13 @@ interface CategoryInfo {
 
 export default function Categories() {
   const { t } = useApp();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
+  
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(categoryParam);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  // Open the category popup immediately on component mount
-  const [isPopupOpen, setIsPopupOpen] = useState(true);
+  // Start with popup closed since we now have the dropdown in the header
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const categories: CategoryInfo[] = [
     { id: "1", nameKey: "catPortaChaves", slug: "Porta chaves", icon: Key, gradient: "from-amber-400 to-orange-500" },
@@ -32,6 +36,12 @@ export default function Categories() {
     { id: "8", nameKey: "catNatal", slug: "Natal", icon: Trees, gradient: "from-red-500 to-rose-700" },
     { id: "9", nameKey: "catDiaBruxas", slug: "Dia das Bruxas", icon: Ghost, gradient: "from-slate-800 to-slate-950" }
   ];
+
+  useEffect(() => {
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [categoryParam]);
 
   useEffect(() => {
     const allProducts = productsData as Product[];

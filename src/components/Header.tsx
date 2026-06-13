@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useApp } from "../context/AppContext";
-import { ShoppingCart, Sun, Moon, Menu, X, Globe } from "lucide-react";
+import { ShoppingCart, Sun, Moon, Menu, X, Globe, ChevronDown, Key, Heart, Briefcase, Home as HomeIcon, Gift, PawPrint, Package, Trees, Ghost } from "lucide-react";
 
 const FlagPT: React.FC<{ className?: string }> = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 12" className={className} width="16" height="12">
@@ -29,15 +29,29 @@ export const Header: React.FC = () => {
   const { language, setLanguage, theme, toggleTheme, cart, t } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
+  const [isCategoriesHovered, setIsCategoriesHovered] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   const navLinks = [
     { href: "/", labelKey: "navHome" },
-    { href: "/categories", labelKey: "navCategories" },
+    { href: "/categories", labelKey: "navCategories", isDropdown: true },
     { href: "/about", labelKey: "navAbout" },
     { href: "/contact", labelKey: "navContact" },
+  ];
+
+  const categories = [
+    { id: "1", nameKey: "catPortaChaves", slug: "Porta chaves", icon: Key },
+    { id: "2", nameKey: "catDiaNamorados", slug: "Dia dos Namorados", icon: Heart },
+    { id: "3", nameKey: "catProdEscritorio", slug: "Produtos de escritório", icon: Briefcase },
+    { id: "4", nameKey: "catDecoracaoCasa", slug: "Decoração Casa", icon: HomeIcon },
+    { id: "5", nameKey: "catLembrancas", slug: "Lembranças", icon: Gift },
+    { id: "6", nameKey: "catParaAnimais", slug: "Para animais", icon: PawPrint },
+    { id: "7", nameKey: "catCaixas", slug: "Caixas", icon: Package },
+    { id: "8", nameKey: "catNatal", slug: "Natal", icon: Trees },
+    { id: "9", nameKey: "catDiaBruxas", slug: "Dia das Bruxas", icon: Ghost }
   ];
 
   const isActive = (path: string) => pathname === path;
@@ -62,19 +76,79 @@ export const Header: React.FC = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex space-x-8 h-full items-center">
           {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-sm font-medium tracking-wide transition-colors duration-200 ${
-                isActive(link.href)
-                  ? "text-indigo-600 dark:text-indigo-400 font-semibold"
-                  : "text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400"
-              }`}
-            >
-              {t(link.labelKey)}
-            </Link>
+            link.isDropdown ? (
+              <div 
+                key={link.href}
+                className="relative h-full flex items-center"
+                onMouseEnter={() => setIsCategoriesHovered(true)}
+                onMouseLeave={() => setIsCategoriesHovered(false)}
+              >
+                <Link
+                  href={link.href}
+                  className={`flex items-center gap-1 text-sm font-medium tracking-wide transition-colors duration-200 ${
+                    isActive(link.href) || isCategoriesHovered
+                      ? "text-indigo-600 dark:text-indigo-400 font-semibold"
+                      : "text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400"
+                  }`}
+                >
+                  {t(link.labelKey)}
+                  <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isCategoriesHovered ? "rotate-180" : ""}`} />
+                </Link>
+                
+                {/* Dropdown Menu */}
+                {isCategoriesHovered && (
+                  <div className="absolute top-full left-0 w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl py-4 z-50 animate-fade-in-up">
+                    <div className="grid grid-cols-1 gap-1 px-3">
+                      {categories.map((cat) => {
+                        const Icon = cat.icon;
+                        return (
+                          <button
+                            key={cat.id}
+                            onClick={() => {
+                              setIsCategoriesHovered(false);
+                              router.push(`/categories?category=${encodeURIComponent(cat.slug)}`);
+                            }}
+                            className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-left transition-colors group"
+                          >
+                            <div className="bg-indigo-50 dark:bg-slate-800 p-2 rounded-lg group-hover:bg-indigo-100 dark:group-hover:bg-slate-700 transition-colors">
+                              <Icon className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                            </div>
+                            <span className="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                              {t(cat.nameKey)}
+                            </span>
+                          </button>
+                        );
+                      })}
+                      <div className="border-t border-slate-100 dark:border-slate-800 mt-2 pt-2">
+                        <button
+                          onClick={() => {
+                            setIsCategoriesHovered(false);
+                            router.push('/categories');
+                          }}
+                          className="w-full text-center text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 py-2"
+                        >
+                          Ver todas as categorias
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm font-medium tracking-wide transition-colors duration-200 h-full flex items-center ${
+                  isActive(link.href)
+                    ? "text-indigo-600 dark:text-indigo-400 font-semibold"
+                    : "text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400"
+                }`}
+              >
+                {t(link.labelKey)}
+              </Link>
+            )
           ))}
         </nav>
 
