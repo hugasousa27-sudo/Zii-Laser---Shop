@@ -15,7 +15,7 @@ interface CategoryInfo {
   gradient: string;
 }
 
-export default function Categories() {
+function CategoriesContent() {
   const { t } = useApp();
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
@@ -188,5 +188,13 @@ export default function Categories() {
         </div>
       )}
     </>
+  );
+}
+
+export default function Categories() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center p-12 text-slate-500">A carregar categorias...</div>}>
+      <CategoriesContent />
+    </Suspense>
   );
 }
