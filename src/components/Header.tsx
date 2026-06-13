@@ -6,6 +6,25 @@ import { usePathname } from "next/navigation";
 import { useApp } from "../context/AppContext";
 import { ShoppingCart, Sun, Moon, Menu, X, Globe } from "lucide-react";
 
+const FlagPT: React.FC<{ className?: string }> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 12" className={className} width="16" height="12">
+    <rect width="6.4" height="12" fill="#048243"/>
+    <rect x="6.4" width="9.6" height="12" fill="#e21c1a"/>
+    <circle cx="6.4" cy="6" r="2.5" fill="#f8d117"/>
+    <path d="M 6.4 4.5 C 5.3 4.5 5.3 7.5 6.4 7.5 C 7.5 7.5 7.5 4.5 6.4 4.5 Z" fill="#ffffff" stroke="#e21c1a" strokeWidth="0.5"/>
+  </svg>
+);
+
+const FlagEN: React.FC<{ className?: string }> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" className={className} width="16" height="12">
+    <rect width="60" height="30" fill="#012169"/>
+    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/>
+    <path d="M0,0 L30,15 L0,15 M60,30 L30,15 L60,15 M60,0 L30,15 L60,0 M0,30 L30,15 L0,30" stroke="#c8102e" strokeWidth="2"/>
+    <path d="M30,0 L30,30 M0,15 L60,15" stroke="#fff" strokeWidth="10"/>
+    <path d="M30,0 L30,30 M0,15 L60,15" stroke="#c8102e" strokeWidth="6"/>
+  </svg>
+);
+
 export const Header: React.FC = () => {
   const { language, setLanguage, theme, toggleTheme, cart, t } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -65,27 +84,27 @@ export const Header: React.FC = () => {
           <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-full space-x-1">
             <button
               onClick={() => setLanguage("pt")}
-              className={`px-2 py-1 rounded-full text-xs transition-all ${
+              className={`p-1.5 rounded-full text-xs transition-all flex items-center justify-center ${
                 language === "pt"
-                  ? "bg-white dark:bg-slate-700 shadow-sm scale-105"
+                  ? "bg-white dark:bg-slate-700 shadow-sm scale-105 ring-1 ring-slate-200 dark:ring-slate-600"
                   : "hover:bg-white/50 dark:hover:bg-slate-700/50"
               }`}
               title="Português"
               aria-label="Português"
             >
-              🇵🇹 <span className="sr-only">PT</span>
+              <FlagPT className="w-5 h-4 rounded-sm shadow-sm" />
             </button>
             <button
               onClick={() => setLanguage("en")}
-              className={`px-2 py-1 rounded-full text-xs transition-all ${
+              className={`p-1.5 rounded-full text-xs transition-all flex items-center justify-center ${
                 language === "en"
-                  ? "bg-white dark:bg-slate-700 shadow-sm scale-105"
+                  ? "bg-white dark:bg-slate-700 shadow-sm scale-105 ring-1 ring-slate-200 dark:ring-slate-600"
                   : "hover:bg-white/50 dark:hover:bg-slate-700/50"
               }`}
               title="English"
               aria-label="English"
             >
-              🇬🇧 <span className="sr-only">EN</span>
+              <FlagEN className="w-5 h-4 rounded-sm shadow-sm" />
             </button>
           </div>
 
@@ -184,22 +203,22 @@ export const Header: React.FC = () => {
 
             <div className="flex items-center justify-between px-3 py-2">
               <span className="text-sm text-slate-500 dark:text-slate-400">Idioma / Language</span>
-              <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 rounded-md">
+              <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 rounded-md gap-1">
                 <button
                   onClick={() => setLanguage("pt")}
-                  className={`px-3 py-1 rounded-md text-xs font-semibold ${
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold ${
                     language === "pt" ? "bg-white dark:bg-slate-700 shadow-sm" : ""
                   }`}
                 >
-                  🇵🇹 Português
+                  <FlagPT className="w-5 h-4 rounded-sm shadow-sm" /> Português
                 </button>
                 <button
                   onClick={() => setLanguage("en")}
-                  className={`px-3 py-1 rounded-md text-xs font-semibold ${
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold ${
                     language === "en" ? "bg-white dark:bg-slate-700 shadow-sm" : ""
                   }`}
                 >
-                  🇬🇧 English
+                  <FlagEN className="w-5 h-4 rounded-sm shadow-sm" /> English
                 </button>
               </div>
             </div>

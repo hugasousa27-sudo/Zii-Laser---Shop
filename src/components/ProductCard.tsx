@@ -60,16 +60,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   // Category translation helper
   const getCategoryLabel = (cat: string) => {
     switch (cat) {
-      case "Roupa": return t("catRoupa");
-      case "Calçado": return t("catCalcado");
-      case "Acessórios": return t("catAcessorios");
-      case "Tecnologia": return t("catTecnologia");
-      case "Gaming": return t("catGaming");
-      case "Casa e Decoração": return t("catCasa");
-      case "Desporto": return t("catDesporto");
-      case "Automóvel": return t("catAutomovel");
-      case "Beleza": return t("catBeleza");
-      case "Promoções": return t("catPromocoes");
+      case "Porta chaves": return t("catPortaChaves");
+      case "Dia dos Namorados": return t("catDiaNamorados");
+      case "Produtos de escritório": return t("catProdEscritorio");
+      case "Decoração Casa": return t("catDecoracaoCasa");
+      case "Lembranças": return t("catLembrancas");
+      case "Para animais": return t("catParaAnimais");
+      case "Caixas": return t("catCaixas");
+      case "Natal": return t("catNatal");
+      case "Dia das Bruxas": return t("catDiaBruxas");
       default: return cat;
     }
   };
