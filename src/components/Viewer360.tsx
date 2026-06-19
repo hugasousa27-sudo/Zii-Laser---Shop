@@ -30,10 +30,10 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
 
   // Handle auto-rotation play/pause
   useEffect(() => {
-    if (isPlaying) {
+    if (isPlaying && !isDragging) {
       playInterval.current = setInterval(() => {
         setCurrentFrame((prev) => (prev % totalFrames) + 1);
-      }, 100);
+      }, 150);
     } else {
       if (playInterval.current) {
         clearInterval(playInterval.current);
@@ -45,7 +45,7 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
         clearInterval(playInterval.current);
       }
     };
-  }, [isPlaying, totalFrames]);
+  }, [isPlaying, isDragging, totalFrames]);
 
   // Drag start
   const handleDragStart = (clientX: number) => {
@@ -64,7 +64,7 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
     // Small threshold to consider it a drag and not just a click
     if (Math.abs(diffX) > 5) {
       setHasDragged(true);
-      setIsPlaying(false); // Stop auto-play on drag
+      // We don't call setIsPlaying(false) here anymore so it only pauses temporarily while isDragging is true
     }
 
     if (Math.abs(diffX) > dragThreshold) {
@@ -140,7 +140,7 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
       <div
         className={`relative w-full overflow-hidden flex items-center justify-center select-none ${
           isModal 
-            ? "max-h-[70vh] sm:max-h-[75vh] aspect-square w-auto h-auto max-w-full bg-transparent" 
+            ? "max-h-[85vh] sm:max-h-[90vh] aspect-square w-auto h-auto max-w-full bg-transparent" 
             : "bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-inner aspect-square max-w-lg"
         } ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
         onMouseDown={onMouseDown}
@@ -160,14 +160,19 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
 
         {/* Hand Drag Animation Overlay (Permanent Guide) */}
         {isModal && (
-          <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 flex flex-col items-center justify-center pointer-events-none z-10 bg-slate-900/40 p-3 rounded-2xl backdrop-blur-md opacity-70">
-            <div className="relative h-8 w-16 flex items-center justify-center mb-1">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none z-20 bg-slate-900/80 border border-slate-700/50 p-4 rounded-3xl backdrop-blur-md shadow-2xl">
+            <div className="relative h-8 w-16 flex items-center justify-center mb-2">
               {/* Hand icon moving left/right */}
-              <Hand className="absolute h-5 w-5 text-white animate-[swipeHorizontal_2s_ease-in-out_infinite] fill-white/20" />
+              <Hand className="absolute h-6 w-6 text-indigo-400 animate-[swipeHorizontal_2s_ease-in-out_infinite]" />
             </div>
-            <span className="text-[9px] font-bold tracking-widest uppercase text-white/90">
-              Arraste
-            </span>
+            <div className="flex flex-col items-center text-center space-y-1">
+              <span className="text-[10px] font-bold tracking-widest uppercase text-white">
+                Arraste para rodar
+              </span>
+              <span className="text-[10px] font-bold tracking-widest uppercase text-white">
+                Clique para pausar
+              </span>
+            </div>
           </div>
         )}
 

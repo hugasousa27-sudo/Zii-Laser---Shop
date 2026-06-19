@@ -23,9 +23,10 @@ export interface Product {
 
 interface ProductCardProps {
   product: Product;
+  imageOnly?: boolean;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = false }) => {
   const { language, t } = useApp();
   const [is360ModalOpen, setIs360ModalOpen] = useState(false);
 
@@ -72,6 +73,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       default: return cat;
     }
   };
+
+  if (imageOnly) {
+    return (
+      <Link 
+        href={`/product/${product.id}`}
+        className="group relative bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex items-center justify-center aspect-square"
+      >
+        <img
+          src={mainImage}
+          alt={name}
+          className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500 ease-out"
+          loading="lazy"
+        />
+      </Link>
+    );
+  }
 
   return (
     <>

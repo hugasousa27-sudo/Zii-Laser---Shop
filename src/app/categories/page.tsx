@@ -23,7 +23,13 @@ function CategoriesContent() {
   const categoryParam = searchParams.get("category");
   
   const [selectedCategory, setSelectedCategory] = useState<string | null>(categoryParam);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(() => {
+    const allProducts = productsData as Product[];
+    if (categoryParam) {
+      return allProducts.filter(p => p.category === categoryParam);
+    }
+    return allProducts;
+  });
   // Start with popup closed since we now have the dropdown in the header
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -41,9 +47,7 @@ function CategoriesContent() {
   ];
 
   useEffect(() => {
-    if (categoryParam) {
-      setSelectedCategory(categoryParam);
-    }
+    setSelectedCategory(categoryParam);
   }, [categoryParam]);
 
   useEffect(() => {

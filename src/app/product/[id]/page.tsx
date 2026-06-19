@@ -133,7 +133,7 @@ export default function ProductDetail() {
         className="flex items-center space-x-2 text-sm text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 mb-8 font-semibold transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
-        <span>{t("navHome")}</span>
+        <span>{t("btnBack")}</span>
       </button>
 
       {/* Main Details layout */}
@@ -415,7 +415,7 @@ export default function ProductDetail() {
           </button>
 
           {/* Modal Container */}
-          <div className="relative w-full max-w-3xl flex flex-col items-center justify-center z-10 max-h-[90vh]">
+          <div className="relative w-full max-w-[95vw] lg:max-w-6xl flex flex-col items-center justify-center z-10 max-h-[90vh]">
             {/* Content Body: Large 360 Viewer */}
             <div className="w-full flex-grow flex flex-col items-center justify-center">
               <Viewer360 productId={product.id} productName={name} isModal={true} />
