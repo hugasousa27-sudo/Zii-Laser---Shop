@@ -10,7 +10,7 @@ import { ArrowRight, Tag, Layers, Filter, X, Key, Heart, Briefcase, Home, Gift, 
 interface CategoryInfo {
   id: string;
   nameKey: string;
-  slug: string;
+  slug: string | null;
   icon: React.ComponentType<any>;
   gradient: string;
 }
@@ -125,7 +125,7 @@ function CategoriesContent() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {filteredProducts.map((product) => (
                 <div key={product.id} className="animate-fade-in-up">
-                  <ProductCard product={product} />
+                  <ProductCard product={product} imageOnly={true} />
                 </div>
               ))}
             </div>

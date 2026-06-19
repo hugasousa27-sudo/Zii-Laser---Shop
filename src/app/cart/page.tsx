@@ -110,6 +110,36 @@ export default function Cart() {
     // Simulate ordering
     const generatedOrderId = "VG-" + Math.floor(100000 + Math.random() * 900000);
     setOrderId(generatedOrderId);
+    
+    // Prepare order details for email
+    const orderDetails = cart.map(item => 
+      `${item.quantity}x ${language === "pt" ? item.namePt : item.nameEn} ` +
+      `${item.selectedSize ? `(Tamanho: ${item.selectedSize})` : ''} ` +
+      `${item.selectedColor ? `(Cor: ${item.selectedColor})` : ''} ` +
+      `${item.customText ? `(Texto: ${item.customText})` : ''} ` +
+      `- ${(item.price * item.quantity).toFixed(2)}€`
+    ).join('\n');
+
+    // Send email via formsubmit.co
+    fetch("https://formsubmit.co/ajax/ziilaserloja@gmail.com", {
+      method: "POST",
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+          _subject: `Nova Encomenda Loja Online: ${generatedOrderId}`,
+          "ID da Encomenda": generatedOrderId,
+          "Nome do Cliente": form.name,
+          "Email do Cliente": form.email,
+          "Telefone": form.phone,
+          "Morada": `${form.address}, ${form.zip} ${form.city}, ${form.country}`,
+          "Notas Adicionais": orderNotes || "Nenhuma",
+          "Total a Pagar": `${cartTotal.toFixed(2)}€`,
+          "Produtos Escolhidos": "\n" + orderDetails
+      })
+    }).catch(error => console.error("Erro ao enviar email:", error));
+
     setSuccessModalOpen(true);
   };
 
