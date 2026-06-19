@@ -103,7 +103,7 @@ export default function ProductDetail() {
     setAddedMessage(true);
     setTimeout(() => {
       setAddedMessage(false);
-    }, 3000);
+    }, 8000);
   };
 
   // Size helper
@@ -353,15 +353,48 @@ export default function ProductDetail() {
               <span>{t("btnAddToCart")}</span>
             </button>
 
-            {addedMessage && (
-              <div className="mt-3 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/50 rounded-xl p-3 flex items-center space-x-2 text-emerald-600 dark:text-emerald-400 text-xs font-semibold animate-fade-in-up">
-                <CheckCircle className="h-4 w-4 flex-shrink-0" />
-                <span>{t("itemAdded")}</span>
-              </div>
-            )}
           </div>
         </div>
       </div>
+
+      {/* Add to Cart Side Popup */}
+      {addedMessage && (
+        <div className="fixed top-24 right-4 md:right-8 z-[100] w-80 bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800/50 rounded-2xl p-5 shadow-2xl animate-[slideInRight_0.4s_cubic-bezier(0.16,1,0.3,1)_forwards]">
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center space-x-2 text-emerald-600 dark:text-emerald-400">
+              <CheckCircle className="h-5 w-5 flex-shrink-0" />
+              <span className="font-bold text-sm">Adicionado ao carrinho!</span>
+            </div>
+            <button onClick={() => setAddedMessage(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-1 bg-slate-50 dark:bg-slate-800 rounded-full">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          
+          <div className="flex items-center gap-4 mb-5 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+            <img src={selectedImage} alt={name} className="w-14 h-14 rounded-lg object-cover border border-slate-200 dark:border-slate-700" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate">{name}</p>
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">{quantity} x {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", { style: "currency", currency: "EUR" })}</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col space-y-2.5">
+            <button
+              onClick={() => router.push('/cart')}
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 rounded-xl shadow-lg shadow-emerald-600/20 active:scale-95 transition-all text-sm flex items-center justify-center gap-2"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              Comprar já
+            </button>
+            <button
+              onClick={() => setAddedMessage(false)}
+              className="w-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-3 rounded-xl active:scale-95 transition-all text-sm"
+            >
+              Continuar a ver a loja
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* 360 Interactive Modal Overlay */}
       {is360ModalOpen && (

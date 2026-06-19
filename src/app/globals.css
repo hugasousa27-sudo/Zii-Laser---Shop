@@ -104,3 +104,8 @@ body {
   0%, 100% { transform: translateX(0); }
   50% { transform: translateX(200%); }
 }
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
