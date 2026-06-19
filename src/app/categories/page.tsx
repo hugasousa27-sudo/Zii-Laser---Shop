@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import productsData from "../../data/products.json";
 import { ProductCard, Product } from "../../components/ProductCard";
 import { useApp } from "../../context/AppContext";
@@ -18,6 +18,8 @@ interface CategoryInfo {
 function CategoriesContent() {
   const { t } = useApp();
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const categoryParam = searchParams.get("category");
   
   const [selectedCategory, setSelectedCategory] = useState<string | null>(categoryParam);
@@ -26,6 +28,7 @@ function CategoriesContent() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const categories: CategoryInfo[] = [
+    { id: "all", nameKey: "catTodosProdutos", slug: null, icon: Layers, gradient: "from-indigo-500 to-purple-600" },
     { id: "1", nameKey: "catPortaChaves", slug: "Porta chaves", icon: Key, gradient: "from-amber-400 to-orange-500" },
     { id: "2", nameKey: "catDiaNamorados", slug: "Dia dos Namorados", icon: Heart, gradient: "from-rose-400 to-pink-600" },
     { id: "3", nameKey: "catProdEscritorio", slug: "Produtos de escritório", icon: Briefcase, gradient: "from-blue-400 to-indigo-600" },
@@ -55,6 +58,15 @@ function CategoriesContent() {
   const handleSelectCategory = (slug: string | null) => {
     setSelectedCategory(slug);
     setIsPopupOpen(false);
+    
+    // Update URL so it persists when going back
+    const params = new URLSearchParams(searchParams.toString());
+    if (slug) {
+      params.set("category", slug);
+    } else {
+      params.delete("category");
+    }
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   return (
@@ -174,15 +186,6 @@ function CategoriesContent() {
                   </button>
                 );
               })}
-            </div>
-
-            <div className="flex justify-center border-t border-slate-200 dark:border-slate-800 pt-6">
-              <button
-                onClick={() => handleSelectCategory(null)}
-                className="text-sm font-semibold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 underline underline-offset-4"
-              >
-                Ver todos os produtos
-              </button>
             </div>
           </div>
         </div>

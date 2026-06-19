@@ -33,7 +33,7 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
     if (isPlaying) {
       playInterval.current = setInterval(() => {
         setCurrentFrame((prev) => (prev % totalFrames) + 1);
-      }, 180);
+      }, 100);
     } else {
       if (playInterval.current) {
         clearInterval(playInterval.current);
@@ -158,26 +158,16 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
           className={`w-full h-full object-contain pointer-events-none transition-transform duration-300 ${isDragging ? 'scale-[1.02]' : 'scale-100'}`}
         />
 
-        {/* Hand Drag Animation Overlay */}
-        {isModal && !hasInteracted && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 bg-slate-950/20 backdrop-blur-[2px] rounded-full sm:rounded-none opacity-0 animate-[fadeIn_0.5s_ease-out_0.5s_forwards]">
-            <div className="flex flex-col items-center justify-center text-white bg-slate-900/60 p-6 rounded-3xl backdrop-blur-md">
-              <div className="relative h-16 w-32 flex items-center justify-center mb-2">
-                {/* Hand icon moving left/right */}
-                <Hand className="absolute h-10 w-10 animate-[swipeHorizontal_2s_ease-in-out_infinite] fill-white/20" />
-                
-                {/* Track line */}
-                <div className="w-24 h-1 bg-white/20 rounded-full overflow-hidden">
-                  <div className="h-full bg-white/60 w-1/3 animate-[slide_2s_ease-in-out_infinite]" />
-                </div>
-              </div>
-              <span className="text-sm font-bold tracking-widest uppercase text-white/90">
-                Arraste para rodar
-              </span>
-              <span className="text-[10px] text-white/60 mt-1 uppercase tracking-wider">
-                ou clique para pausar
-              </span>
+        {/* Hand Drag Animation Overlay (Permanent Guide) */}
+        {isModal && (
+          <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 flex flex-col items-center justify-center pointer-events-none z-10 bg-slate-900/40 p-3 rounded-2xl backdrop-blur-md opacity-70">
+            <div className="relative h-8 w-16 flex items-center justify-center mb-1">
+              {/* Hand icon moving left/right */}
+              <Hand className="absolute h-5 w-5 text-white animate-[swipeHorizontal_2s_ease-in-out_infinite] fill-white/20" />
             </div>
+            <span className="text-[9px] font-bold tracking-widest uppercase text-white/90">
+              Arraste
+            </span>
           </div>
         )}
 
