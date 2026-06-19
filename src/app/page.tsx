@@ -109,7 +109,7 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {shuffledProducts.slice(0, visibleCount).map((product) => (
             <div key={product.id} className="animate-fade-in-up">
-              <ProductCard product={product} />
+              <ProductCard product={product} imageOnly={true} />
             </div>
           ))}
         </div>

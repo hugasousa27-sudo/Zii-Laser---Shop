@@ -63,7 +63,7 @@ export const Header: React.FC = () => {
         <Link href="/" className="flex items-center space-x-2">
           {!logoError ? (
             <img
-              src="/logo.png"
+              src="/newlogo.png"
               alt="Vanguard Logo"
               className="h-10 sm:h-12 w-auto object-contain dark:brightness-200 dark:contrast-200"
               onError={() => setLogoError(true)}

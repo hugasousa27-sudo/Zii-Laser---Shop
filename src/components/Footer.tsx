@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
             <div className="h-10 flex items-center">
               {!logoError ? (
                 <img
-                  src="/logo.png"
+                  src="/newlogo.png"
                   alt="Vanguard Logo"
                   className="h-10 w-auto object-contain brightness-0 invert"
                   onError={() => setLogoError(true)}
