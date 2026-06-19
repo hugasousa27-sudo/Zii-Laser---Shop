@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { RotateCw, Play, Pause, ChevronLeft, ChevronRight, HelpCircle } from "lucide-react";
+import { RotateCw, Play, Pause, ChevronLeft, ChevronRight, HelpCircle, Hand } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import productsData from "../data/products.json";
 
@@ -21,7 +21,9 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
 
   const [currentFrame, setCurrentFrame] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasDragged, setHasDragged] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(isModal);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const startX = useRef(0);
   const playInterval = useRef<NodeJS.Timeout | null>(null);
   const dragThreshold = 15; // Pixels required to switch to the next frame
@@ -48,7 +50,8 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
   // Drag start
   const handleDragStart = (clientX: number) => {
     setIsDragging(true);
-    setIsPlaying(false); // Stop auto-play on interaction
+    setHasDragged(false);
+    setHasInteracted(true);
     startX.current = clientX;
   };
 
@@ -57,6 +60,12 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
     if (!isDragging) return;
 
     const diffX = clientX - startX.current;
+
+    // Small threshold to consider it a drag and not just a click
+    if (Math.abs(diffX) > 5) {
+      setHasDragged(true);
+      setIsPlaying(false); // Stop auto-play on drag
+    }
 
     if (Math.abs(diffX) > dragThreshold) {
       if (diffX > 0) {
@@ -73,6 +82,10 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
   // Drag end
   const handleDragEnd = () => {
     setIsDragging(false);
+    if (!hasDragged) {
+      // It was just a click, toggle play state
+      setIsPlaying((prev) => !prev);
+    }
   };
 
   // Mouse event handlers
@@ -122,13 +135,13 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
     : `/images/product-${productId}-360-${currentFrame}.svg`;
 
   return (
-    <div className={`flex flex-col items-center w-full ${isModal ? "mt-6 md:mt-8" : ""}`}>
+    <div className={`flex flex-col items-center w-full ${isModal ? "mt-2 md:mt-4" : ""}`}>
       {/* 360 Viewer Canvas Container */}
       <div
-        className={`relative w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-inner flex items-center justify-center select-none ${
+        className={`relative w-full overflow-hidden flex items-center justify-center select-none ${
           isModal 
-            ? "max-h-[60vh] sm:max-h-[65vh] aspect-square w-auto h-auto max-w-full" 
-            : "aspect-square max-w-lg"
+            ? "max-h-[70vh] sm:max-h-[75vh] aspect-square w-auto h-auto max-w-full bg-transparent" 
+            : "bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-inner aspect-square max-w-lg"
         } ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
@@ -142,8 +155,31 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
         <img
           src={imageSrc}
           alt={`${productName} 360 view - frame ${currentFrame}`}
-          className="w-full h-full object-contain pointer-events-none"
+          className={`w-full h-full object-contain pointer-events-none transition-transform duration-300 ${isDragging ? 'scale-[1.02]' : 'scale-100'}`}
         />
+
+        {/* Hand Drag Animation Overlay */}
+        {isModal && !hasInteracted && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 bg-slate-950/20 backdrop-blur-[2px] rounded-full sm:rounded-none opacity-0 animate-[fadeIn_0.5s_ease-out_0.5s_forwards]">
+            <div className="flex flex-col items-center justify-center text-white bg-slate-900/60 p-6 rounded-3xl backdrop-blur-md">
+              <div className="relative h-16 w-32 flex items-center justify-center mb-2">
+                {/* Hand icon moving left/right */}
+                <Hand className="absolute h-10 w-10 animate-[swipeHorizontal_2s_ease-in-out_infinite] fill-white/20" />
+                
+                {/* Track line */}
+                <div className="w-24 h-1 bg-white/20 rounded-full overflow-hidden">
+                  <div className="h-full bg-white/60 w-1/3 animate-[slide_2s_ease-in-out_infinite]" />
+                </div>
+              </div>
+              <span className="text-sm font-bold tracking-widest uppercase text-white/90">
+                Arraste para rodar
+              </span>
+              <span className="text-[10px] text-white/60 mt-1 uppercase tracking-wider">
+                ou clique para pausar
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* 360 Badge Overlay */}
         {!isModal && (
@@ -189,18 +225,8 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
 
       {/* Control Panel / Play Button */}
       {isModal ? (
-        <div className="mt-4 md:mt-6 flex justify-center">
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="flex items-center justify-center w-14 h-14 rounded-full bg-indigo-650 hover:bg-indigo-700 text-white shadow-lg hover:shadow-indigo-500/20 active:scale-95 hover:scale-105 transition-all cursor-pointer border-2 border-white dark:border-slate-900"
-            title={isPlaying ? "Pausar" : "Iniciar Rotação"}
-          >
-            {isPlaying ? (
-              <Pause className="h-6 w-6 fill-current" />
-            ) : (
-              <Play className="h-6 w-6 fill-current ml-1" />
-            )}
-          </button>
+        <div className="mt-6 flex justify-center opacity-0 h-0 overflow-hidden pointer-events-none">
+          {/* Hide external play button for modal, since clicking the image handles it now */}
         </div>
       ) : (
         <>

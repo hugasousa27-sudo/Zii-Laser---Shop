@@ -365,24 +365,24 @@ export default function ProductDetail() {
 
       {/* 360 Interactive Modal Overlay */}
       {is360ModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-slate-950/80 backdrop-blur-md transition-opacity duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-slate-950/90 backdrop-blur-sm transition-opacity duration-300">
           {/* Backdrop clickable zone */}
           <div
             className="absolute inset-0 cursor-default"
             onClick={() => setIs360ModalOpen(false)}
           />
 
-          {/* Modal Container */}
-          <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-4 md:p-6 flex flex-col items-center shadow-2xl z-10 max-h-[90vh] overflow-hidden">
-            {/* Close button in the top-right corner */}
-            <button
-              onClick={() => setIs360ModalOpen(false)}
-              className="absolute top-4 right-4 z-30 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-850 dark:hover:text-white transition-colors border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
-              title={t("close")}
-            >
-              <X className="h-5 w-5" />
-            </button>
+          {/* Close button in the top-right corner */}
+          <button
+            onClick={() => setIs360ModalOpen(false)}
+            className="absolute top-6 right-6 z-50 p-2 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+            title={t("close")}
+          >
+            <X className="h-8 w-8" />
+          </button>
 
+          {/* Modal Container */}
+          <div className="relative w-full max-w-3xl flex flex-col items-center justify-center z-10 max-h-[90vh]">
             {/* Content Body: Large 360 Viewer */}
             <div className="w-full flex-grow flex flex-col items-center justify-center">
               <Viewer360 productId={product.id} productName={name} isModal={true} />
