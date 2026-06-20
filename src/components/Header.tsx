@@ -65,7 +65,7 @@ export const Header: React.FC = () => {
             <img
               src="/newlogo.png"
               alt="Vanguard Logo"
-              className="h-10 sm:h-12 w-auto object-contain dark:brightness-200 dark:contrast-200"
+              className="h-10 sm:h-12 w-auto object-contain dark:brightness-0 dark:invert"
               onError={() => setLogoError(true)}
             />
           ) : (

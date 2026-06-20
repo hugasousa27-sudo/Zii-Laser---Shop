@@ -80,12 +80,27 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
         href={`/product/${product.id}`}
         className="group relative bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex items-center justify-center aspect-square"
       >
+        {/* Price Badge in top-right corner */}
+        <div className="absolute top-3 right-3 z-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-900 dark:text-slate-50 text-xs font-black px-2.5 py-1.5 rounded-full shadow-sm font-mono border border-slate-200/50 dark:border-slate-800/50">
+          {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
+            style: "currency",
+            currency: "EUR",
+          })}
+        </div>
+
         <img
           src={mainImage}
           alt={name}
           className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500 ease-out"
           loading="lazy"
         />
+
+        {/* Hover overlay with product name */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4 z-20">
+          <span className="text-white text-sm font-bold tracking-tight line-clamp-2 w-full text-left transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+            {name}
+          </span>
+        </div>
       </Link>
     );
   }
