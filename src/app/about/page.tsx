@@ -46,13 +46,16 @@ export default function About() {
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-t border-slate-200 dark:border-slate-800/80 pt-12">
         <div className="lg:col-span-7 space-y-4">
           <h2 className="text-2xl font-black text-slate-950 dark:text-slate-50">
-            A Nossa História
+            {t("aboutHistoryTitle")}
           </h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            Nascida do desejo de simplificar o acesso a produtos premium de vestuário e tecnologia, a Vanguard Store começou como um pequeno projeto entre amigos em Lisboa em 2026. Em pouco tempo, a nossa dedicação à excelência do serviço e seleção apurada de produtos ajudou-nos a crescer e a construir uma comunidade de clientes fiéis por todo o país.
+            {t("aboutHistoryText1")}
           </p>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            Hoje, orgulhamo-nos de ser um ponto de referência de confiança onde a estética moderna se encontra com a utilidade prática. Continuamos a inovar todos os dias para trazer as melhores novidades do mercado diretamente para a sua porta, mantendo a honestidade e a paixão em todas as etapas da nossa jornada.
+            {t("aboutHistoryText2")}
+          </p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            {t("aboutHistoryText3")}
           </p>
         </div>
         

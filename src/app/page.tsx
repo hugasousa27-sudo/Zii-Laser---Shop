@@ -56,7 +56,7 @@ export default function Home() {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/hero-banner.png"
+            src="/images/florest.jpg"
             alt="Hero Banner"
             className="w-full h-full object-cover object-center opacity-40 dark:opacity-30 scale-105 animate-pulse-slow"
           />

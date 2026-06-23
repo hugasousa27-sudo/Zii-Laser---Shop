@@ -50,8 +50,7 @@ export const Header: React.FC = () => {
     { id: "5", nameKey: "catLembrancas", slug: "Lembranças", icon: Gift },
     { id: "6", nameKey: "catParaAnimais", slug: "Para animais", icon: PawPrint },
     { id: "7", nameKey: "catCaixas", slug: "Caixas", icon: Package },
-    { id: "8", nameKey: "catNatal", slug: "Natal", icon: Trees },
-    { id: "9", nameKey: "catDiaBruxas", slug: "Dia das Bruxas", icon: Ghost }
+    { id: "8", nameKey: "catNatal", slug: "Natal", icon: Trees }
   ];
 
   const isActive = (path: string) => pathname === path;

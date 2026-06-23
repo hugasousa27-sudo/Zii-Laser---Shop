@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 text-slate-300 dark:bg-slate-950 border-t border-slate-800 transition-colors duration-300">
+    <footer style={{ backgroundColor: "#5e3023" }} className="text-slate-200 border-t border-white/10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand & Socials */}
@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
               )}
             </div>
             <p className="text-sm text-slate-400">
-              Estilo, tecnologia e inovação combinados em coleções cuidadosamente selecionadas para as suas necessidades diárias.
+              {t("footerDesc")}
             </p>
             <div className="flex space-x-4">
               {/* Facebook Custom SVG */}
@@ -136,7 +136,7 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        <hr className="border-slate-800 my-8" />
+        <hr className="border-white/10 my-8" />
 
         {/* Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">

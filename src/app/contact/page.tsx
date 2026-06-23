@@ -10,6 +10,8 @@ interface FormFields {
   phone: string;
   subject: string;
   message: string;
+  contactPreference: string;
+  contactHandle: string;
 }
 
 interface FormErrors {
@@ -18,22 +20,26 @@ interface FormErrors {
   phone?: string;
   subject?: string;
   message?: string;
+  contactPreference?: string;
+  contactHandle?: string;
 }
 
 export default function Contact() {
-  const { t } = useApp();
+  const { t, language } = useApp();
   const [form, setForm] = useState<FormFields>({
     name: "",
     email: "",
     phone: "",
     subject: "",
     message: "",
+    contactPreference: "",
+    contactHandle: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [success, setSuccess] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof FormErrors]) {
@@ -64,6 +70,14 @@ export default function Contact() {
       tempErrors.subject = t("inputRequired");
       isValid = false;
     }
+    if (!form.contactPreference) {
+      tempErrors.contactPreference = t("inputRequired");
+      isValid = false;
+    }
+    if (!form.contactHandle.trim()) {
+      tempErrors.contactHandle = t("inputRequired");
+      isValid = false;
+    }
     if (!form.message.trim()) {
       tempErrors.message = t("inputRequired");
       isValid = false;
@@ -84,6 +98,8 @@ export default function Contact() {
       phone: "",
       subject: "",
       message: "",
+      contactPreference: "",
+      contactHandle: "",
     });
 
     setTimeout(() => {
@@ -162,6 +178,60 @@ export default function Contact() {
                 }`}
               />
               {errors.email && <span className="text-red-500 text-xs mt-1 block">{errors.email}</span>}
+            </div>
+
+            {/* Preferred Contact Method */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  {t("labelContactPreference")} *
+                </label>
+                <select
+                  name="contactPreference"
+                  value={form.contactPreference}
+                  onChange={handleInputChange}
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                    errors.contactPreference ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  }`}
+                >
+                  <option value="">{language === "pt" ? "Selecione..." : "Select..."}</option>
+                  <option value="whatsapp">{t("optWhatsapp")}</option>
+                  <option value="instagram">{t("optInstagram")}</option>
+                  <option value="facebook">{t("optFacebook")}</option>
+                  <option value="email">{t("optEmail")}</option>
+                </select>
+                {errors.contactPreference && <span className="text-red-500 text-xs mt-1 block">{errors.contactPreference}</span>}
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  {t("labelContactHandle")} *
+                </label>
+                <input
+                  type="text"
+                  name="contactHandle"
+                  value={form.contactHandle}
+                  onChange={handleInputChange}
+                  placeholder={
+                    form.contactPreference === "whatsapp" 
+                      ? "910 000 000" 
+                      : form.contactPreference === "instagram"
+                      ? "@username"
+                      : form.contactPreference === "facebook"
+                      ? "facebook.com/username"
+                      : "email@exemplo.com"
+                  }
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                    errors.contactHandle ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  }`}
+                />
+                {errors.contactHandle && <span className="text-red-500 text-xs mt-1 block">{errors.contactHandle}</span>}
+              </div>
+            </div>
+
+            {/* Warning Alert */}
+            <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-4 text-amber-800 dark:text-amber-300 text-xs leading-relaxed font-semibold">
+              {t("contactAlert")}
             </div>
 
             <div>

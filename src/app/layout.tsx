@@ -10,10 +10,10 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Vanguard Store | Loja Online Premium",
-  description: "Descubra a melhor seleção de roupa, calçado, tecnologia, gaming e muito mais na Vanguard Store. Design moderno, qualidade premium e envios rápidos.",
-  keywords: "loja online, e-commerce, roupa, calçado, tecnologia, portugal, comprar online, vanguard store",
-  authors: [{ name: "Vanguard Team" }],
+  title: "Zii Laser | Online Shop",
+  description: "Loja especializada em corte e gravação a laser em madeira, criando produtos personalizados com foco na qualidade, sustentabilidade e respeito pelo ambiente.",
+  keywords: "loja online, e-commerce, madeira, portugal, comprar online, zii laser, madeira, corte a laser",
+  authors: [{ name: "Zii Laser Team" }],
   robots: "index, follow",
 };
 
@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt" className="h-full scroll-smooth">
-      <body className="min-h-full flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-300">
+      <body className="min-h-full flex flex-col text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-300">
         <AppProvider>
           <Header />
           <main className="flex-grow flex flex-col">
