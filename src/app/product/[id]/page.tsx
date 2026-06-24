@@ -198,7 +198,7 @@ export default function ProductDetail() {
               {name}
             </h1>
             {/* Price */}
-            <div className="text-2xl font-black text-slate-900 dark:text-slate-50 font-mono">
+            <div className="text-2xl font-extrabold text-slate-900 dark:text-slate-50">
               {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                 style: "currency",
                 currency: "EUR",

@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#251612]/80 backdrop-blur-md transition-colors duration-300">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
@@ -87,8 +87,8 @@ export const Header: React.FC = () => {
                 <Link
                   href={link.href}
                   className={`flex items-center gap-1 text-sm font-bold tracking-wide transition-colors duration-200 ${isActive(link.href) || isCategoriesHovered
-                    ? "text-[#272727] dark:text-white font-semibold"
-                    : "text-[#272727] hover:text-[#272727]/80 dark:text-white/80 dark:hover:text-white"
+                    ? "text-indigo-600 dark:text-indigo-400 font-semibold"
+                    : "text-slate-950 hover:text-indigo-600 dark:text-slate-550 dark:hover:text-indigo-400"
                     }`}
                 >
                   {t(link.labelKey)}
@@ -139,8 +139,8 @@ export const Header: React.FC = () => {
                 key={link.href}
                 href={link.href}
                 className={`text-sm font-bold tracking-wide transition-colors duration-200 h-full flex items-center ${isActive(link.href)
-                  ? "text-[#272727] dark:text-white font-semibold"
-                  : "text-[#272727] hover:text-[#272727]/80 dark:text-white/80 dark:hover:text-white"
+                  ? "text-indigo-600 dark:text-indigo-400 font-semibold"
+                  : "text-slate-950 hover:text-indigo-600 dark:text-slate-250 dark:hover:text-indigo-400"
                   }`}
               >
                 {t(link.labelKey)}
@@ -180,7 +180,7 @@ export const Header: React.FC = () => {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full text-[#272727] dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             aria-label="Alternar tema"
           >
             {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
@@ -189,12 +189,12 @@ export const Header: React.FC = () => {
           {/* Cart Icon */}
           <Link
             href="/cart"
-            className="relative p-2 rounded-full text-[#272727] dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="relative p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             aria-label="Carrinho"
           >
             <ShoppingCart className="h-5 w-5" />
             {cartItemsCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#048243] text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center animate-pulse">
+              <span className="absolute -top-1 -right-1 bg-[#272727] text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center animate-pulse">
                 {cartItemsCount}
               </span>
             )}
@@ -206,12 +206,12 @@ export const Header: React.FC = () => {
           {/* Cart Link for Mobile */}
           <Link
             href="/cart"
-            className="relative p-2 rounded-full text-[#272727] dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="relative p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
             aria-label="Carrinho"
           >
             <ShoppingCart className="h-5 w-5" />
             {cartItemsCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#048243] text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-indigo-600 dark:bg-indigo-500 text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center">
                 {cartItemsCount}
               </span>
             )}
@@ -220,7 +220,7 @@ export const Header: React.FC = () => {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-full text-[#272727] dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
             aria-label="Menu"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -230,7 +230,7 @@ export const Header: React.FC = () => {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#251612] transition-all duration-300">
+        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 transition-all duration-300">
           <div className="px-4 pt-2 pb-4 space-y-2">
             {navLinks.map((link) => (
               <Link
@@ -238,8 +238,8 @@ export const Header: React.FC = () => {
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive(link.href)
-                  ? "bg-indigo-50 dark:bg-slate-800 text-[#272727] dark:text-white"
-                  : "text-[#272727] hover:bg-slate-50 dark:text-white dark:hover:bg-slate-800"
+                  ? "bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400"
+                  : "text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
                   }`}
               >
                 {t(link.labelKey)}
@@ -253,7 +253,7 @@ export const Header: React.FC = () => {
               <span className="text-sm text-slate-500 dark:text-slate-400">{t("labelColor")} / Theme</span>
               <button
                 onClick={toggleTheme}
-                className="flex items-center space-x-2 px-3 py-1.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[#272727] text-sm"
+                className="flex items-center space-x-2 px-3 py-1.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm"
               >
                 {theme === "light" ? (
                   <>

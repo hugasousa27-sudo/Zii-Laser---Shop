@@ -81,7 +81,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
         className="group relative bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex items-center justify-center aspect-square"
       >
         {/* Price Badge in top-right corner */}
-        <div className="absolute top-3 right-3 z-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-900 dark:text-slate-50 text-xs font-black px-2.5 py-1.5 rounded-full shadow-sm font-mono border border-slate-200/50 dark:border-slate-800/50">
+        {/* Price Badge in top-right corner */}
+        <div className="absolute top-3 right-3 z-10 text-slate-900 dark:text-slate-50 text-sm font-extrabold">
           {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
             style: "currency",
             currency: "EUR",
@@ -170,7 +171,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
           </p>
 
           <div className="mt-auto flex items-center justify-between">
-            <span className="text-lg font-black text-slate-900 dark:text-slate-50 font-mono">
+            <span className="text-lg font-extrabold text-slate-900 dark:text-slate-50">
               {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                 style: "currency",
                 currency: "EUR",
