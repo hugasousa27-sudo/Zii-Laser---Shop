@@ -68,13 +68,13 @@ export default function Home() {
           <div className="max-w-2xl space-y-6">
             <div className="inline-flex items-center space-x-2 bg-indigo-600/30 border border-indigo-500/30 px-3.5 py-1.5 rounded-full text-indigo-300 text-xs font-bold uppercase tracking-widest">
               <Sparkles className="h-3.5 w-3.5" />
-              <span>Coleção de Verão 2026</span>
+              <span>Produtos Desenhados para para si!</span>
             </div>
-            
+
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-none text-white drop-shadow-sm">
               {t("heroTitle")}
             </h1>
-            
+
             <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
               {t("heroSub")}
             </p>
@@ -100,7 +100,7 @@ export default function Home() {
               {t("sectionFeatured")}
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
-              Descubra a nossa seleção curada de produtos atualizada em tempo real.
+              Navegue pelos nossos produtos, não se esqueça que pode sempre personalizar ao seu gosto.
             </p>
           </div>
         </div>

@@ -22,7 +22,7 @@ function CategoriesContent() {
   const router = useRouter();
   const pathname = usePathname();
   const categoryParam = searchParams.get("category");
-  
+
   const [selectedCategory, setSelectedCategory] = useState<string | null>(categoryParam);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(() => {
     const allProducts = productsData as Product[];
@@ -62,7 +62,7 @@ function CategoriesContent() {
   const handleSelectCategory = (slug: string | null) => {
     setSelectedCategory(slug);
     setIsPopupOpen(false);
-    
+
     // Update URL so it persists when going back
     const params = new URLSearchParams(searchParams.toString());
     if (slug) {
@@ -84,7 +84,7 @@ function CategoriesContent() {
               <span>{t("navCategories")}</span>
             </h1>
             <p className="text-slate-500 dark:text-slate-400 mt-2 max-w-xl">
-              Navegue pelas nossas coleções especializadas e descubra artigos exclusivos adaptados ao seu estilo de vida.
+              Navegue pelos nossos produtos, não se esqueça que pode sempre personalizar ao seu gosto.
             </p>
           </div>
           <button
@@ -145,21 +145,21 @@ function CategoriesContent() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-fade-in">
           {/* Backdrop click to close */}
           <div className="absolute inset-0 cursor-pointer" onClick={() => setIsPopupOpen(false)} />
-          
+
           <div className="relative w-full max-w-4xl bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-2xl z-10 max-h-[90vh] overflow-y-auto animate-scale-up border border-slate-200 dark:border-slate-800">
             <div className="flex justify-between items-start mb-6">
               <div>
                 <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-50">Selecione uma Categoria</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Escolha uma categoria para filtrar os nossos produtos premium.</p>
               </div>
-              <button 
+              <button
                 onClick={() => setIsPopupOpen(false)}
                 className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors"
               >
                 <X className="h-6 w-6" />
               </button>
             </div>
-            
+
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6 mb-6">
               {categories.map((cat) => {
                 const Icon = cat.icon;
@@ -168,11 +168,10 @@ function CategoriesContent() {
                   <button
                     key={cat.id}
                     onClick={() => handleSelectCategory(cat.slug)}
-                    className={`group relative text-left rounded-2xl overflow-hidden border transition-all duration-300 shadow-sm hover:shadow-md ${
-                      isSelected
+                    className={`group relative text-left rounded-2xl overflow-hidden border transition-all duration-300 shadow-sm hover:shadow-md ${isSelected
                         ? "border-indigo-600 dark:border-indigo-500 ring-2 ring-indigo-600/20"
                         : "border-slate-200 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-700"
-                    }`}
+                      }`}
                   >
                     {/* Category Vector Gradient Background */}
                     <div className={`aspect-[4/3] w-full bg-gradient-to-br ${cat.gradient} flex items-center justify-center relative`}>

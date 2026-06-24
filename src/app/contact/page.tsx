@@ -140,9 +140,8 @@ export default function Contact() {
                   name="name"
                   value={form.name}
                   onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
-                    errors.name ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                  }`}
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.name ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
                 />
                 {errors.name && <span className="text-red-500 text-xs mt-1 block">{errors.name}</span>}
               </div>
@@ -156,9 +155,8 @@ export default function Contact() {
                   name="phone"
                   value={form.phone}
                   onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
-                    errors.phone ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                  }`}
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.phone ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
                 />
                 {errors.phone && <span className="text-red-500 text-xs mt-1 block">{errors.phone}</span>}
               </div>
@@ -173,9 +171,8 @@ export default function Contact() {
                 name="email"
                 value={form.email}
                 onChange={handleInputChange}
-                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
-                  errors.email ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                }`}
+                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.email ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  }`}
               />
               {errors.email && <span className="text-red-500 text-xs mt-1 block">{errors.email}</span>}
             </div>
@@ -190,9 +187,8 @@ export default function Contact() {
                   name="contactPreference"
                   value={form.contactPreference}
                   onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
-                    errors.contactPreference ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                  }`}
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.contactPreference ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
                 >
                   <option value="">{language === "pt" ? "Selecione..." : "Select..."}</option>
                   <option value="whatsapp">{t("optWhatsapp")}</option>
@@ -213,17 +209,16 @@ export default function Contact() {
                   value={form.contactHandle}
                   onChange={handleInputChange}
                   placeholder={
-                    form.contactPreference === "whatsapp" 
-                      ? "910 000 000" 
+                    form.contactPreference === "whatsapp"
+                      ? "910 000 000"
                       : form.contactPreference === "instagram"
-                      ? "@username"
-                      : form.contactPreference === "facebook"
-                      ? "facebook.com/username"
-                      : "email@exemplo.com"
+                        ? "@username"
+                        : form.contactPreference === "facebook"
+                          ? "facebook.com/username"
+                          : "email@exemplo.com"
                   }
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
-                    errors.contactHandle ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                  }`}
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.contactHandle ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
                 />
                 {errors.contactHandle && <span className="text-red-500 text-xs mt-1 block">{errors.contactHandle}</span>}
               </div>
@@ -243,9 +238,8 @@ export default function Contact() {
                 name="subject"
                 value={form.subject}
                 onChange={handleInputChange}
-                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
-                  errors.subject ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                }`}
+                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.subject ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  }`}
               />
               {errors.subject && <span className="text-red-500 text-xs mt-1 block">{errors.subject}</span>}
             </div>
@@ -260,9 +254,8 @@ export default function Contact() {
                 onChange={handleInputChange}
                 placeholder={t("contactFormMsgPlaceholder")}
                 rows={5}
-                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
-                  errors.message ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                }`}
+                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.message ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  }`}
               />
               {errors.message && <span className="text-red-500 text-xs mt-1 block">{errors.message}</span>}
             </div>
@@ -292,7 +285,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-0.5">Telefone</span>
-                  <span>+351 210 000 000</span>
+                  <span>+351 913 625 082</span>
                 </div>
               </li>
 
@@ -302,8 +295,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-0.5">Email</span>
-                  <a href="mailto:suporte@vanguard.com" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                    suporte@vanguard.com
+                  <a href="mailto:ziilaserloja@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                    ziilaserloja@gmail.com
                   </a>
                 </div>
               </li>
@@ -314,7 +307,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-0.5">Morada</span>
-                  <span>Av. da Liberdade 123, 1250-140 Lisboa, Portugal</span>
+                  <span>Taveiro, 3045-482 Coimbra, Portugal</span>
                 </div>
               </li>
 
@@ -347,16 +340,16 @@ export default function Contact() {
               <svg className="w-full h-full text-slate-200 dark:text-slate-900 fill-current" viewBox="0 0 400 300">
                 {/* Street grids representation */}
                 <rect x="0" y="0" width="400" height="300" fill="none" />
-                
+
                 {/* Roads */}
                 <line x1="80" y1="0" x2="80" y2="300" stroke="currentColor" strokeWidth="20" strokeLinecap="round" />
                 <line x1="200" y1="0" x2="200" y2="300" stroke="currentColor" strokeWidth="36" strokeLinecap="round" className="text-slate-300 dark:text-slate-850" /> {/* Avenida da Liberdade */}
                 <line x1="320" y1="0" x2="320" y2="300" stroke="currentColor" strokeWidth="20" strokeLinecap="round" />
-                
+
                 <line x1="0" y1="60" x2="400" y2="60" stroke="currentColor" strokeWidth="16" />
                 <line x1="0" y1="150" x2="400" y2="150" stroke="currentColor" strokeWidth="16" />
                 <line x1="0" y1="240" x2="400" y2="240" stroke="currentColor" strokeWidth="16" />
-                
+
                 {/* Avenue central gardens (green strips) */}
                 <line x1="200" y1="10" x2="200" y2="135" stroke="#10b981" strokeWidth="6" strokeDasharray="6 4" opacity="0.35" />
                 <line x1="200" y1="165" x2="200" y2="290" stroke="#10b981" strokeWidth="6" strokeDasharray="6 4" opacity="0.35" />
@@ -383,7 +376,7 @@ export default function Contact() {
                   <span className="font-bold text-slate-850 dark:text-white block">Vanguard Store Lisboa</span>
                   <span className="text-[10px] text-slate-500 dark:text-slate-400">Av. da Liberdade 123</span>
                 </div>
-                
+
                 <a
                   href="https://maps.google.com/?q=Avenida+da+Liberdade+123+Lisboa"
                   target="_blank"
