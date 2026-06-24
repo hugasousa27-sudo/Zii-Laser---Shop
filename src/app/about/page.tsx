@@ -60,7 +60,7 @@ export default function About() {
         </div>
         
         {/* Mock Graphic Frame */}
-        <div className="lg:col-span-5 aspect-[4/3] w-full bg-gradient-to-tr from-indigo-500 to-violet-600 rounded-3xl relative overflow-hidden shadow-lg flex items-center justify-center p-8 select-none">
+        <div className="lg:col-span-5 aspect-[4/3] w-full bg-gradient-to-tr from-indigo-500 to-indigo-700 rounded-3xl relative overflow-hidden shadow-lg flex items-center justify-center p-8 select-none">
           <div className="absolute inset-0 bg-black/10" />
           <div className="relative text-center text-white space-y-2">
             <Compass className="h-14 w-14 mx-auto animate-pulse-slow opacity-80" />

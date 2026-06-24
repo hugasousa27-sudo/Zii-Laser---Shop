@@ -119,8 +119,8 @@ export default function ProductDetail() {
     switch (colorName.toLowerCase()) {
       case "preto": return "bg-black text-white";
       case "branco": return "bg-white text-slate-800 border border-slate-300";
-      case "azul": return "bg-blue-600 text-white";
-      case "vermelho": return "bg-red-600 text-white";
+      case "azul": return "bg-amber-800 text-white";
+      case "vermelho": return "bg-rose-800 text-white";
       default: return "bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200";
     }
   };

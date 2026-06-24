@@ -35,15 +35,15 @@ function CategoriesContent() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const categories: CategoryInfo[] = [
-    { id: "all", nameKey: "catTodosProdutos", slug: null, icon: Layers, gradient: "from-indigo-500 to-purple-600", image: "/images/cat-todos.jpg" },
-    { id: "1", nameKey: "catPortaChaves", slug: "Porta chaves", icon: Key, gradient: "from-amber-400 to-orange-500", image: "/images/cat-portachaves.jpg" },
-    { id: "2", nameKey: "catDiaNamorados", slug: "Dia dos Namorados", icon: Heart, gradient: "from-rose-400 to-pink-600", image: "/images/cat-presente.jpg" },
-    { id: "3", nameKey: "catProdEscritorio", slug: "Produtos de escritório", icon: Briefcase, gradient: "from-blue-400 to-indigo-600", image: "/images/cat-escritorio.jpg" },
-    { id: "4", nameKey: "catDecoracaoCasa", slug: "Decoração Casa", icon: Home, gradient: "from-emerald-400 to-teal-600", image: "/images/cat-decoracao.jpg" },
-    { id: "5", nameKey: "catLembrancas", slug: "Lembranças", icon: Gift, gradient: "from-violet-400 to-purple-600", image: "/images/cat-presente.jpg" },
-    { id: "6", nameKey: "catParaAnimais", slug: "Para animais", icon: PawPrint, gradient: "from-orange-400 to-amber-500", image: "/images/cat-pets.jpg" },
-    { id: "7", nameKey: "catCaixas", slug: "Caixas", icon: Package, gradient: "from-stone-400 to-stone-600", image: "/images/cat-boxs.jpg" },
-    { id: "8", nameKey: "catNatal", slug: "Natal", icon: Trees, gradient: "from-red-500 to-rose-700", image: "/images/cat-natal.jpg" }
+    { id: "all", nameKey: "catTodosProdutos", slug: null, icon: Layers, gradient: "from-indigo-700 to-indigo-900", image: "/images/cat-todos.jpg" },
+    { id: "1", nameKey: "catPortaChaves", slug: "Porta chaves", icon: Key, gradient: "from-amber-600 to-amber-800", image: "/images/cat-portachaves.jpg" },
+    { id: "2", nameKey: "catDiaNamorados", slug: "Dia dos Namorados", icon: Heart, gradient: "from-amber-700 to-red-800", image: "/images/cat-presente.jpg" },
+    { id: "3", nameKey: "catProdEscritorio", slug: "Produtos de escritório", icon: Briefcase, gradient: "from-indigo-500 to-indigo-700", image: "/images/cat-escritorio.jpg" },
+    { id: "4", nameKey: "catDecoracaoCasa", slug: "Decoração Casa", icon: Home, gradient: "from-amber-800 to-indigo-600", image: "/images/cat-decoracao.jpg" },
+    { id: "5", nameKey: "catLembrancas", slug: "Lembranças", icon: Gift, gradient: "from-amber-500 to-indigo-500", image: "/images/cat-presente.jpg" },
+    { id: "6", nameKey: "catParaAnimais", slug: "Para animais", icon: PawPrint, gradient: "from-amber-700 to-amber-900", image: "/images/cat-pets.jpg" },
+    { id: "7", nameKey: "catCaixas", slug: "Caixas", icon: Package, gradient: "from-stone-600 to-stone-800", image: "/images/cat-boxs.jpg" },
+    { id: "8", nameKey: "catNatal", slug: "Natal", icon: Trees, gradient: "from-emerald-800 to-indigo-700", image: "/images/cat-natal.jpg" }
   ];
 
   useEffect(() => {

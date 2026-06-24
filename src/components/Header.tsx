@@ -68,7 +68,7 @@ export const Header: React.FC = () => {
               onError={() => setLogoError(true)}
             />
           ) : (
-            <span className="text-2xl font-black tracking-wider bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent dark:from-indigo-400 dark:to-purple-400">
+            <span className="text-2xl font-black tracking-wider bg-gradient-to-r from-indigo-600 to-indigo-500 bg-clip-text text-transparent dark:from-indigo-400 dark:to-indigo-300">
               VANGUARD
             </span>
           )}
