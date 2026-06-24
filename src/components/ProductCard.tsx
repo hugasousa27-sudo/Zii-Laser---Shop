@@ -76,7 +76,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
 
   if (imageOnly) {
     return (
-      <Link 
+      <Link
         href={`/product/${product.id}`}
         className="group relative bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex items-center justify-center aspect-square"
       >
@@ -117,7 +117,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
               <span>Featured</span>
             </div>
           )}
-          
+
           {/* Category Tag */}
           <div className="absolute top-3 right-3 z-10 bg-slate-900/60 backdrop-blur-md text-white text-[10px] font-bold py-1 px-2.5 rounded-full uppercase tracking-wider">
             {getCategoryLabel(product.category)}
@@ -164,8 +164,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
           <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
             {name}
           </h3>
-          
-          <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 line-clamp-2">
+
+          <p className="text-sm text-slate-900 dark:text-slate-100 mb-4 line-clamp-2 font-medium">
             {language === "pt" ? product.descriptionPt : product.descriptionEn}
           </p>
 
@@ -176,7 +176,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
                 currency: "EUR",
               })}
             </span>
-            
+
             <Link
               href={`/product/${product.id}`}
               className="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 flex items-center gap-0.5 group-hover:translate-x-1 transition-all"

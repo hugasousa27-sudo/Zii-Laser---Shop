@@ -37,7 +37,7 @@ export default function About() {
         <h1 className="text-4xl font-extrabold tracking-tight text-slate-950 dark:text-slate-50">
           {t("aboutTitle")}
         </h1>
-        <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed">
+        <p className="text-slate-900 dark:text-slate-100 text-lg leading-relaxed font-medium">
           {t("aboutIntro")}
         </p>
       </div>
@@ -48,13 +48,13 @@ export default function About() {
           <h2 className="text-2xl font-black text-slate-950 dark:text-slate-50">
             {t("aboutHistoryTitle")}
           </h2>
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-base text-slate-900 dark:text-slate-100 leading-relaxed font-medium">
             {t("aboutHistoryText1")}
           </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-base text-slate-900 dark:text-slate-100 leading-relaxed font-medium">
             {t("aboutHistoryText2")}
           </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-base text-slate-900 dark:text-slate-100 leading-relaxed font-medium">
             {t("aboutHistoryText3")}
           </p>
         </div>
@@ -80,7 +80,7 @@ export default function About() {
           <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">
             {t("aboutMissionTitle")}
           </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-base text-slate-900 dark:text-slate-100 leading-relaxed font-medium">
             {t("aboutMissionText")}
           </p>
         </div>
@@ -93,7 +93,7 @@ export default function About() {
           <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">
             {t("aboutVisionTitle")}
           </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-base text-slate-900 dark:text-slate-100 leading-relaxed font-medium">
             {t("aboutVisionText")}
           </p>
         </div>
@@ -105,7 +105,7 @@ export default function About() {
           <h2 className="text-2xl font-black text-slate-950 dark:text-slate-50">
             {t("aboutValuesTitle")}
           </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-450 max-w-lg mx-auto">
+          <p className="text-base text-slate-950 dark:text-white max-w-lg mx-auto font-medium">
             Guiamo-nos por pilares sólidos para proporcionar a melhor experiência possível a cada cliente.
           </p>
         </div>
@@ -122,7 +122,7 @@ export default function About() {
               <h3 className="font-extrabold text-sm text-slate-950 dark:text-slate-50">
                 {t(val.titleKey)}
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="text-sm text-slate-950 dark:text-white leading-relaxed font-medium">
                 {t(val.textKey)}
               </p>
             </div>

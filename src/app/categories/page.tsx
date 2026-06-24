@@ -176,18 +176,17 @@ function CategoriesContent() {
                     {/* Category Vector Gradient Background */}
                     <div className={`aspect-[4/3] w-full bg-gradient-to-br ${cat.gradient} flex items-center justify-center relative`}>
                       {cat.image ? (
-                        <>
-                          <img
-                            src={cat.image}
-                            alt=""
-                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 bg-slate-950/45 group-hover:bg-slate-950/25 transition-colors duration-300 z-10" />
-                        </>
+                        <img
+                          src={cat.image}
+                          alt={t(cat.nameKey)}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       ) : (
-                        <div className="absolute inset-0 bg-black/10 opacity-40 group-hover:opacity-10 transition-opacity duration-300" />
+                        <>
+                          <div className="absolute inset-0 bg-black/10 opacity-40 group-hover:opacity-10 transition-opacity duration-300" />
+                          <Icon className="h-12 w-12 text-white drop-shadow-md relative z-20 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                        </>
                       )}
-                      <Icon className="h-12 w-12 text-white drop-shadow-md relative z-20 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
                     </div>
 
                     {/* Title */}

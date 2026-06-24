@@ -325,67 +325,18 @@ export default function Contact() {
             </ul>
           </div>
 
-          {/* Interactive Stylized Vector Map */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-4 shadow-sm space-y-3">
-            <div className="flex items-center justify-between text-xs text-slate-400 uppercase font-bold tracking-wider border-b border-slate-100 dark:border-slate-800/80 pb-2">
-              <span className="flex items-center gap-1">
-                <Map className="h-4 w-4 text-indigo-500" />
-                <span>Mapa Integrado</span>
-              </span>
-              <span>LISBOA</span>
-            </div>
-
-            {/* Stylized SVG Map Box */}
-            <div className="w-full aspect-[4/3] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-2xl overflow-hidden relative flex items-center justify-center">
-              <svg className="w-full h-full text-slate-200 dark:text-slate-900 fill-current" viewBox="0 0 400 300">
-                {/* Street grids representation */}
-                <rect x="0" y="0" width="400" height="300" fill="none" />
-
-                {/* Roads */}
-                <line x1="80" y1="0" x2="80" y2="300" stroke="currentColor" strokeWidth="20" strokeLinecap="round" />
-                <line x1="200" y1="0" x2="200" y2="300" stroke="currentColor" strokeWidth="36" strokeLinecap="round" className="text-slate-300 dark:text-slate-850" /> {/* Avenida da Liberdade */}
-                <line x1="320" y1="0" x2="320" y2="300" stroke="currentColor" strokeWidth="20" strokeLinecap="round" />
-
-                <line x1="0" y1="60" x2="400" y2="60" stroke="currentColor" strokeWidth="16" />
-                <line x1="0" y1="150" x2="400" y2="150" stroke="currentColor" strokeWidth="16" />
-                <line x1="0" y1="240" x2="400" y2="240" stroke="currentColor" strokeWidth="16" />
-
-                {/* Avenue central gardens (green strips) */}
-                <line x1="200" y1="10" x2="200" y2="135" stroke="#10b981" strokeWidth="6" strokeDasharray="6 4" opacity="0.35" />
-                <line x1="200" y1="165" x2="200" y2="290" stroke="#10b981" strokeWidth="6" strokeDasharray="6 4" opacity="0.35" />
-
-                {/* Building Blocks footings */}
-                <rect x="100" y="80" width="80" height="50" rx="4" fill="rgba(200, 200, 200, 0.3)" className="dark:fill-slate-800" />
-                <rect x="220" y="80" width="80" height="50" rx="4" fill="rgba(200, 200, 200, 0.3)" className="dark:fill-slate-800" />
-                <rect x="100" y="170" width="80" height="50" rx="4" fill="rgba(200, 200, 200, 0.3)" className="dark:fill-slate-800" />
-                <rect x="220" y="170" width="80" height="50" rx="4" fill="rgba(200, 200, 200, 0.3)" className="dark:fill-slate-800" />
-
-                {/* Pin Point Locator */}
-                <g transform="translate(200, 150)">
-                  {/* Radar beacon wave */}
-                  <circle cx="0" cy="0" r="14" fill="#4f46e5" opacity="0.2" className="animate-ping" />
-                  <circle cx="0" cy="0" r="6" fill="#4f46e5" className="animate-pulse" />
-                  <path d="M-8,-26 C-8,-36 8,-36 8,-26 C8,-16 0,-10 0,-10 C0,-10 -8,-16 -8,-26 Z" fill="#6366f1" stroke="#ffffff" strokeWidth="1.5" />
-                  <circle cx="0" cy="-26" r="3" fill="#ffffff" />
-                </g>
-              </svg>
-
-              {/* Map Info card overlay */}
-              <div className="absolute bottom-3 left-3 right-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3 shadow flex items-center justify-between text-xs">
-                <div>
-                  <span className="font-bold text-slate-850 dark:text-white block">Vanguard Store Lisboa</span>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400">Av. da Liberdade 123</span>
-                </div>
-
-                <a
-                  href="https://maps.google.com/?q=Avenida+da+Liberdade+123+Lisboa"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-2 rounded-lg transition-colors flex items-center justify-center shadow-sm"
-                  title="Obter direções no Google Maps"
-                >
-                  <Navigation className="h-4 w-4" />
-                </a>
+          {/* Decorative Brand Image */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-4 shadow-sm">
+            <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative shadow-inner">
+              <img 
+                src="/images/florest.jpg" 
+                alt="Zii Laser Workshop" 
+                className="w-full h-full object-cover object-center scale-105"
+              />
+              <div className="absolute inset-0 bg-black/35 flex items-center justify-center p-6">
+                <span className="text-white text-lg font-bold text-center tracking-wide leading-relaxed drop-shadow-md">
+                  Criamos peças únicas e personalizadas com amor e dedicação ao ambiente.
+                </span>
               </div>
             </div>
           </div>

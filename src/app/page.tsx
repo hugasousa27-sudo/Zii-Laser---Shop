@@ -52,15 +52,15 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full pb-16">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[70vh] flex items-center bg-slate-900 text-white overflow-hidden py-16">
+      <section className="relative w-full min-h-[70vh] flex items-center bg-neutral-900 text-white overflow-hidden py-16">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img
             src="/images/florest.jpg"
             alt="Hero Banner"
-            className="w-full h-full object-cover object-center opacity-40 dark:opacity-30 scale-105 animate-pulse-slow"
+            className="w-full h-full object-cover object-center opacity-90 scale-105 animate-pulse-slow"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-900/90 to-transparent" />
         </div>
 
         {/* Hero Content */}
@@ -99,7 +99,7 @@ export default function Home() {
             <h2 className="text-3xl font-extrabold tracking-tight text-slate-950 dark:text-slate-50">
               {t("sectionFeatured")}
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+            <p className="text-base text-slate-900 dark:text-slate-100 mt-2 font-medium">
               Navegue pelos nossos produtos, não se esqueça que pode sempre personalizar ao seu gosto.
             </p>
           </div>
@@ -119,12 +119,12 @@ export default function Home() {
           {hasMore ? (
             <div className="flex flex-col items-center space-y-2 text-indigo-600 dark:text-indigo-400">
               <RefreshCw className="h-8 w-8 animate-spin" />
-              <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+              <span className="text-sm font-bold uppercase tracking-widest text-slate-950 dark:text-white">
                 A carregar mais produtos...
               </span>
             </div>
           ) : (
-            <p className="text-xs text-slate-400 dark:text-slate-500 tracking-wider">
+            <p className="text-sm text-slate-950 dark:text-white font-bold tracking-wider">
               Mostrando todos os {shuffledProducts.length} produtos.
             </p>
           )}

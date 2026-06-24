@@ -207,7 +207,7 @@ export default function ProductDetail() {
           </div>
 
           {/* Description */}
-          <div className="text-sm text-slate-600 dark:text-slate-450 leading-relaxed border-t border-slate-200 dark:border-slate-800/80 pt-4">
+          <div className="text-base text-slate-900 dark:text-slate-100 leading-relaxed border-t border-slate-200 dark:border-slate-800/80 pt-4 font-medium">
             {description}
           </div>
 

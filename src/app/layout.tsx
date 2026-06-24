@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   keywords: "loja online, e-commerce, madeira, portugal, comprar online, zii laser, madeira, corte a laser",
   authors: [{ name: "Zii Laser Team" }],
   robots: "index, follow",
+  icons: "/favicon.jpg",
 };
 
 export default function RootLayout({
