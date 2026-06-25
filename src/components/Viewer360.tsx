@@ -163,7 +163,7 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none z-20 bg-slate-900/80 border border-slate-700/50 p-4 rounded-3xl backdrop-blur-md shadow-2xl">
             <div className="relative h-8 w-16 flex items-center justify-center mb-2">
               {/* Hand icon moving left/right */}
-              <Hand className="absolute h-6 w-6 text-indigo-400 animate-[swipeHorizontal_2s_ease-in-out_infinite]" />
+              <Hand className="absolute h-6 w-6 text-amber-500 animate-[swipeHorizontal_2s_ease-in-out_infinite]" />
             </div>
             <div className="flex flex-col items-center text-center space-y-1">
               <span className="text-[10px] font-bold tracking-widest uppercase text-white">
@@ -238,7 +238,7 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
               onClick={() => setIsPlaying(!isPlaying)}
               className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
                 isPlaying
-                  ? "bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400"
+                  ? "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
               }`}
             >

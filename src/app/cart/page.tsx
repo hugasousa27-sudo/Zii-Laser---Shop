@@ -181,7 +181,7 @@ export default function Cart() {
   if (cart.length === 0) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-24 flex flex-col items-center justify-center text-center">
-        <div className="bg-indigo-50 dark:bg-slate-900 p-6 rounded-full text-indigo-600 dark:text-indigo-400 mb-6">
+        <div className="bg-amber-50 dark:bg-slate-900 p-6 rounded-full text-amber-700 dark:text-amber-400 mb-6">
           <ShoppingBag className="h-12 w-12" />
         </div>
         <h1 className="text-3xl font-extrabold text-slate-950 dark:text-slate-50 mb-3">
@@ -192,7 +192,7 @@ export default function Cart() {
         </p>
         <Link
           href="/categories"
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-8 rounded-full shadow-md hover:shadow-indigo-500/20 transition-all flex items-center space-x-2 text-sm"
+          className="bg-amber-700 hover:bg-amber-800 text-white font-bold py-3.5 px-8 rounded-full shadow-md hover:shadow-amber-500/20 transition-all flex items-center space-x-2 text-sm"
         >
           <span>{t("btnContinue")}</span>
           <ArrowRight className="h-4 w-4" />
@@ -204,7 +204,7 @@ export default function Cart() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full flex-grow relative">
       <h1 className="text-3xl font-black text-slate-950 dark:text-slate-50 mb-8 flex items-center gap-2">
-        <ShoppingBag className="h-7 w-7 text-indigo-600 dark:text-indigo-400" />
+        <ShoppingBag className="h-7 w-7 text-amber-700 dark:text-amber-400" />
         <span>{t("cartTitle")}</span>
       </h1>
 
@@ -311,7 +311,7 @@ export default function Cart() {
               onChange={(e) => setOrderNotes(e.target.value)}
               placeholder={t("cartNotesPlaceholder")}
               rows={3}
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors"
             />
           </div>
 
@@ -331,7 +331,7 @@ export default function Cart() {
                   name="name"
                   value={form.name}
                   onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
                     errors.name ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                   }`}
                 />
@@ -348,7 +348,7 @@ export default function Cart() {
                     name="email"
                     value={form.email}
                     onChange={handleInputChange}
-                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
                       errors.email ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                     }`}
                   />
@@ -364,7 +364,7 @@ export default function Cart() {
                     name="phone"
                     value={form.phone}
                     onChange={handleInputChange}
-                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
                       errors.phone ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                     }`}
                   />
@@ -382,7 +382,7 @@ export default function Cart() {
                     name="contactPreference"
                     value={form.contactPreference}
                     onChange={handleInputChange}
-                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
                       errors.contactPreference ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                     }`}
                   >
@@ -413,7 +413,7 @@ export default function Cart() {
                         ? "facebook.com/username"
                         : "email@exemplo.com"
                     }
-                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
                       errors.contactHandle ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                     }`}
                   />
@@ -435,7 +435,7 @@ export default function Cart() {
                   name="address"
                   value={form.address}
                   onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
                     errors.address ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                   }`}
                 />
@@ -453,7 +453,7 @@ export default function Cart() {
                     value={form.zip}
                     onChange={handleInputChange}
                     placeholder="e.g. 1000-000"
-                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
                       errors.zip ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                     }`}
                   />
@@ -469,7 +469,7 @@ export default function Cart() {
                     name="city"
                     value={form.city}
                     onChange={handleInputChange}
-                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
                       errors.city ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                     }`}
                   />
@@ -485,7 +485,7 @@ export default function Cart() {
                     name="country"
                     value={form.country}
                     onChange={handleInputChange}
-                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
                       errors.country ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                     }`}
                   />
@@ -529,7 +529,7 @@ export default function Cart() {
 
               <div className="flex justify-between items-baseline text-slate-900 dark:text-white font-extrabold">
                 <span className="text-base">{t("summaryTotal")}</span>
-                <span className="text-2xl font-black font-mono text-indigo-600 dark:text-indigo-400">
+                <span className="text-2xl font-black font-mono text-amber-700 dark:text-amber-400">
                   {cartTotal.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                     style: "currency",
                     currency: "EUR",
@@ -544,7 +544,7 @@ export default function Cart() {
                 const submitBtn = document.getElementById("hidden-submit");
                 if (submitBtn) submitBtn.click();
               }}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-6 rounded-xl shadow-lg hover:shadow-indigo-500/20 transition-all flex items-center justify-center space-x-2 text-base"
+              className="w-full bg-amber-700 hover:bg-amber-800 text-white font-black py-4 px-6 rounded-xl shadow-lg hover:shadow-amber-500/20 transition-all flex items-center justify-center space-x-2 text-base"
             >
               <span>{t("btnCheckout")}</span>
               <ArrowRight className="h-5 w-5" />

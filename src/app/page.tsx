@@ -66,7 +66,7 @@ export default function Home() {
         {/* Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-2xl space-y-6">
-            <div className="inline-flex items-center space-x-2 bg-indigo-600/30 border border-indigo-500/30 px-3.5 py-1.5 rounded-full text-indigo-300 text-xs font-bold uppercase tracking-widest">
+            <div className="inline-flex items-center space-x-2 bg-amber-700/30 border border-amber-500/30 px-3.5 py-1.5 rounded-full text-amber-300 text-xs font-bold uppercase tracking-widest">
               <Sparkles className="h-3.5 w-3.5" />
               <span>Produtos Desenhados para para si!</span>
             </div>
@@ -82,7 +82,7 @@ export default function Home() {
             <div className="pt-4 flex flex-wrap gap-4">
               <Link
                 href="/categories"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-indigo-500/20 scale-100 hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center space-x-2"
+                className="bg-amber-700 hover:bg-amber-800 text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-amber-500/20 scale-100 hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center space-x-2"
               >
                 <span>{t("heroBtn")}</span>
                 <ArrowRight className="h-5 w-5" />
@@ -117,7 +117,7 @@ export default function Home() {
         {/* Observer Trigger Element / Loading Indicator */}
         <div ref={observerTarget} className="mt-12 flex justify-center py-6">
           {hasMore ? (
-            <div className="flex flex-col items-center space-y-2 text-indigo-600 dark:text-indigo-400">
+            <div className="flex flex-col items-center space-y-2 text-amber-700 dark:text-amber-400">
               <RefreshCw className="h-8 w-8 animate-spin" />
               <span className="text-sm font-bold uppercase tracking-widest text-slate-950 dark:text-white">
                 A carregar mais produtos...

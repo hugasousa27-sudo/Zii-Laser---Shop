@@ -140,7 +140,7 @@ export default function Contact() {
                   name="name"
                   value={form.name}
                   onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.name ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.name ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                     }`}
                 />
                 {errors.name && <span className="text-red-500 text-xs mt-1 block">{errors.name}</span>}
@@ -155,7 +155,7 @@ export default function Contact() {
                   name="phone"
                   value={form.phone}
                   onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.phone ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.phone ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                     }`}
                 />
                 {errors.phone && <span className="text-red-500 text-xs mt-1 block">{errors.phone}</span>}
@@ -171,7 +171,7 @@ export default function Contact() {
                 name="email"
                 value={form.email}
                 onChange={handleInputChange}
-                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.email ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.email ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                   }`}
               />
               {errors.email && <span className="text-red-500 text-xs mt-1 block">{errors.email}</span>}
@@ -187,7 +187,7 @@ export default function Contact() {
                   name="contactPreference"
                   value={form.contactPreference}
                   onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.contactPreference ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.contactPreference ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                     }`}
                 >
                   <option value="">{language === "pt" ? "Selecione..." : "Select..."}</option>
@@ -217,7 +217,7 @@ export default function Contact() {
                           ? "facebook.com/username"
                           : "email@exemplo.com"
                   }
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.contactHandle ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.contactHandle ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                     }`}
                 />
                 {errors.contactHandle && <span className="text-red-500 text-xs mt-1 block">{errors.contactHandle}</span>}
@@ -238,7 +238,7 @@ export default function Contact() {
                 name="subject"
                 value={form.subject}
                 onChange={handleInputChange}
-                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.subject ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.subject ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                   }`}
               />
               {errors.subject && <span className="text-red-500 text-xs mt-1 block">{errors.subject}</span>}
@@ -254,7 +254,7 @@ export default function Contact() {
                 onChange={handleInputChange}
                 placeholder={t("contactFormMsgPlaceholder")}
                 rows={5}
-                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-600 transition-colors ${errors.message ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.message ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                   }`}
               />
               {errors.message && <span className="text-red-500 text-xs mt-1 block">{errors.message}</span>}
@@ -262,7 +262,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-6 rounded-xl shadow-lg hover:shadow-indigo-500/20 active:scale-98 transition-all flex items-center justify-center space-x-2 text-sm"
+              className="w-full bg-amber-700 hover:bg-amber-800 text-white font-black py-4 px-6 rounded-xl shadow-lg hover:shadow-amber-500/20 active:scale-98 transition-all flex items-center justify-center space-x-2 text-sm"
             >
               <Send className="h-4 w-4" />
               <span>{t("btnSendMessage")}</span>
@@ -280,7 +280,7 @@ export default function Contact() {
 
             <ul className="space-y-4 text-sm font-medium text-slate-650 dark:text-slate-350">
               <li className="flex items-start space-x-3">
-                <div className="bg-indigo-50 dark:bg-slate-950 text-indigo-600 dark:text-indigo-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
+                <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
                   <Phone className="h-4 w-4" />
                 </div>
                 <div>
@@ -290,19 +290,19 @@ export default function Contact() {
               </li>
 
               <li className="flex items-start space-x-3">
-                <div className="bg-indigo-50 dark:bg-slate-950 text-indigo-600 dark:text-indigo-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
+                <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
                   <Mail className="h-4 w-4" />
                 </div>
                 <div>
                   <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-0.5">Email</span>
-                  <a href="mailto:ziilaserloja@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                  <a href="mailto:ziilaserloja@gmail.com" className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors">
                     ziilaserloja@gmail.com
                   </a>
                 </div>
               </li>
 
               <li className="flex items-start space-x-3">
-                <div className="bg-indigo-50 dark:bg-slate-950 text-indigo-600 dark:text-indigo-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
+                <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
                   <MapPin className="h-4 w-4" />
                 </div>
                 <div>
@@ -312,7 +312,7 @@ export default function Contact() {
               </li>
 
               <li className="flex items-start space-x-3 border-t border-slate-100 dark:border-slate-800/80 pt-4">
-                <div className="bg-indigo-50 dark:bg-slate-950 text-indigo-600 dark:text-indigo-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
+                <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
                   <Clock className="h-4 w-4" />
                 </div>
                 <div>

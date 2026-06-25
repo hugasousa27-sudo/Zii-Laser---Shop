@@ -68,7 +68,7 @@ export const Header: React.FC = () => {
               onError={() => setLogoError(true)}
             />
           ) : (
-            <span className="text-2xl font-black tracking-wider bg-gradient-to-r from-indigo-600 to-indigo-500 bg-clip-text text-transparent dark:from-indigo-400 dark:to-indigo-300">
+            <span className="text-2xl font-black tracking-wider bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent dark:from-amber-400 dark:to-amber-300">
               Zii Laser
             </span>
           )}
@@ -87,8 +87,8 @@ export const Header: React.FC = () => {
                 <Link
                   href={link.href}
                   className={`flex items-center gap-1 text-sm font-bold tracking-wide transition-colors duration-200 ${isActive(link.href) || isCategoriesHovered
-                    ? "text-indigo-600 dark:text-indigo-400 font-semibold"
-                    : "text-slate-950 hover:text-indigo-600 dark:text-slate-550 dark:hover:text-indigo-400"
+                    ? "text-amber-700 dark:text-amber-400 font-semibold"
+                    : "text-slate-950 hover:text-amber-700 dark:text-slate-550 dark:hover:text-amber-400"
                     }`}
                 >
                   {t(link.labelKey)}
@@ -110,10 +110,10 @@ export const Header: React.FC = () => {
                             }}
                             className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-left transition-colors group"
                           >
-                            <div className="bg-indigo-50 dark:bg-slate-800 p-2 rounded-lg group-hover:bg-indigo-100 dark:group-hover:bg-slate-700 transition-colors">
-                              <Icon className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                            <div className="bg-amber-50 dark:bg-slate-800 p-2 rounded-lg group-hover:bg-amber-100 dark:group-hover:bg-slate-700 transition-colors">
+                              <Icon className="h-4 w-4 text-amber-700 dark:text-amber-400" />
                             </div>
-                            <span className="text-sm font-bold text-slate-950 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                            <span className="text-sm font-bold text-slate-950 dark:text-slate-200 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">
                               {t(cat.nameKey)}
                             </span>
                           </button>
@@ -125,7 +125,7 @@ export const Header: React.FC = () => {
                             setIsCategoriesHovered(false);
                             router.push('/categories');
                           }}
-                          className="w-full text-center text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 py-2"
+                          className="w-full text-center text-xs font-bold text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 py-2"
                         >
                           Ver todas as categorias
                         </button>
@@ -139,8 +139,8 @@ export const Header: React.FC = () => {
                 key={link.href}
                 href={link.href}
                 className={`text-sm font-bold tracking-wide transition-colors duration-200 h-full flex items-center ${isActive(link.href)
-                  ? "text-indigo-600 dark:text-indigo-400 font-semibold"
-                  : "text-slate-950 hover:text-indigo-600 dark:text-slate-250 dark:hover:text-indigo-400"
+                  ? "text-amber-700 dark:text-amber-400 font-semibold"
+                  : "text-slate-950 hover:text-amber-700 dark:text-slate-250 dark:hover:text-amber-400"
                   }`}
               >
                 {t(link.labelKey)}
@@ -194,7 +194,7 @@ export const Header: React.FC = () => {
           >
             <ShoppingCart className="h-5 w-5" />
             {cartItemsCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#272727] text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center animate-pulse">
+              <span className="absolute -top-1 -right-1 bg-amber-700 text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center animate-pulse">
                 {cartItemsCount}
               </span>
             )}
@@ -211,7 +211,7 @@ export const Header: React.FC = () => {
           >
             <ShoppingCart className="h-5 w-5" />
             {cartItemsCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-indigo-600 dark:bg-indigo-500 text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-amber-700 text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center">
                 {cartItemsCount}
               </span>
             )}
@@ -238,7 +238,7 @@ export const Header: React.FC = () => {
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive(link.href)
-                  ? "bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400"
+                  ? "bg-amber-50 dark:bg-slate-800 text-amber-700 dark:text-amber-400"
                   : "text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
                   }`}
               >

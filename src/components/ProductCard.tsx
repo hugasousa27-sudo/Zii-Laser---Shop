@@ -113,7 +113,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
         <div className="relative aspect-square w-full bg-slate-100 dark:bg-slate-950 overflow-hidden">
           {/* Featured Tag */}
           {product.featured && (
-            <div className="absolute top-3 left-3 z-10 bg-indigo-600 text-white text-[10px] font-black tracking-widest uppercase py-1 px-2.5 rounded-full flex items-center gap-1 shadow-sm">
+            <div className="absolute top-3 left-3 z-10 bg-amber-700 text-white text-[10px] font-black tracking-widest uppercase py-1 px-2.5 rounded-full flex items-center gap-1 shadow-sm">
               <Sparkles className="h-3 w-3" />
               <span>Featured</span>
             </div>
@@ -151,7 +151,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
                 e.stopPropagation();
                 setIs360ModalOpen(true);
               }}
-              className="absolute bottom-3 right-3 z-20 flex items-center justify-center bg-white/95 hover:bg-indigo-650 dark:bg-slate-900/95 dark:hover:bg-indigo-600 border border-slate-200 dark:border-slate-800 shadow-md p-2.5 rounded-full hover:scale-110 active:scale-95 transition-all text-slate-850 dark:text-slate-100 hover:text-white dark:hover:text-white group cursor-pointer"
+              className="absolute bottom-3 right-3 z-20 flex items-center justify-center bg-white/95 hover:bg-amber-700 dark:bg-slate-900/95 dark:hover:bg-amber-700 border border-slate-200 dark:border-slate-800 shadow-md p-2.5 rounded-full hover:scale-110 active:scale-95 transition-all text-slate-850 dark:text-slate-100 hover:text-white dark:hover:text-white group cursor-pointer"
               title={t("btnOpen360")}
             >
               <RotateCw className="h-4 w-4 animate-spin-slow group-hover:rotate-180 transition-transform duration-700" />
@@ -162,7 +162,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
 
         {/* Info */}
         <div className="p-5 flex flex-col flex-grow">
-          <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+          <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-1 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors line-clamp-1">
             {name}
           </h3>
 
@@ -180,7 +180,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
 
             <Link
               href={`/product/${product.id}`}
-              className="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 flex items-center gap-0.5 group-hover:translate-x-1 transition-all"
+              className="text-xs font-bold text-amber-700 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-300 flex items-center gap-0.5 group-hover:translate-x-1 transition-all"
             >
               <span>{t("btnViewProduct")}</span>
               <ArrowRight className="h-3.5 w-3.5" />

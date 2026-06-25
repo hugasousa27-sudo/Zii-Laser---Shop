@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt" className="h-full scroll-smooth">
-      <body className="min-h-full flex flex-col text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-300">
+      <body className="min-h-full flex flex-col text-slate-900 dark:text-slate-100 antialiased selection:bg-amber-700 selection:text-white transition-colors duration-300">
         <AppProvider>
           <Header />
           <main className="flex-grow flex flex-col">

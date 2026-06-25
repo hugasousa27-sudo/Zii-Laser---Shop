@@ -67,7 +67,7 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-24 flex flex-col items-center justify-center text-indigo-600 dark:text-indigo-400">
+      <div className="max-w-7xl mx-auto px-4 py-24 flex flex-col items-center justify-center text-amber-700 dark:text-amber-400">
         <RefreshCw className="h-10 w-10 animate-spin mb-4" />
         <p className="text-slate-500 font-semibold">Carregando produto...</p>
       </div>
@@ -130,7 +130,7 @@ export default function ProductDetail() {
       {/* Back Link */}
       <button
         onClick={() => router.back()}
-        className="flex items-center space-x-2 text-sm text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 mb-8 font-semibold transition-colors"
+        className="flex items-center space-x-2 text-sm text-slate-500 hover:text-amber-700 dark:text-slate-400 dark:hover:text-amber-400 mb-8 font-semibold transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
         <span>{t("btnBack")}</span>
@@ -152,7 +152,7 @@ export default function ProductDetail() {
               {product.has360 && (
                 <button
                   onClick={() => setIs360ModalOpen(true)}
-                  className="absolute bottom-4 right-4 z-10 flex items-center justify-center bg-white/95 hover:bg-indigo-650 dark:bg-slate-900/95 dark:hover:bg-indigo-600 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-indigo-500/20 px-4 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-850 dark:text-slate-100 hover:text-white dark:hover:text-white group font-extrabold text-xs tracking-wider gap-2 cursor-pointer"
+                  className="absolute bottom-4 right-4 z-10 flex items-center justify-center bg-white/95 hover:bg-amber-700 dark:bg-slate-900/95 dark:hover:bg-amber-700 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-amber-500/20 px-4 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-850 dark:text-slate-100 hover:text-white dark:hover:text-white group font-extrabold text-xs tracking-wider gap-2 cursor-pointer"
                   title={t("btnOpen360")}
                 >
                   <RotateCw className="h-4 w-4 animate-spin-slow group-hover:rotate-180 transition-transform duration-700" />
@@ -171,7 +171,7 @@ export default function ProductDetail() {
                   onClick={() => setSelectedImage(img)}
                   className={`relative w-20 h-20 bg-white dark:bg-slate-900 border-2 rounded-xl overflow-hidden transition-all flex-shrink-0 ${
                     selectedImage === img
-                      ? "border-indigo-600 dark:border-indigo-500 scale-105"
+                      ? "border-amber-700 dark:border-amber-500 scale-105"
                       : "border-slate-200 dark:border-slate-800 hover:border-slate-350"
                   }`}
                 >
@@ -190,7 +190,7 @@ export default function ProductDetail() {
         <div className="lg:col-span-5 flex flex-col justify-start space-y-6">
           <div>
             {/* Category */}
-            <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 tracking-widest uppercase">
+            <span className="text-xs font-bold text-amber-700 dark:text-amber-400 tracking-widest uppercase">
               {product.category}
             </span>
             {/* Name */}
@@ -229,7 +229,7 @@ export default function ProductDetail() {
                       }}
                       className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
                         selectedSize === size
-                          ? "bg-indigo-600 border-indigo-600 text-white shadow-sm"
+                          ? "bg-amber-700 border-amber-700 text-white shadow-sm"
                           : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-850 text-slate-800 dark:text-slate-200 hover:border-slate-300"
                       }`}
                     >
@@ -246,7 +246,7 @@ export default function ProductDetail() {
                       value={customSizeText}
                       onChange={(e) => setCustomSizeText(e.target.value)}
                       placeholder={t("customPlaceholder")}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-indigo-600 transition-colors"
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-700 transition-colors"
                       required
                     />
                   </div>
@@ -272,7 +272,7 @@ export default function ProductDetail() {
                         }}
                         className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all flex items-center space-x-2 ${
                           isSelected
-                            ? "bg-indigo-600 border-indigo-600 text-white shadow-sm"
+                            ? "bg-amber-700 border-amber-700 text-white shadow-sm"
                             : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-850 text-slate-800 dark:text-slate-200 hover:border-slate-350"
                         }`}
                       >
@@ -293,7 +293,7 @@ export default function ProductDetail() {
                       value={customColorText}
                       onChange={(e) => setCustomColorText(e.target.value)}
                       placeholder={t("customPlaceholder")}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-indigo-600 transition-colors"
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-700 transition-colors"
                       required
                     />
                   </div>
@@ -337,7 +337,7 @@ export default function ProductDetail() {
           <div className="border-t border-slate-200 dark:border-slate-800/80 pt-6 flex flex-col space-y-3">
             <div className="flex items-baseline justify-between">
               <span className="text-sm font-semibold text-slate-500">{t("summaryTotal")}</span>
-              <span className="text-2xl font-black text-slate-950 dark:text-slate-50 font-mono">
+              <span className="text-2xl font-black text-slate-950 dark:text-slate-50">
                 {totalPrice.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                   style: "currency",
                   currency: "EUR",
@@ -347,7 +347,7 @@ export default function ProductDetail() {
 
             <button
               onClick={handleAddToCart}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold py-4 px-6 rounded-2xl shadow-lg hover:shadow-indigo-500/20 active:scale-98 transition-all flex items-center justify-center space-x-2 text-base"
+              className="w-full bg-amber-700 hover:bg-amber-800 text-white font-extrabold py-4 px-6 rounded-2xl shadow-lg hover:shadow-amber-500/20 active:scale-98 transition-all flex items-center justify-center space-x-2 text-base"
             >
               <ShoppingCart className="h-5 w-5" />
               <span>{t("btnAddToCart")}</span>

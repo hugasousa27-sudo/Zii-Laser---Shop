@@ -80,7 +80,7 @@ function CategoriesContent() {
         <div className="mb-10 text-center md:text-left flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
             <h1 className="text-4xl font-extrabold tracking-tight text-slate-950 dark:text-slate-50 flex items-center justify-center md:justify-start gap-2">
-              <Layers className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+              <Layers className="h-8 w-8 text-amber-700 dark:text-amber-400" />
               <span>{t("navCategories")}</span>
             </h1>
             <p className="text-slate-500 dark:text-slate-400 mt-2 max-w-xl">
@@ -89,7 +89,7 @@ function CategoriesContent() {
           </div>
           <button
             onClick={() => setIsPopupOpen(true)}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-indigo-500/20 active:scale-95 transition-all text-sm whitespace-nowrap self-center md:self-auto"
+            className="bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-amber-500/20 active:scale-95 transition-all text-sm whitespace-nowrap self-center md:self-auto"
           >
             Selecionar Categoria
           </button>
@@ -102,7 +102,7 @@ function CategoriesContent() {
               <Filter className="h-5 w-5 text-slate-400" />
               {selectedCategory ? (
                 <span>
-                  {t("navCategories")}: <span className="text-indigo-600 dark:text-indigo-400">{selectedCategory}</span>
+                  {t("navCategories")}: <span className="text-amber-700 dark:text-amber-400">{selectedCategory}</span>
                 </span>
               ) : (
                 <span>Todos os Produtos</span>
@@ -113,7 +113,7 @@ function CategoriesContent() {
             {selectedCategory && (
               <button
                 onClick={() => setSelectedCategory(null)}
-                className="text-xs font-bold text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 flex items-center gap-1 bg-slate-100 dark:bg-slate-850 px-3 py-1.5 rounded-full"
+                className="text-xs font-bold text-slate-500 hover:text-amber-700 dark:text-slate-400 dark:hover:text-amber-400 flex items-center gap-1 bg-slate-100 dark:bg-slate-850 px-3 py-1.5 rounded-full"
               >
                 Clear Filter
               </button>
@@ -169,8 +169,8 @@ function CategoriesContent() {
                     key={cat.id}
                     onClick={() => handleSelectCategory(cat.slug)}
                     className={`group relative text-left rounded-2xl overflow-hidden border transition-all duration-300 shadow-sm hover:shadow-md ${isSelected
-                        ? "border-indigo-600 dark:border-indigo-500 ring-2 ring-indigo-600/20"
-                        : "border-slate-200 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-700"
+                        ? "border-amber-700 dark:border-amber-500 ring-2 ring-amber-600/20"
+                        : "border-slate-200 dark:border-slate-800 hover:border-amber-300 dark:hover:border-amber-700"
                       }`}
                   >
                     {/* Category Vector Gradient Background */}
@@ -191,10 +191,10 @@ function CategoriesContent() {
 
                     {/* Title */}
                     <div className="p-4 bg-white dark:bg-slate-900 flex justify-between items-center">
-                      <span className="font-bold text-sm text-slate-900 dark:text-slate-50 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                      <span className="font-bold text-sm text-slate-900 dark:text-slate-50 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">
                         {t(cat.nameKey)}
                       </span>
-                      <ArrowRight className="h-4 w-4 text-slate-300 dark:text-slate-600 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" />
+                      <ArrowRight className="h-4 w-4 text-slate-300 dark:text-slate-600 group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />
                     </div>
                   </button>
                 );
