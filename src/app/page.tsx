@@ -92,14 +92,85 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Trust Badges Section */}
+      <section className="w-full border-b" style={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <h2 className="text-center text-xl font-black uppercase tracking-widest mb-8" style={{ color: 'var(--muted)' }}>
+            Porquê comprar na <span style={{ color: 'var(--primary)' }}>Zii Laser</span>
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Badge 1 */}
+            <div className="group flex flex-col items-center text-center p-6 rounded-2xl border hover:shadow-lg hover:-translate-y-1 transition-all duration-300" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--accent)' }}>
+              <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: 'var(--border)' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" style={{ color: 'var(--primary)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="font-extrabold text-sm uppercase tracking-wide mb-1" style={{ color: 'var(--foreground)' }}>Envios no próprio dia</h3>
+              <p className="text-xs leading-relaxed" style={{ color: 'var(--muted)' }}>Encomendas pagas até às 12H</p>
+            </div>
+
+            {/* Badge 2 */}
+            <div className="group flex flex-col items-center text-center p-6 rounded-2xl border hover:shadow-lg hover:-translate-y-1 transition-all duration-300" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--accent)' }}>
+              <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: 'var(--border)' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" style={{ color: 'var(--primary)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="font-extrabold text-sm uppercase tracking-wide mb-1" style={{ color: 'var(--foreground)' }}>Worldwide Shipping</h3>
+              <p className="text-xs leading-relaxed" style={{ color: 'var(--muted)' }}>Açores, Madeira, Europa, Brasil, EUA e muitos mais</p>
+            </div>
+
+            {/* Badge 3 */}
+            <div className="group flex flex-col items-center text-center p-6 rounded-2xl border hover:shadow-lg hover:-translate-y-1 transition-all duration-300" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--accent)' }}>
+              <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: 'var(--border)' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" style={{ color: 'var(--primary)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h3 className="font-extrabold text-sm uppercase tracking-wide mb-1" style={{ color: 'var(--foreground)' }}>Pagamentos 100% Seguros</h3>
+              <p className="text-xs leading-relaxed" style={{ color: 'var(--muted)' }}>MB, MBWAY, PAYPAL ou Cartão de Crédito protegidos por SSL</p>
+            </div>
+
+            {/* Badge 4 */}
+            <div className="group flex flex-col items-center text-center p-6 rounded-2xl border hover:shadow-lg hover:-translate-y-1 transition-all duration-300" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--accent)' }}>
+              <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: 'var(--border)' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" style={{ color: 'var(--primary)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="font-extrabold text-sm uppercase tracking-wide mb-1" style={{ color: 'var(--foreground)' }}>Proteção ao Cliente</h3>
+              <p className="text-xs leading-relaxed" style={{ color: 'var(--muted)' }}>Devolva em 14 dias. Troque em 30 dias, sem perguntas</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Discount Banner */}
+      <section className="w-full py-4 px-4" style={{ background: 'linear-gradient(to right, #815438, #B9844F, #815438)' }}>
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
+          <span className="text-2xl">🎁</span>
+          <p className="font-bold text-sm sm:text-base" style={{ color: '#F5EDE3' }}>
+            Receba <span className="text-lg font-black" style={{ color: '#FFE4B5' }}>10% de desconto</span> na primeira compra!
+          </p>
+          <a
+            href="/contact"
+            className="ml-0 sm:ml-4 font-black text-xs uppercase tracking-widest px-5 py-2 rounded-full hover:scale-105 active:scale-95 transition-all duration-200 shadow"
+            style={{ backgroundColor: '#F5EDE3', color: '#815438' }}
+          >
+            Quero o desconto →
+          </a>
+        </div>
+      </section>
+
       {/* Featured Products Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 w-full">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 border-b border-slate-200 dark:border-slate-800 pb-5">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-5 border-b" style={{ borderColor: 'var(--border)' }}>
           <div>
-            <h2 className="text-3xl font-extrabold tracking-tight text-slate-950 dark:text-slate-50">
+            <h2 className="text-3xl font-extrabold tracking-tight on-bg-blur" style={{ color: 'var(--foreground)' }}>
               {t("sectionFeatured")}
             </h2>
-            <p className="text-base text-slate-900 dark:text-slate-100 mt-2 font-medium">
+            <p className="text-base mt-2 font-medium on-bg-blur" style={{ color: 'var(--muted)' }}>
               Navegue pelos nossos produtos, não se esqueça que pode sempre personalizar ao seu gosto.
             </p>
           </div>

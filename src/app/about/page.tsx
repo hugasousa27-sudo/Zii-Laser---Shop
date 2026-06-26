@@ -2,131 +2,58 @@
 
 import React from "react";
 import { useApp } from "../../context/AppContext";
-import { Award, Compass, Heart, Users, Target, Eye, ShieldCheck, Flame } from "lucide-react";
+import { Compass } from "lucide-react";
 
 export default function About() {
   const { t } = useApp();
-
-  const valuesList = [
-    {
-      icon: <Award className="h-6 w-6 text-amber-700" />,
-      titleKey: "value1Title",
-      textKey: "value1Text"
-    },
-    {
-      icon: <Flame className="h-6 w-6 text-amber-700" />,
-      titleKey: "value2Title",
-      textKey: "value2Text"
-    },
-    {
-      icon: <ShieldCheck className="h-6 w-6 text-amber-700" />,
-      titleKey: "value3Title",
-      textKey: "value3Text"
-    },
-    {
-      icon: <Users className="h-6 w-6 text-amber-700" />,
-      titleKey: "value4Title",
-      textKey: "value4Text"
-    }
-  ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full flex-grow space-y-16">
       {/* Page Title & Intro */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <h1 className="text-4xl font-extrabold tracking-tight text-slate-950 dark:text-slate-50">
+        <h1 className="text-4xl font-extrabold tracking-tight" style={{ color: "var(--foreground)" }}>
           {t("aboutTitle")}
         </h1>
-        <p className="text-slate-900 dark:text-slate-100 text-lg leading-relaxed font-medium">
+        <p className="text-lg leading-relaxed font-medium" style={{ color: "var(--muted)" }}>
           {t("aboutIntro")}
         </p>
       </div>
 
       {/* History Section */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-t border-slate-200 dark:border-slate-800/80 pt-12">
+      <section
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-t pt-12"
+        style={{ borderColor: "var(--border)" }}
+      >
         <div className="lg:col-span-7 space-y-4">
-          <h2 className="text-2xl font-black text-slate-950 dark:text-slate-50">
+          <h2 className="text-2xl font-black" style={{ color: "var(--foreground)" }}>
             {t("aboutHistoryTitle")}
           </h2>
-          <p className="text-base text-slate-900 dark:text-slate-100 leading-relaxed font-medium">
+          <p className="text-base leading-relaxed font-medium" style={{ color: "var(--muted)" }}>
             {t("aboutHistoryText1")}
           </p>
-          <p className="text-base text-slate-900 dark:text-slate-100 leading-relaxed font-medium">
+          <p className="text-base leading-relaxed font-medium" style={{ color: "var(--muted)" }}>
             {t("aboutHistoryText2")}
           </p>
-          <p className="text-base text-slate-900 dark:text-slate-100 leading-relaxed font-medium">
+          <p className="text-base leading-relaxed font-medium" style={{ color: "var(--muted)" }}>
             {t("aboutHistoryText3")}
           </p>
         </div>
-        
-        {/* Mock Graphic Frame */}
-        <div className="lg:col-span-5 aspect-[4/3] w-full bg-gradient-to-tr from-amber-700 to-amber-900 rounded-3xl relative overflow-hidden shadow-lg flex items-center justify-center p-8 select-none">
-          <div className="absolute inset-0 bg-black/10" />
-          <div className="relative text-center text-white space-y-2">
-            <Compass className="h-14 w-14 mx-auto animate-pulse-slow opacity-80" />
-            <h3 className="font-extrabold text-xl">DESDE 2026</h3>
-            <p className="text-[10px] uppercase tracking-widest text-amber-200">LISBOA - PORTUGAL</p>
-          </div>
-        </div>
-      </section>
 
-      {/* Mission & Vision Row */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-slate-200 dark:border-slate-800/80 pt-12">
-        {/* Mission Card */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-3xl shadow-sm space-y-4 hover:shadow-md transition-shadow">
-          <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 w-12 h-12 rounded-2xl flex items-center justify-center shadow-inner">
-            <Target className="h-6 w-6" />
-          </div>
-          <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">
-            {t("aboutMissionTitle")}
-          </h3>
-          <p className="text-base text-slate-900 dark:text-slate-100 leading-relaxed font-medium">
-            {t("aboutMissionText")}
-          </p>
-        </div>
-
-        {/* Vision Card */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-3xl shadow-sm space-y-4 hover:shadow-md transition-shadow">
-          <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 w-12 h-12 rounded-2xl flex items-center justify-center shadow-inner">
-            <Eye className="h-6 w-6" />
-          </div>
-          <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">
-            {t("aboutVisionTitle")}
-          </h3>
-          <p className="text-base text-slate-900 dark:text-slate-100 leading-relaxed font-medium">
-            {t("aboutVisionText")}
-          </p>
-        </div>
-      </section>
-
-      {/* Values Grid */}
-      <section className="border-t border-slate-200 dark:border-slate-800/80 pt-12 space-y-8">
-        <div className="text-center space-y-2">
-          <h2 className="text-2xl font-black text-slate-950 dark:text-slate-50">
-            {t("aboutValuesTitle")}
-          </h2>
-          <p className="text-base text-slate-950 dark:text-white max-w-lg mx-auto font-medium">
-            Guiamo-nos por pilares sólidos para proporcionar a melhor experiência possível a cada cliente.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {valuesList.map((val, idx) => (
-            <div
-              key={idx}
-              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl shadow-sm hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-1 transition-all duration-300 space-y-3"
-            >
-              <div className="bg-amber-50/50 dark:bg-slate-950/50 p-2.5 rounded-xl w-fit">
-                {val.icon}
-              </div>
-              <h3 className="font-extrabold text-sm text-slate-950 dark:text-slate-50">
-                {t(val.titleKey)}
-              </h3>
-              <p className="text-sm text-slate-950 dark:text-white leading-relaxed font-medium">
-                {t(val.textKey)}
-              </p>
+        {/* Photo */}
+        <div className="lg:col-span-5 aspect-[4/3] w-full rounded-3xl relative overflow-hidden shadow-lg">
+          <img
+            src="/ambiental.jpg"
+            alt="Zii Laser - Ambiente de trabalho"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          <div className="absolute bottom-4 left-0 right-0 text-center text-white space-y-1">
+            <div className="flex items-center justify-center gap-2">
+              <Compass className="h-5 w-5 opacity-80" />
+              <span className="font-extrabold text-base tracking-wide">DESDE 2026</span>
             </div>
-          ))}
+            <p className="text-[10px] uppercase tracking-widest text-amber-200">LISBOA — PORTUGAL</p>
+          </div>
         </div>
       </section>
     </div>

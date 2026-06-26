@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md transition-colors duration-300">
+    <header className="sticky top-0 z-50 w-full border-b backdrop-blur-md transition-colors duration-300" style={{ borderColor: 'var(--border)', backgroundColor: 'rgba(245,237,227,0.85)' }} data-dark-style="background-color:rgba(28,14,7,0.85)">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
@@ -87,9 +87,10 @@ export const Header: React.FC = () => {
                 <Link
                   href={link.href}
                   className={`flex items-center gap-1 text-sm font-bold tracking-wide transition-colors duration-200 ${isActive(link.href) || isCategoriesHovered
-                    ? "text-amber-700 dark:text-amber-400 font-semibold"
-                    : "text-slate-950 hover:text-amber-700 dark:text-slate-550 dark:hover:text-amber-400"
+                    ? "font-semibold"
+                    : ""
                     }`}
+                  style={{ color: isActive(link.href) || isCategoriesHovered ? '#B9844F' : '#272727' }}
                 >
                   {t(link.labelKey)}
                   <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isCategoriesHovered ? "rotate-180" : ""}`} />
@@ -97,7 +98,7 @@ export const Header: React.FC = () => {
 
                 {/* Dropdown Menu */}
                 {isCategoriesHovered && (
-                  <div className="absolute top-full left-0 w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl py-4 z-50 animate-fade-in-up">
+                  <div className="absolute top-full left-0 w-64 rounded-2xl shadow-xl py-4 z-50 animate-fade-in-up" style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}>
                     <div className="grid grid-cols-1 gap-1 px-3">
                       {categories.map((cat) => {
                         const Icon = cat.icon;
@@ -108,12 +109,14 @@ export const Header: React.FC = () => {
                               setIsCategoriesHovered(false);
                               router.push(`/categories?category=${encodeURIComponent(cat.slug)}`);
                             }}
-                            className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-left transition-colors group"
+                            className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-left transition-colors group"
+                            onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--accent)')}
+                            onMouseLeave={e => (e.currentTarget.style.backgroundColor = '')}
                           >
-                            <div className="bg-amber-50 dark:bg-slate-800 p-2 rounded-lg group-hover:bg-amber-100 dark:group-hover:bg-slate-700 transition-colors">
-                              <Icon className="h-4 w-4 text-amber-700 dark:text-amber-400" />
+                            <div className="p-2 rounded-lg transition-colors" style={{ backgroundColor: 'var(--accent)' }}>
+                               <Icon className="h-4 w-4" style={{ color: 'var(--primary)' }} />
                             </div>
-                            <span className="text-sm font-bold text-slate-950 dark:text-slate-200 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">
+                             <span className="text-sm font-bold transition-colors" style={{ color: 'var(--foreground)' }}>
                               {t(cat.nameKey)}
                             </span>
                           </button>
@@ -125,7 +128,7 @@ export const Header: React.FC = () => {
                             setIsCategoriesHovered(false);
                             router.push('/categories');
                           }}
-                          className="w-full text-center text-xs font-bold text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 py-2"
+                          className="w-full text-center text-xs font-bold py-2" style={{ color: 'var(--primary)' }}
                         >
                           Ver todas as categorias
                         </button>
@@ -138,10 +141,8 @@ export const Header: React.FC = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-bold tracking-wide transition-colors duration-200 h-full flex items-center ${isActive(link.href)
-                  ? "text-amber-700 dark:text-amber-400 font-semibold"
-                  : "text-slate-950 hover:text-amber-700 dark:text-slate-250 dark:hover:text-amber-400"
-                  }`}
+                className={`text-sm font-bold tracking-wide transition-colors duration-200 h-full flex items-center ${isActive(link.href) ? 'font-semibold' : ''}`}
+                style={{ color: isActive(link.href) ? '#B9844F' : '#272727' }}
               >
                 {t(link.labelKey)}
               </Link>
@@ -152,13 +153,14 @@ export const Header: React.FC = () => {
         {/* Action Buttons */}
         <div className="hidden md:flex items-center space-x-4">
           {/* Language Selector */}
-          <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-full space-x-1">
+          <div className="flex items-center p-1 rounded-full space-x-1" style={{ backgroundColor: 'var(--accent)' }}>
             <button
               onClick={() => setLanguage("pt")}
               className={`p-1.5 rounded-full text-xs transition-all flex items-center justify-center ${language === "pt"
-                ? "bg-white dark:bg-slate-700 shadow-sm scale-105 ring-1 ring-slate-200 dark:ring-slate-600"
-                : "hover:bg-white/50 dark:hover:bg-slate-700/50"
+                ? "shadow-sm scale-105"
+                : ""
                 }`}
+              style={{ backgroundColor: language === 'pt' ? 'var(--card)' : 'transparent' }}
               title="Português"
               aria-label="Português"
             >
@@ -167,9 +169,10 @@ export const Header: React.FC = () => {
             <button
               onClick={() => setLanguage("en")}
               className={`p-1.5 rounded-full text-xs transition-all flex items-center justify-center ${language === "en"
-                ? "bg-white dark:bg-slate-700 shadow-sm scale-105 ring-1 ring-slate-200 dark:ring-slate-600"
-                : "hover:bg-white/50 dark:hover:bg-slate-700/50"
+                ? "shadow-sm scale-105"
+                : ""
                 }`}
+              style={{ backgroundColor: language === 'en' ? 'var(--card)' : 'transparent' }}
               title="English"
               aria-label="English"
             >
@@ -180,7 +183,9 @@ export const Header: React.FC = () => {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="p-2 rounded-full transition-colors" style={{ color: 'var(--foreground)' }}
+            onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--accent)')}
+            onMouseLeave={e => (e.currentTarget.style.backgroundColor = '')}
             aria-label="Alternar tema"
           >
             {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
@@ -189,7 +194,7 @@ export const Header: React.FC = () => {
           {/* Cart Icon */}
           <Link
             href="/cart"
-            className="relative p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="relative p-2 rounded-full transition-colors" style={{ color: 'var(--foreground)' }}
             aria-label="Carrinho"
           >
             <ShoppingCart className="h-5 w-5" />
@@ -206,7 +211,7 @@ export const Header: React.FC = () => {
           {/* Cart Link for Mobile */}
           <Link
             href="/cart"
-            className="relative p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="relative p-2 rounded-full" style={{ color: 'var(--foreground)' }}
             aria-label="Carrinho"
           >
             <ShoppingCart className="h-5 w-5" />
@@ -220,7 +225,7 @@ export const Header: React.FC = () => {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-2 rounded-full" style={{ color: 'var(--foreground)' }}
             aria-label="Menu"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -230,17 +235,15 @@ export const Header: React.FC = () => {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 transition-all duration-300">
+        <div className="md:hidden transition-all duration-300" style={{ borderTop: '1px solid var(--border)', backgroundColor: 'var(--card)' }}>
           <div className="px-4 pt-2 pb-4 space-y-2">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive(link.href)
-                  ? "bg-amber-50 dark:bg-slate-800 text-amber-700 dark:text-amber-400"
-                  : "text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
-                  }`}
+                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors`}
+                style={{ color: isActive(link.href) ? '#B9844F' : 'var(--foreground)', backgroundColor: isActive(link.href) ? 'var(--accent)' : 'transparent' }}
               >
                 {t(link.labelKey)}
               </Link>
@@ -250,10 +253,10 @@ export const Header: React.FC = () => {
 
             {/* Mobile Actions */}
             <div className="flex items-center justify-between px-3 py-2">
-              <span className="text-sm text-slate-500 dark:text-slate-400">{t("labelColor")} / Theme</span>
+              <span className="text-sm" style={{ color: 'var(--muted)' }}>{t("labelColor")} / Theme</span>
               <button
                 onClick={toggleTheme}
-                className="flex items-center space-x-2 px-3 py-1.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm"
+                className="flex items-center space-x-2 px-3 py-1.5 rounded-md text-sm" style={{ backgroundColor: 'var(--accent)', color: 'var(--foreground)' }}
               >
                 {theme === "light" ? (
                   <>
@@ -270,19 +273,19 @@ export const Header: React.FC = () => {
             </div>
 
             <div className="flex items-center justify-between px-3 py-2">
-              <span className="text-sm text-slate-500 dark:text-slate-400">Idioma / Language</span>
-              <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 rounded-md gap-1">
+              <span className="text-sm" style={{ color: 'var(--muted)' }}>Idioma / Language</span>
+              <div className="flex p-0.5 rounded-md gap-1" style={{ backgroundColor: 'var(--accent)' }}>
                 <button
                   onClick={() => setLanguage("pt")}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold ${language === "pt" ? "bg-white dark:bg-slate-700 shadow-sm" : ""
-                    }`}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold ${language === "pt" ? "shadow-sm" : ""}`}
+                  style={{ backgroundColor: language === 'pt' ? 'var(--card)' : 'transparent', color: 'var(--foreground)' }}
                 >
                   <FlagPT className="w-5 h-4 rounded-sm shadow-sm" /> Português
                 </button>
                 <button
                   onClick={() => setLanguage("en")}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold ${language === "en" ? "bg-white dark:bg-slate-700 shadow-sm" : ""
-                    }`}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold ${language === "en" ? "shadow-sm" : ""}`}
+                  style={{ backgroundColor: language === 'en' ? 'var(--card)' : 'transparent', color: 'var(--foreground)' }}
                 >
                   <FlagEN className="w-5 h-4 rounded-sm shadow-sm" /> English
                 </button>

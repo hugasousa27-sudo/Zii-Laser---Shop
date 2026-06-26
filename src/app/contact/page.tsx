@@ -2,7 +2,22 @@
 
 import React, { useState } from "react";
 import { useApp } from "../../context/AppContext";
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle, Navigation, Map } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, CheckCircle, Navigation, Map, MessageCircle } from "lucide-react";
+
+const IconWhatsApp = (props: any) => <MessageCircle {...props} />;
+const IconInstagram = (props: any) => (
+  <svg {...props} className={`${props.className || ""} stroke-current fill-none`} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+  </svg>
+);
+const IconFacebook = (props: any) => (
+  <svg {...props} className={`${props.className || ""} fill-current`} viewBox="0 0 24 24">
+    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/>
+  </svg>
+);
+const IconEmail = (props: any) => <Mail {...props} />;
 
 interface FormFields {
   name: string;
@@ -38,6 +53,7 @@ export default function Contact() {
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [success, setSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -87,24 +103,45 @@ export default function Contact() {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
-    setSuccess(true);
-    setForm({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-      contactPreference: "",
-      contactHandle: "",
-    });
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
-    setTimeout(() => {
-      setSuccess(false);
-    }, 4000);
+      if (response.ok) {
+        setSuccess(true);
+        setForm({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+          contactPreference: "",
+          contactHandle: "",
+        });
+
+        setTimeout(() => {
+          setSuccess(false);
+        }, 5000);
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || "Erro ao enviar a mensagem.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao conectar ao servidor.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -178,24 +215,42 @@ export default function Contact() {
             </div>
 
             {/* Preferred Contact Method */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
+            <div className="grid grid-cols-1 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">
                   {t("labelContactPreference")} *
                 </label>
-                <select
-                  name="contactPreference"
-                  value={form.contactPreference}
-                  onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.contactPreference ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                    }`}
-                >
-                  <option value="">{language === "pt" ? "Selecione..." : "Select..."}</option>
-                  <option value="whatsapp">{t("optWhatsapp")}</option>
-                  <option value="instagram">{t("optInstagram")}</option>
-                  <option value="facebook">{t("optFacebook")}</option>
-                  <option value="email">{t("optEmail")}</option>
-                </select>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {[
+                    { id: "whatsapp", label: "WhatsApp", icon: IconWhatsApp },
+                    { id: "instagram", label: "Instagram", icon: IconInstagram },
+                    { id: "facebook", label: "Facebook", icon: IconFacebook },
+                    { id: "email", label: "Email", icon: IconEmail },
+                  ].map((option) => {
+                    const Icon = option.icon;
+                    const isSelected = form.contactPreference === option.id;
+                    return (
+                      <button
+                        key={option.id}
+                        type="button"
+                        onClick={() => {
+                          setForm((prev) => ({ ...prev, contactPreference: option.id }));
+                          if (errors.contactPreference) {
+                            setErrors((prev) => ({ ...prev, contactPreference: undefined }));
+                          }
+                        }}
+                        className={`flex flex-col items-center justify-center p-3 rounded-xl border text-xs font-bold transition-all duration-200 active:scale-95 ${
+                          isSelected
+                            ? "bg-amber-50 dark:bg-amber-950/20 border-amber-700 text-amber-700 dark:text-amber-400 shadow-sm"
+                            : "bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-850 text-slate-500 hover:text-slate-850 dark:hover:text-white"
+                        }`}
+                      >
+                        <Icon className="h-5 w-5 mb-1" />
+                        <span>{option.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
                 {errors.contactPreference && <span className="text-red-500 text-xs mt-1 block">{errors.contactPreference}</span>}
               </div>
 
@@ -262,10 +317,13 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="w-full bg-amber-700 hover:bg-amber-800 text-white font-black py-4 px-6 rounded-xl shadow-lg hover:shadow-amber-500/20 active:scale-98 transition-all flex items-center justify-center space-x-2 text-sm"
+              disabled={isSubmitting}
+              className={`w-full bg-amber-700 hover:bg-amber-800 text-white font-black py-4 px-6 rounded-xl shadow-lg hover:shadow-amber-500/20 active:scale-98 transition-all flex items-center justify-center space-x-2 text-sm ${
+                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
               <Send className="h-4 w-4" />
-              <span>{t("btnSendMessage")}</span>
+              <span>{isSubmitting ? (language === "pt" ? "A enviar..." : "Sending...") : t("btnSendMessage")}</span>
             </button>
           </form>
         </div>
@@ -307,19 +365,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-0.5">Morada</span>
-                  <span>Taveiro, 3045-482 Coimbra, Portugal</span>
-                </div>
-              </li>
-
-              <li className="flex items-start space-x-3 border-t border-slate-100 dark:border-slate-800/80 pt-4">
-                <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
-                  <Clock className="h-4 w-4" />
-                </div>
-                <div>
-                  <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-0.5">{t("contactInfoHours")}</span>
-                  <p className="whitespace-pre-line text-xs font-semibold leading-relaxed">
-                    {t("contactInfoHoursText")}
-                  </p>
+                  <span>Coimbra, Portugal</span>
                 </div>
               </li>
             </ul>
@@ -329,13 +375,13 @@ export default function Contact() {
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-4 shadow-sm">
             <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative shadow-inner">
               <img 
-                src="/images/florest.jpg" 
-                alt="Zii Laser Workshop" 
-                className="w-full h-full object-cover object-center scale-105"
+                src="/teamwork.jpeg" 
+                alt="Zii Laser Teamwork" 
+                className="w-full h-full object-cover object-center scale-105 blur-[2px]"
               />
-              <div className="absolute inset-0 bg-black/35 flex items-center justify-center p-6">
+              <div className="absolute inset-0 bg-black/45 backdrop-blur-[2px] flex items-center justify-center p-6">
                 <span className="text-white text-lg font-bold text-center tracking-wide leading-relaxed drop-shadow-md">
-                  Criamos peças únicas e personalizadas com amor e dedicação ao ambiente.
+                  Respondo em qualquer hora assim que possível, obrigado!
                 </span>
               </div>
             </div>

@@ -3,7 +3,22 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useApp } from "../../context/AppContext";
-import { Trash2, ShoppingBag, Plus, Minus, CheckCircle, ArrowRight, ClipboardCopy } from "lucide-react";
+import { Trash2, ShoppingBag, Plus, Minus, CheckCircle, ArrowRight, ClipboardCopy, MessageCircle, Mail } from "lucide-react";
+
+const IconWhatsApp = (props: any) => <MessageCircle {...props} />;
+const IconInstagram = (props: any) => (
+  <svg {...props} className={`${props.className || ""} stroke-current fill-none`} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+  </svg>
+);
+const IconFacebook = (props: any) => (
+  <svg {...props} className={`${props.className || ""} fill-current`} viewBox="0 0 24 24">
+    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/>
+  </svg>
+);
+const IconEmail = (props: any) => <Mail {...props} />;
 
 interface FormFields {
   name: string;
@@ -373,25 +388,42 @@ export default function Cart() {
               </div>
 
               {/* Preferred Contact Method */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
+              <div className="grid grid-cols-1 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">
                     {t("labelContactPreference")} *
                   </label>
-                  <select
-                    name="contactPreference"
-                    value={form.contactPreference}
-                    onChange={handleInputChange}
-                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
-                      errors.contactPreference ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                    }`}
-                  >
-                    <option value="">{language === "pt" ? "Selecione..." : "Select..."}</option>
-                    <option value="whatsapp">{t("optWhatsapp")}</option>
-                    <option value="instagram">{t("optInstagram")}</option>
-                    <option value="facebook">{t("optFacebook")}</option>
-                    <option value="email">{t("optEmail")}</option>
-                  </select>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {[
+                      { id: "whatsapp", label: "WhatsApp", icon: IconWhatsApp },
+                      { id: "instagram", label: "Instagram", icon: IconInstagram },
+                      { id: "facebook", label: "Facebook", icon: IconFacebook },
+                      { id: "email", label: "Email", icon: IconEmail },
+                    ].map((option) => {
+                      const Icon = option.icon;
+                      const isSelected = form.contactPreference === option.id;
+                      return (
+                        <button
+                          key={option.id}
+                          type="button"
+                          onClick={() => {
+                            setForm((prev) => ({ ...prev, contactPreference: option.id }));
+                            if (errors.contactPreference) {
+                              setErrors((prev) => ({ ...prev, contactPreference: undefined }));
+                            }
+                          }}
+                          className={`flex flex-col items-center justify-center p-3 rounded-xl border text-xs font-bold transition-all duration-200 active:scale-95 ${
+                            isSelected
+                              ? "bg-amber-50 dark:bg-amber-950/20 border-amber-700 text-amber-700 dark:text-amber-400 shadow-sm"
+                              : "bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-850 text-slate-500 hover:text-slate-850 dark:hover:text-white"
+                          }`}
+                        >
+                          <Icon className="h-5 w-5 mb-1" />
+                          <span>{option.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
                   {errors.contactPreference && <span className="text-red-500 text-xs mt-1 block">{errors.contactPreference}</span>}
                 </div>
 

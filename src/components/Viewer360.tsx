@@ -15,7 +15,7 @@ export const Viewer360: React.FC<Viewer360Props> = ({ productId, productName, is
   const { t } = useApp();
 
   // Find product configurations
-  const product = productsData.find((p) => p.id === productId);
+  const product = (productsData as any[]).find((p) => p.id === productId);
   const images360 = product?.images360;
   const totalFrames = images360?.count ?? 8;
 
