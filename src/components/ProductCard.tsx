@@ -80,15 +80,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
         href={`/product/${product.id}`}
         className="group relative bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex items-center justify-center aspect-square"
       >
-        {/* Price Badge in top-right corner */}
-        {/* Price Badge in top-right corner */}
-        <div className="absolute top-3 right-3 z-10 text-slate-900 dark:text-slate-50 text-sm font-extrabold">
-          {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
-            style: "currency",
-            currency: "EUR",
-          })}
-        </div>
-
         <img
           src={mainImage}
           alt={name}
@@ -96,11 +87,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
           loading="lazy"
         />
 
-        {/* Hover overlay with product name */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4 z-20">
-          <span className="text-white text-sm font-bold tracking-tight line-clamp-2 w-full text-left transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-            {name}
-          </span>
+        {/* Hover overlay with product name and price on the same line */}
+        <div className="absolute inset-0 bg-white/95 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4 z-20">
+          <div className="flex items-center justify-between w-full gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+            <span className="text-sm font-bold tracking-tight line-clamp-1 text-left flex-1" style={{ color: '#272727' }}>
+              {name}
+            </span>
+            <span className="text-sm font-extrabold whitespace-nowrap text-right" style={{ color: '#272727' }}>
+              {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
+                style: "currency",
+                currency: "EUR",
+              })}
+            </span>
+          </div>
         </div>
       </Link>
     );
@@ -162,11 +161,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, imageOnly = f
 
         {/* Info */}
         <div className="p-5 flex flex-col flex-grow">
-          <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-1 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors line-clamp-1">
+          <h3 className="text-base font-semibold mb-1 transition-colors line-clamp-1" style={{ color: '#272727' }}>
             {name}
           </h3>
 
-          <p className="text-sm text-slate-900 dark:text-slate-100 mb-4 line-clamp-2 font-medium">
+          <p className="text-sm mb-4 line-clamp-2 font-medium" style={{ color: '#272727' }}>
             {language === "pt" ? product.descriptionPt : product.descriptionEn}
           </p>
 

@@ -15,6 +15,9 @@
   --accent: #EAD9C5;
   --muted: #8B6A4A;
   --success: #10b981;
+  /* Footer theme colors */
+  --footer-bg: #272727;
+  --footer-text: #F5EDE3;
 }
 
 .dark {
@@ -28,12 +31,19 @@
   --accent: #3D2415;
   --muted: #C4A882;
   --success: #34d399;
+  /* Footer theme colors in dark mode - match dark wallpaper palette */
+  --footer-bg: #1C0E07;
+  --footer-text: #C4A882;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -44,6 +54,7 @@ body {
   overflow-x: clip;
 }
 
+/* Light mode wallpaper */
 body::before {
   content: "";
   position: fixed;
@@ -58,33 +69,32 @@ body::before {
   background-image: radial-gradient(#B9844F 1.5px, transparent 1.5px), radial-gradient(#B9844F 1.5px, #F5EDE3 1.5px);
   background-size: 20px 20px;
   background-position: 0 0, 10px 10px;
-  transition: opacity 0.3s ease;
+  transition: background-color 0.3s ease, background-image 0.3s ease;
 }
 
+/* Dark mode wallpaper */
 .dark body::before {
-  background-color: #815438;
+  background-color: #3e271d;
   opacity: 0.5;
   background-image: radial-gradient(#F5EDE3 1.5px, transparent 1.5px), radial-gradient(#F5EDE3 1.5px, #815438 1.5px);
   background-size: 20px 20px;
   background-position: 0 0, 10px 10px;
 }
 
-/* Blur behind text that sits directly on the wallpaper */
+/* Blur ONLY behind text — no visible box */
 .on-bg-blur {
   position: relative;
+  display: inline-block;
 }
 .on-bg-blur::before {
   content: "";
   position: absolute;
-  inset: -6px -12px;
-  border-radius: 10px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  background-color: rgba(245, 237, 227, 0.55);
+  inset: -4px -10px;
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: transparent;
   z-index: -1;
-}
-.dark .on-bg-blur::before {
-  background-color: rgba(28, 14, 7, 0.55);
 }
 
 /* Custom scrollbars */
@@ -151,4 +161,156 @@ body::before {
 @keyframes slideInRight {
   from { transform: translateX(100%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
+}
+
+/* Galaxy Button Animations */
+@keyframes gradient_301 {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes animStar {
+  from { transform: translateY(0); }
+  to { transform: translateY(-135rem); }
+}
+
+@keyframes animStarRotate {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0); }
+}
+
+@keyframes pulse_3011 {
+  0% { transform: scale(0.75); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 0, 0, 0); }
+  100% { transform: scale(0.75); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+}
+
+/* Galaxy Button Styles */
+.galaxy-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 13rem;
+  overflow: hidden;
+  height: 3rem;
+  background-size: 300% 300%;
+  cursor: pointer;
+  backdrop-filter: blur(1rem);
+  border-radius: 5rem;
+  transition: 0.5s;
+  animation: gradient_301 5s ease infinite;
+  border: double 4px transparent;
+  background-image: linear-gradient(#212121, #212121),
+    linear-gradient(
+      137.48deg,
+      #ffdb3b 10%,
+      #fe53bb 45%,
+      #8f51ea 67%,
+      #0044ff 87%
+    );
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  text-decoration: none;
+}
+
+.galaxy-btn #container-stars {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: 0.5s;
+  backdrop-filter: blur(1rem);
+  border-radius: 5rem;
+}
+
+.galaxy-btn strong {
+  z-index: 2;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-shadow: 0 0 4px white;
+  white-space: nowrap;
+}
+
+.galaxy-btn #glow {
+  position: absolute;
+  display: flex;
+  width: 12rem;
+}
+
+.galaxy-btn .circle {
+  width: 100%;
+  height: 30px;
+  filter: blur(2rem);
+  animation: pulse_3011 4s infinite;
+  z-index: -1;
+}
+
+.galaxy-btn .circle:nth-of-type(1) {
+  background: rgba(254, 83, 186, 0.636);
+}
+
+.galaxy-btn .circle:nth-of-type(2) {
+  background: rgba(142, 81, 234, 0.704);
+}
+
+.galaxy-btn:hover #container-stars {
+  z-index: 1;
+  background-color: #212121;
+}
+
+.galaxy-btn:hover {
+  transform: scale(1.1);
+}
+
+.galaxy-btn:active {
+  border: double 4px #fe53bb;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  animation: none;
+}
+
+.galaxy-btn:active .circle {
+  background: #fe53bb;
+}
+
+#stars {
+  position: relative;
+  background: transparent;
+  width: 200rem;
+  height: 200rem;
+}
+
+#stars::after {
+  content: "";
+  position: absolute;
+  top: -10rem;
+  left: -100rem;
+  width: 100%;
+  height: 100%;
+  animation: animStarRotate 90s linear infinite;
+}
+
+#stars::after {
+  background-image: radial-gradient(#ffffff 1px, transparent 1%);
+  background-size: 50px 50px;
+}
+
+#stars::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 170%;
+  height: 500%;
+  animation: animStar 60s linear infinite;
+}
+
+#stars::before {
+  background-image: radial-gradient(#ffffff 1px, transparent 1%);
+  background-size: 50px 50px;
+  opacity: 0.5;
 }

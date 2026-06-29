@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useApp } from "../../context/AppContext";
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle, Navigation, Map, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, CheckCircle, Navigation, Map, MessageCircle, X } from "lucide-react";
 
 const IconWhatsApp = (props: any) => <MessageCircle {...props} />;
 const IconInstagram = (props: any) => (
@@ -131,7 +131,7 @@ export default function Contact() {
 
         setTimeout(() => {
           setSuccess(false);
-        }, 5000);
+        }, 8000);
       } else {
         const errorData = await response.json();
         alert(errorData.error || "Erro ao enviar a mensagem.");
@@ -148,10 +148,10 @@ export default function Contact() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full flex-grow space-y-12 animate-fade-in">
       {/* Title */}
       <div className="text-center max-w-3xl mx-auto space-y-2">
-        <h1 className="text-4xl font-extrabold tracking-tight text-slate-950 dark:text-slate-50">
+        <h1 className="text-4xl font-extrabold tracking-tight" style={{ color: '#272727' }}>
           {t("contactTitle")}
         </h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm">
+        <p className="text-sm font-semibold" style={{ color: '#272727' }}>
           {t("contactSub")}
         </p>
       </div>
@@ -159,12 +159,6 @@ export default function Contact() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Side: Contact Form */}
         <div className="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-8 shadow-sm">
-          {success && (
-            <div className="mb-6 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/50 rounded-2xl p-4 flex items-center space-x-2 text-emerald-600 dark:text-emerald-400 text-sm font-semibold">
-              <CheckCircle className="h-5 w-5 flex-shrink-0 animate-bounce" />
-              <span>{t("contactSuccess")}</span>
-            </div>
-          )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -329,20 +323,20 @@ export default function Contact() {
         </div>
 
         {/* Right Side: Contact Details & Mock Map */}
-        <div className="lg:col-span-5 space-y-6">
+        <div className="lg:col-span-5 space-y-6" style={{ color: '#272727' }}>
           {/* Contact Details Card */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-6">
-            <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 border-b border-slate-100 dark:border-slate-800 pb-3">
+            <h2 className="font-extrabold text-lg border-b border-slate-100 dark:border-slate-800 pb-3" style={{ color: '#272727' }}>
               {t("contactInfoTitle")}
             </h2>
 
-            <ul className="space-y-4 text-sm font-medium text-slate-650 dark:text-slate-350">
+            <ul className="space-y-4 text-sm font-semibold" style={{ color: '#272727' }}>
               <li className="flex items-start space-x-3">
                 <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
                   <Phone className="h-4 w-4" />
                 </div>
                 <div>
-                  <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-0.5">Telefone</span>
+                  <span className="block text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-0.5">Telefone</span>
                   <span>+351 913 625 082</span>
                 </div>
               </li>
@@ -352,8 +346,8 @@ export default function Contact() {
                   <Mail className="h-4 w-4" />
                 </div>
                 <div>
-                  <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-0.5">Email</span>
-                  <a href="mailto:ziilaserloja@gmail.com" className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors">
+                  <span className="block text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-0.5">Email</span>
+                  <a href="mailto:ziilaserloja@gmail.com" className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors" style={{ color: '#272727' }}>
                     ziilaserloja@gmail.com
                   </a>
                 </div>
@@ -364,7 +358,7 @@ export default function Contact() {
                   <MapPin className="h-4 w-4" />
                 </div>
                 <div>
-                  <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-0.5">Morada</span>
+                  <span className="block text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-0.5">Morada</span>
                   <span>Coimbra, Portugal</span>
                 </div>
               </li>
@@ -388,6 +382,24 @@ export default function Contact() {
           </div>
         </div>
       </div>
+
+      {/* Floating Success Notification Popup */}
+      {success && (
+        <div className="fixed top-24 right-4 md:right-8 z-[100] w-80 bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800/50 rounded-2xl p-5 shadow-2xl animate-[slideInRight_0.4s_cubic-bezier(0.16,1,0.3,1)_forwards]">
+          <div className="flex items-start justify-between mb-2">
+            <div className="flex items-center space-x-2 text-emerald-600 dark:text-emerald-400">
+              <CheckCircle className="h-5 w-5 flex-shrink-0 animate-bounce" />
+              <span className="font-bold text-sm">Mensagem enviada!</span>
+            </div>
+            <button onClick={() => setSuccess(false)} className="text-slate-450 hover:text-slate-700 dark:hover:text-slate-200 transition-colors p-1 bg-slate-50 dark:bg-slate-800 rounded-full">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <p className="text-xs font-semibold" style={{ color: '#272727' }}>
+            {t("contactSuccess")}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

@@ -79,11 +79,11 @@ function CategoriesContent() {
         {/* Title */}
         <div className="mb-10 text-center md:text-left flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <h1 className="text-4xl font-extrabold tracking-tight text-slate-950 dark:text-slate-50 flex items-center justify-center md:justify-start gap-2">
+            <h1 className="text-4xl font-extrabold tracking-tight flex items-center justify-center md:justify-start gap-2" style={{ color: '#272727' }}>
               <Layers className="h-8 w-8 text-amber-700 dark:text-amber-400" />
               <span>{t("navCategories")}</span>
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-2 max-w-xl">
+            <p className="mt-2 max-w-xl font-medium" style={{ color: '#272727' }}>
               Navegue pelos nossos produtos, não se esqueça que pode sempre personalizar ao seu gosto.
             </p>
           </div>
@@ -98,7 +98,7 @@ function CategoriesContent() {
         {/* Filter Header & Products */}
         <div>
           <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-5 mb-8">
-            <h2 className="text-2xl font-extrabold text-slate-950 dark:text-slate-50 flex items-center gap-2">
+            <h2 className="text-2xl font-extrabold flex items-center gap-2" style={{ color: '#272727' }}>
               <Filter className="h-5 w-5 text-slate-400" />
               {selectedCategory ? (
                 <span>

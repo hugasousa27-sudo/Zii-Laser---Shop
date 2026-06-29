@@ -125,6 +125,9 @@ export default function ProductDetail() {
     }
   };
 
+  // Fallback images including teamwork/car placeholder
+  const productImages = [...product.images, "/images/florest.jpg", "/teamwork.jpeg"];
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
       {/* Back Link */}
@@ -155,7 +158,10 @@ export default function ProductDetail() {
                   className="absolute bottom-4 right-4 z-10 flex items-center justify-center bg-white/95 hover:bg-amber-700 dark:bg-slate-900/95 dark:hover:bg-amber-700 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-amber-500/20 px-4 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-850 dark:text-slate-100 hover:text-white dark:hover:text-white group font-extrabold text-xs tracking-wider gap-2 cursor-pointer"
                   title={t("btnOpen360")}
                 >
-                  <RotateCw className="h-4 w-4 animate-spin-slow group-hover:rotate-180 transition-transform duration-700" />
+                  {/* Símbolo anterior do 360 */}
+                  <svg className="h-4 w-4 animate-spin-slow group-hover:rotate-185 transition-transform duration-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.5" />
+                  </svg>
                   <span>360°</span>
                 </button>
               )}
@@ -163,27 +169,25 @@ export default function ProductDetail() {
           </div>
 
           {/* Secondary Thumbnail Gallery */}
-          {product.images.length > 1 && (
-            <div className="flex justify-center space-x-3 overflow-x-auto py-2">
-              {product.images.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedImage(img)}
-                  className={`relative w-20 h-20 bg-white dark:bg-slate-900 border-2 rounded-xl overflow-hidden transition-all flex-shrink-0 ${
-                    selectedImage === img
-                      ? "border-amber-700 dark:border-amber-500 scale-105"
-                      : "border-slate-200 dark:border-slate-800 hover:border-slate-350"
-                  }`}
-                >
-                  <img
-                    src={img}
-                    alt={`${name} thumbnail ${idx + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-              ))}
-            </div>
-          )}
+          <div className="flex justify-center space-x-3 overflow-x-auto py-2">
+            {productImages.map((img, idx) => (
+              <button
+                key={idx}
+                onClick={() => setSelectedImage(img)}
+                className={`relative w-20 h-20 bg-white dark:bg-slate-900 border-2 rounded-xl overflow-hidden transition-all flex-shrink-0 ${
+                  selectedImage === img
+                    ? "border-amber-700 dark:border-amber-500 scale-105"
+                    : "border-slate-200 dark:border-slate-800 hover:border-slate-350"
+                }`}
+              >
+                <img
+                  src={img}
+                  alt={`${name} thumbnail ${idx + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Right Column: Info & Action Card */}
@@ -194,11 +198,11 @@ export default function ProductDetail() {
               {product.category}
             </span>
             {/* Name */}
-            <h1 className="text-3xl font-black text-slate-950 dark:text-slate-50 mt-1 mb-2">
+            <h1 className="text-3xl font-black mt-1 mb-2" style={{ color: '#272727' }}>
               {name}
             </h1>
             {/* Price */}
-            <div className="text-2xl font-extrabold text-slate-900 dark:text-slate-50">
+            <div className="text-2xl font-extrabold" style={{ color: '#272727' }}>
               {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                 style: "currency",
                 currency: "EUR",
@@ -207,7 +211,7 @@ export default function ProductDetail() {
           </div>
 
           {/* Description */}
-          <div className="text-base text-slate-900 dark:text-slate-100 leading-relaxed border-t border-slate-200 dark:border-slate-800/80 pt-4 font-medium">
+          <div className="text-base leading-relaxed border-t border-slate-200 dark:border-slate-800/80 pt-4 font-semibold" style={{ color: '#272727' }}>
             {description}
           </div>
 
