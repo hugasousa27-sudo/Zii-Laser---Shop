@@ -90,7 +90,7 @@ export const Header: React.FC = () => {
                     ? "font-semibold"
                     : ""
                     }`}
-                  style={{ color: isActive(link.href) || isCategoriesHovered ? '#B9844F' : '#272727' }}
+                  style={{ color: isActive(link.href) || isCategoriesHovered ? '#B9844F' : 'var(--foreground)' }}
                 >
                   {t(link.labelKey)}
                   <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isCategoriesHovered ? "rotate-180" : ""}`} />
@@ -142,7 +142,7 @@ export const Header: React.FC = () => {
                 key={link.href}
                 href={link.href}
                 className={`text-sm font-bold tracking-wide transition-colors duration-200 h-full flex items-center ${isActive(link.href) ? 'font-semibold' : ''}`}
-                style={{ color: isActive(link.href) ? '#B9844F' : '#272727' }}
+                style={{ color: isActive(link.href) ? '#B9844F' : 'var(--foreground)' }}
               >
                 {t(link.labelKey)}
               </Link>

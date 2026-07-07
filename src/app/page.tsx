@@ -174,12 +174,12 @@ export default function Home() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-5 border-b animate-fade-in" style={{ borderColor: '#272727' }}>
           <div className="flex flex-col gap-1 w-full">
             <div>
-              <h2 className="text-3xl font-extrabold tracking-tight on-bg-blur" style={{ color: '#272727' }}>
+              <h2 className="text-3xl font-extrabold tracking-tight on-bg-blur" style={{ color: 'var(--foreground)' }}>
                 {t("sectionFeatured")}
               </h2>
             </div>
             <div>
-              <p className="text-base mt-2 font-medium on-bg-blur" style={{ color: '#272727' }}>
+              <p className="text-base mt-2 font-medium on-bg-blur" style={{ color: 'var(--foreground)' }}>
                 Navegue pelos nossos produtos, não se esqueça que pode sempre personalizar ao seu gosto.
               </p>
             </div>
@@ -200,12 +200,12 @@ export default function Home() {
           {hasMore ? (
             <div className="flex flex-col items-center space-y-2 text-amber-700 dark:text-amber-400">
               <RefreshCw className="h-8 w-8 animate-spin" />
-              <span className="text-sm font-bold uppercase tracking-widest" style={{ color: '#272727' }}>
+              <span className="text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--foreground)' }}>
                 A carregar mais produtos...
               </span>
             </div>
           ) : (
-            <p className="text-sm font-bold tracking-wider" style={{ color: '#272727' }}>
+            <p className="text-sm font-bold tracking-wider" style={{ color: 'var(--foreground)' }}>
               Mostrando todos os {shuffledProducts.length} produtos.
             </p>
           )}

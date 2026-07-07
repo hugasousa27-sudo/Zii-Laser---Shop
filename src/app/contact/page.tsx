@@ -155,10 +155,10 @@ export default function Contact() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full flex-grow space-y-12 animate-fade-in">
       {/* Title */}
       <div className="text-center max-w-3xl mx-auto space-y-2">
-        <h1 className="text-4xl font-extrabold tracking-tight" style={{ color: '#272727' }}>
+        <h1 className="text-4xl font-extrabold tracking-tight" style={{ color: 'var(--foreground)' }}>
           {t("contactTitle")}
         </h1>
-        <p className="text-sm font-semibold" style={{ color: '#272727' }}>
+        <p className="text-sm font-semibold" style={{ color: 'var(--foreground)' }}>
           {t("contactSub")}
         </p>
       </div>
@@ -170,7 +170,7 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
+                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                   {t("contactFormName")} *
                 </label>
                 <input
@@ -185,7 +185,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
+                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                   {t("contactFormPhone")} *
                 </label>
                 <input
@@ -201,7 +201,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
+              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                 {t("contactFormEmail")} *
               </label>
               <input
@@ -218,7 +218,7 @@ export default function Contact() {
             {/* Preferred Contact Method */}
             <div className="grid grid-cols-1 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: '#272727' }}>
+                <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: 'var(--foreground)' }}>
                   {t("labelContactPreference")} *
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -259,7 +259,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
+                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                   {t("labelContactHandle")} *
                 </label>
                 <input
@@ -289,7 +289,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
+              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                 {t("contactFormSubject")} *
               </label>
               <input
@@ -304,7 +304,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
+              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                 {t("contactFormMsg")} *
               </label>
               <textarea
@@ -333,20 +333,20 @@ export default function Contact() {
         </div>
 
         {/* Right Side: Contact Details & Mock Map */}
-        <div className="lg:col-span-5 space-y-6" style={{ color: '#272727' }}>
+        <div className="lg:col-span-5 space-y-6" style={{ color: 'var(--foreground)' }}>
           {/* Contact Details Card */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-6">
-            <h2 className="font-extrabold text-lg border-b border-slate-100 dark:border-slate-800 pb-3" style={{ color: '#272727' }}>
+            <h2 className="font-extrabold text-lg border-b border-slate-100 dark:border-slate-800 pb-3" style={{ color: 'var(--foreground)' }}>
               {t("contactInfoTitle")}
             </h2>
 
-            <ul className="space-y-4 text-sm font-semibold" style={{ color: '#272727' }}>
+            <ul className="space-y-4 text-sm font-semibold" style={{ color: 'var(--foreground)' }}>
               <li className="flex items-start space-x-3">
                 <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
                   <Phone className="h-4 w-4" />
                 </div>
                 <div>
-                  <span className="block text-[10px] uppercase font-bold tracking-wider mb-0.5" style={{ color: '#272727' }}>Telefone</span>
+                  <span className="block text-[10px] uppercase font-bold tracking-wider mb-0.5" style={{ color: 'var(--foreground)' }}>Telefone</span>
                   <span>+351 913 625 082</span>
                 </div>
               </li>
@@ -356,8 +356,8 @@ export default function Contact() {
                   <Mail className="h-4 w-4" />
                 </div>
                 <div>
-                  <span className="block text-[10px] uppercase font-bold tracking-wider mb-0.5" style={{ color: '#272727' }}>Email</span>
-                  <a href="mailto:ziilaserloja@gmail.com" className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors" style={{ color: '#272727' }}>
+                  <span className="block text-[10px] uppercase font-bold tracking-wider mb-0.5" style={{ color: 'var(--foreground)' }}>Email</span>
+                  <a href="mailto:ziilaserloja@gmail.com" className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors" style={{ color: 'var(--foreground)' }}>
                     ziilaserloja@gmail.com
                   </a>
                 </div>
@@ -368,7 +368,7 @@ export default function Contact() {
                   <MapPin className="h-4 w-4" />
                 </div>
                 <div>
-                  <span className="block text-[10px] uppercase font-bold tracking-wider mb-0.5" style={{ color: '#272727' }}>Morada</span>
+                  <span className="block text-[10px] uppercase font-bold tracking-wider mb-0.5" style={{ color: 'var(--foreground)' }}>Morada</span>
                   <span>Coimbra, Portugal</span>
                 </div>
               </li>
