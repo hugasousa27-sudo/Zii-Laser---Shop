@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b backdrop-blur-md transition-colors duration-300" style={{ borderColor: 'var(--border)', backgroundColor: theme === 'dark' ? 'rgba(28,14,7,0.88)' : 'rgba(245,237,227,0.88)' }}>
+    <header className="sticky top-0 z-50 w-full border-b backdrop-blur-md transition-colors duration-300" style={{ borderColor: '#272727', backgroundColor: theme === 'dark' ? 'rgba(28,14,7,0.88)' : 'rgba(245,237,227,0.88)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">

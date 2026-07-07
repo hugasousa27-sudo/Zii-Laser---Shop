@@ -64,7 +64,7 @@ export default function RootLayout({
         <AppProvider>
           <ScrollToTop />
           <Header />
-          <main className="flex-grow flex flex-col">
+          <main className="flex-grow flex flex-col pb-20 md:pb-32">
             {children}
           </main>
           <Footer />

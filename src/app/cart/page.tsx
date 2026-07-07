@@ -74,7 +74,7 @@ export default function Cart() {
     const { name, value } = e.target;
     let newValue = value;
     if (name === "phone" || (name === "contactHandle" && form.contactPreference === "whatsapp")) {
-      newValue = value.replace(/\D/g, "");
+      newValue = value.replace(/[^\d+]/g, "");
     }
     setForm((prev) => ({ ...prev, [name]: newValue }));
     if (errors[name as keyof FormErrors]) {
@@ -415,7 +415,7 @@ export default function Cart() {
                           type="button"
                         onClick={() => {
                           setForm((prev) => {
-                            const nextHandle = option.id === "whatsapp" ? prev.contactHandle.replace(/\D/g, "") : prev.contactHandle;
+                            const nextHandle = option.id === "whatsapp" ? prev.contactHandle.replace(/[^\d+]/g, "") : prev.contactHandle;
                             return { ...prev, contactPreference: option.id, contactHandle: nextHandle };
                           });
                           if (errors.contactPreference) {

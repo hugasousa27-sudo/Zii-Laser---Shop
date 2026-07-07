@@ -59,7 +59,7 @@ export default function Contact() {
     const { name, value } = e.target;
     let newValue = value;
     if (name === "phone" || (name === "contactHandle" && form.contactPreference === "whatsapp")) {
-      newValue = value.replace(/\D/g, "");
+      newValue = value.replace(/[^\d+]/g, "");
     }
     setForm((prev) => ({ ...prev, [name]: newValue }));
     if (errors[name as keyof FormErrors]) {
@@ -236,7 +236,7 @@ export default function Contact() {
                         type="button"
                         onClick={() => {
                           setForm((prev) => {
-                            const nextHandle = option.id === "whatsapp" ? prev.contactHandle.replace(/\D/g, "") : prev.contactHandle;
+                            const nextHandle = option.id === "whatsapp" ? prev.contactHandle.replace(/[^\d+]/g, "") : prev.contactHandle;
                             return { ...prev, contactPreference: option.id, contactHandle: nextHandle };
                           });
                           if (errors.contactPreference) {
@@ -418,7 +418,7 @@ export default function Contact() {
               onClick={() => setSuccess(false)}
               className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl transition-all"
             >
-              {t("btnContinue") || (language === "pt" ? "Continuar" : "Continue")}
+              {language === "pt" ? "Fechar" : "Close"}
             </button>
           </div>
         </div>
