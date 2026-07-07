@@ -57,7 +57,11 @@ export default function Contact() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    let newValue = value;
+    if (name === "phone" || (name === "contactHandle" && form.contactPreference === "whatsapp")) {
+      newValue = value.replace(/\D/g, "");
+    }
+    setForm((prev) => ({ ...prev, [name]: newValue }));
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -92,6 +96,9 @@ export default function Contact() {
     }
     if (!form.contactHandle.trim()) {
       tempErrors.contactHandle = t("inputRequired");
+      isValid = false;
+    } else if (form.contactPreference === "email" && !/\S+@\S+\.\S+/.test(form.contactHandle)) {
+      tempErrors.contactHandle = t("invalidEmail");
       isValid = false;
     }
     if (!form.message.trim()) {
@@ -163,7 +170,7 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
                   {t("contactFormName")} *
                 </label>
                 <input
@@ -178,7 +185,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
                   {t("contactFormPhone")} *
                 </label>
                 <input
@@ -194,7 +201,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
                 {t("contactFormEmail")} *
               </label>
               <input
@@ -211,7 +218,7 @@ export default function Contact() {
             {/* Preferred Contact Method */}
             <div className="grid grid-cols-1 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: '#272727' }}>
                   {t("labelContactPreference")} *
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -228,7 +235,10 @@ export default function Contact() {
                         key={option.id}
                         type="button"
                         onClick={() => {
-                          setForm((prev) => ({ ...prev, contactPreference: option.id }));
+                          setForm((prev) => {
+                            const nextHandle = option.id === "whatsapp" ? prev.contactHandle.replace(/\D/g, "") : prev.contactHandle;
+                            return { ...prev, contactPreference: option.id, contactHandle: nextHandle };
+                          });
                           if (errors.contactPreference) {
                             setErrors((prev) => ({ ...prev, contactPreference: undefined }));
                           }
@@ -249,7 +259,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
                   {t("labelContactHandle")} *
                 </label>
                 <input
@@ -279,7 +289,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
                 {t("contactFormSubject")} *
               </label>
               <input
@@ -294,7 +304,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: '#272727' }}>
                 {t("contactFormMsg")} *
               </label>
               <textarea
@@ -336,7 +346,7 @@ export default function Contact() {
                   <Phone className="h-4 w-4" />
                 </div>
                 <div>
-                  <span className="block text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-0.5">Telefone</span>
+                  <span className="block text-[10px] uppercase font-bold tracking-wider mb-0.5" style={{ color: '#272727' }}>Telefone</span>
                   <span>+351 913 625 082</span>
                 </div>
               </li>
@@ -346,7 +356,7 @@ export default function Contact() {
                   <Mail className="h-4 w-4" />
                 </div>
                 <div>
-                  <span className="block text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-0.5">Email</span>
+                  <span className="block text-[10px] uppercase font-bold tracking-wider mb-0.5" style={{ color: '#272727' }}>Email</span>
                   <a href="mailto:ziilaserloja@gmail.com" className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors" style={{ color: '#272727' }}>
                     ziilaserloja@gmail.com
                   </a>
@@ -358,7 +368,7 @@ export default function Contact() {
                   <MapPin className="h-4 w-4" />
                 </div>
                 <div>
-                  <span className="block text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-0.5">Morada</span>
+                  <span className="block text-[10px] uppercase font-bold tracking-wider mb-0.5" style={{ color: '#272727' }}>Morada</span>
                   <span>Coimbra, Portugal</span>
                 </div>
               </li>
@@ -383,21 +393,34 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* Floating Success Notification Popup */}
+      {/* Success Modal Overlay */}
       {success && (
-        <div className="fixed top-24 right-4 md:right-8 z-[100] w-80 bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800/50 rounded-2xl p-5 shadow-2xl animate-[slideInRight_0.4s_cubic-bezier(0.16,1,0.3,1)_forwards]">
-          <div className="flex items-start justify-between mb-2">
-            <div className="flex items-center space-x-2 text-emerald-600 dark:text-emerald-400">
-              <CheckCircle className="h-5 w-5 flex-shrink-0 animate-bounce" />
-              <span className="font-bold text-sm">Mensagem enviada!</span>
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 max-w-lg w-full rounded-3xl p-8 shadow-2xl space-y-6 text-center animate-scale-up relative">
+            
+            {/* Checked Icon */}
+            <div className="bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 w-16 h-16 rounded-full flex items-center justify-center mx-auto shadow-inner">
+              <CheckCircle className="h-8 w-8 animate-bounce" />
             </div>
-            <button onClick={() => setSuccess(false)} className="text-slate-450 hover:text-slate-700 dark:hover:text-slate-200 transition-colors p-1 bg-slate-50 dark:bg-slate-800 rounded-full">
-              <X className="h-4 w-4" />
+
+            {/* Success text */}
+            <div className="space-y-2">
+              <h2 className="text-2xl font-black text-slate-950 dark:text-slate-50">
+                {language === "pt" ? "Mensagem Enviada com Sucesso!" : "Message Sent Successfully!"}
+              </h2>
+              <p className="text-sm text-slate-500 dark:text-slate-450 font-medium">
+                {t("contactSuccess")}
+              </p>
+            </div>
+
+            {/* Continue button */}
+            <button
+              onClick={() => setSuccess(false)}
+              className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl transition-all"
+            >
+              {t("btnContinue") || (language === "pt" ? "Continuar" : "Continue")}
             </button>
           </div>
-          <p className="text-xs font-semibold" style={{ color: '#272727' }}>
-            {t("contactSuccess")}
-          </p>
         </div>
       )}
     </div>

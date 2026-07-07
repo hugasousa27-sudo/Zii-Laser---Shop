@@ -72,7 +72,11 @@ export default function Cart() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    let newValue = value;
+    if (name === "phone" || (name === "contactHandle" && form.contactPreference === "whatsapp")) {
+      newValue = value.replace(/\D/g, "");
+    }
+    setForm((prev) => ({ ...prev, [name]: newValue }));
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -127,6 +131,9 @@ export default function Cart() {
 
     if (!form.contactHandle.trim()) {
       tempErrors.contactHandle = t("inputRequired");
+      isValid = false;
+    } else if (form.contactPreference === "email" && !/\S+@\S+\.\S+/.test(form.contactHandle)) {
+      tempErrors.contactHandle = t("invalidEmail");
       isValid = false;
     }
 
@@ -406,12 +413,15 @@ export default function Cart() {
                         <button
                           key={option.id}
                           type="button"
-                          onClick={() => {
-                            setForm((prev) => ({ ...prev, contactPreference: option.id }));
-                            if (errors.contactPreference) {
-                              setErrors((prev) => ({ ...prev, contactPreference: undefined }));
-                            }
-                          }}
+                        onClick={() => {
+                          setForm((prev) => {
+                            const nextHandle = option.id === "whatsapp" ? prev.contactHandle.replace(/\D/g, "") : prev.contactHandle;
+                            return { ...prev, contactPreference: option.id, contactHandle: nextHandle };
+                          });
+                          if (errors.contactPreference) {
+                            setErrors((prev) => ({ ...prev, contactPreference: undefined }));
+                          }
+                        }}
                           className={`flex flex-col items-center justify-center p-3 rounded-xl border text-xs font-bold transition-all duration-200 active:scale-95 ${
                             isSelected
                               ? "bg-amber-50 dark:bg-amber-950/20 border-amber-700 text-amber-700 dark:text-amber-400 shadow-sm"
