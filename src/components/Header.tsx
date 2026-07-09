@@ -90,11 +90,20 @@ export const Header: React.FC = () => {
             <img
               src="/newlogo.png"
               alt="Zii Laser Logo"
-              className="h-10 sm:h-12 w-auto object-contain dark:brightness-0 dark:invert"
+              className={`h-10 sm:h-12 w-auto object-contain transition-all duration-300 ${
+                isHomepage && !isScrolled 
+                  ? "brightness-0 invert drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]" 
+                  : "dark:brightness-0 dark:invert"
+              }`}
               onError={() => setLogoError(true)}
             />
           ) : (
-            <span className="text-2xl font-black tracking-wider bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent dark:from-amber-400 dark:to-amber-300">
+            <span 
+              className="text-2xl font-black tracking-wider bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent dark:from-amber-400 dark:to-amber-300"
+              style={{
+                textShadow: isHomepage && !isScrolled ? '0 2px 4px rgba(0,0,0,0.6)' : 'none'
+              }}
+            >
               Zii Laser
             </span>
           )}
@@ -106,69 +115,71 @@ export const Header: React.FC = () => {
             link.isDropdown ? (
               <div
                 key={link.href}
-                className="relative h-full flex items-center"
-                onMouseEnter={() => setIsCategoriesHovered(true)}
-                onMouseLeave={() => setIsCategoriesHovered(false)}
+                className="select-categories relative h-full flex items-center"
               >
                 <Link
                   href={link.href}
-                  className={`flex items-center gap-1 text-sm font-bold tracking-wide transition-colors duration-200 ${isActive(link.href) || isCategoriesHovered
+                  className={`flex items-center gap-1 text-base font-bold tracking-wide transition-all duration-200 ${isActive(link.href)
                     ? "font-semibold"
                     : ""
                     }`}
-                  style={{ color: isActive(link.href) || isCategoriesHovered ? '#B9844F' : 'var(--foreground)' }}
+                  style={{ 
+                    color: isActive(link.href) 
+                      ? '#B9844F' 
+                      : (isHomepage && !isScrolled ? '#ffffff' : 'var(--foreground)'),
+                    textShadow: isHomepage && !isScrolled ? '0 2px 4px rgba(0,0,0,0.8)' : 'none'
+                  }}
                 >
                   {t(link.labelKey)}
-                  <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isCategoriesHovered ? "rotate-180" : ""}`} />
+                  <ChevronDown className="arrow-icon h-4 w-4" style={{ color: isActive(link.href) ? '#B9844F' : (isHomepage && !isScrolled ? '#ffffff' : 'var(--foreground)') }} />
                 </Link>
 
                 {/* Dropdown Menu */}
-                {isCategoriesHovered && (
-                  <div className="absolute top-full left-0 w-64 rounded-2xl shadow-xl py-4 z-50 animate-fade-in-up" style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}>
-                    <div className="grid grid-cols-1 gap-1 px-3">
-                      {categories.map((cat) => {
-                        const Icon = cat.icon;
-                        return (
-                          <button
-                            key={cat.id}
-                            onClick={() => {
-                              setIsCategoriesHovered(false);
-                              router.push(`/categories?category=${encodeURIComponent(cat.slug)}`);
-                            }}
-                            className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-left transition-colors group"
-                            onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--accent)')}
-                            onMouseLeave={e => (e.currentTarget.style.backgroundColor = '')}
-                          >
-                            <div className="p-2 rounded-lg transition-colors" style={{ backgroundColor: 'var(--accent)' }}>
-                               <Icon className="h-4 w-4" style={{ color: 'var(--primary)' }} />
-                            </div>
-                             <span className="text-sm font-bold transition-colors" style={{ color: 'var(--foreground)' }}>
-                              {t(cat.nameKey)}
-                            </span>
-                          </button>
-                        );
-                      })}
-                      <div className="border-t border-slate-100 dark:border-slate-800 mt-2 pt-2">
+                <div className="options-container">
+                  <div className="grid grid-cols-1 gap-1">
+                    {categories.map((cat) => {
+                      const Icon = cat.icon;
+                      return (
                         <button
+                          key={cat.id}
                           onClick={() => {
-                            setIsCategoriesHovered(false);
-                            router.push('/categories');
+                            router.push(`/categories?category=${encodeURIComponent(cat.slug)}`);
                           }}
-                          className="w-full text-center text-xs font-bold py-2" style={{ color: 'var(--primary)' }}
+                          className="option-item"
                         >
-                          Ver todas as categorias
+                          <div className="p-2 rounded-lg transition-colors animate-pulse-slow" style={{ backgroundColor: 'var(--accent)' }}>
+                             <Icon className="h-4 w-4" style={{ color: 'var(--primary)' }} />
+                          </div>
+                          <span>
+                            {t(cat.nameKey)}
+                          </span>
                         </button>
-                      </div>
+                      );
+                    })}
+                    <div className="border-t border-slate-100 dark:border-slate-800 mt-2 pt-2">
+                      <button
+                        onClick={() => {
+                          router.push('/categories');
+                        }}
+                        className="w-full text-center text-xs font-bold py-2 transition-colors hover:text-amber-600" style={{ color: 'var(--primary)' }}
+                      >
+                        Ver todas as categorias
+                      </button>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
             ) : (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-bold tracking-wide transition-colors duration-200 h-full flex items-center ${isActive(link.href) ? 'font-semibold' : ''}`}
-                style={{ color: isActive(link.href) ? '#B9844F' : 'var(--foreground)' }}
+                className={`text-base font-bold tracking-wide transition-all duration-200 h-full flex items-center ${isActive(link.href) ? 'font-semibold' : ''}`}
+                style={{ 
+                  color: isActive(link.href) 
+                    ? '#B9844F' 
+                    : (isHomepage && !isScrolled ? '#ffffff' : 'var(--foreground)'),
+                  textShadow: isHomepage && !isScrolled ? '0 2px 4px rgba(0,0,0,0.8)' : 'none'
+                }}
               >
                 {t(link.labelKey)}
               </Link>
@@ -179,14 +190,24 @@ export const Header: React.FC = () => {
         {/* Action Buttons */}
         <div className="hidden md:flex items-center space-x-4">
           {/* Language Selector */}
-          <div className="flex items-center p-1 rounded-full space-x-1" style={{ backgroundColor: 'var(--accent)' }}>
+          <div 
+            className="flex items-center p-1 rounded-full space-x-1 transition-all duration-300" 
+            style={{ 
+              backgroundColor: isHomepage && !isScrolled ? 'rgba(0,0,0,0.4)' : 'var(--accent)',
+              border: isHomepage && !isScrolled ? '1px solid rgba(255,255,255,0.15)' : 'none'
+            }}
+          >
             <button
               onClick={() => setLanguage("pt")}
               className={`p-1.5 rounded-full text-xs transition-all flex items-center justify-center ${language === "pt"
                 ? "shadow-sm scale-105"
                 : ""
                 }`}
-              style={{ backgroundColor: language === 'pt' ? 'var(--card)' : 'transparent' }}
+              style={{ 
+                backgroundColor: language === 'pt' 
+                  ? (isHomepage && !isScrolled ? 'rgba(255,255,255,0.25)' : 'var(--card)') 
+                  : 'transparent' 
+              }}
               title="Português"
               aria-label="Português"
             >
@@ -198,7 +219,11 @@ export const Header: React.FC = () => {
                 ? "shadow-sm scale-105"
                 : ""
                 }`}
-              style={{ backgroundColor: language === 'en' ? 'var(--card)' : 'transparent' }}
+              style={{ 
+                backgroundColor: language === 'en' 
+                  ? (isHomepage && !isScrolled ? 'rgba(255,255,255,0.25)' : 'var(--card)') 
+                  : 'transparent' 
+              }}
               title="English"
               aria-label="English"
             >
@@ -207,40 +232,46 @@ export const Header: React.FC = () => {
           </div>
 
           {/* Theme Toggle */}
-          <label className="theme-switch" aria-label="Alternar tema">
-            <input
-              type="checkbox"
-              checked={theme === 'dark'}
-              onChange={toggleTheme}
-            />
-            <div className="theme-slider">
-              <div className="theme-sun-moon">
-                <svg id="theme-moon-dot-1" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
-                <svg id="theme-moon-dot-2" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
-                <svg id="theme-moon-dot-3" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
-                <svg id="theme-light-ray-1" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
-                <svg id="theme-light-ray-2" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
-                <svg id="theme-light-ray-3" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
-                <svg id="theme-cloud-1" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
-                <svg id="theme-cloud-2" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
-                <svg id="theme-cloud-3" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
-                <svg id="theme-cloud-4" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
-                <svg id="theme-cloud-5" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
-                <svg id="theme-cloud-6" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+          <div style={{ filter: isHomepage && !isScrolled ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))' : 'none' }}>
+            <label className="theme-switch" aria-label="Alternar tema">
+              <input
+                type="checkbox"
+                checked={theme === 'dark'}
+                onChange={toggleTheme}
+              />
+              <div className="theme-slider">
+                <div className="theme-sun-moon">
+                  <svg id="theme-moon-dot-1" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  <svg id="theme-moon-dot-2" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  <svg id="theme-moon-dot-3" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  <svg id="theme-light-ray-1" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  <svg id="theme-light-ray-2" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  <svg id="theme-light-ray-3" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  <svg id="theme-cloud-1" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  <svg id="theme-cloud-2" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  <svg id="theme-cloud-3" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  <svg id="theme-cloud-4" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  <svg id="theme-cloud-5" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  <svg id="theme-cloud-6" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                </div>
+                <div className="theme-stars">
+                  <svg id="theme-star-1" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+                  <svg id="theme-star-2" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+                  <svg id="theme-star-3" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+                  <svg id="theme-star-4" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+                </div>
               </div>
-              <div className="theme-stars">
-                <svg id="theme-star-1" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
-                <svg id="theme-star-2" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
-                <svg id="theme-star-3" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
-                <svg id="theme-star-4" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
-              </div>
-            </div>
-          </label>
+            </label>
+          </div>
 
           {/* Cart Icon */}
           <Link
             href="/cart"
-            className="relative p-2 rounded-full transition-colors" style={{ color: 'var(--foreground)' }}
+            className="relative p-2 rounded-full transition-colors" 
+            style={{ 
+              color: isHomepage && !isScrolled ? '#ffffff' : 'var(--foreground)',
+              filter: isHomepage && !isScrolled ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))' : 'none'
+            }}
             aria-label="Carrinho"
           >
             <ShoppingCart className="h-5 w-5" />
@@ -257,7 +288,11 @@ export const Header: React.FC = () => {
           {/* Cart Link for Mobile */}
           <Link
             href="/cart"
-            className="relative p-2 rounded-full" style={{ color: 'var(--foreground)' }}
+            className="relative p-2 rounded-full" 
+            style={{ 
+              color: isHomepage && !isScrolled ? '#ffffff' : 'var(--foreground)',
+              filter: isHomepage && !isScrolled ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))' : 'none'
+            }}
             aria-label="Carrinho"
           >
             <ShoppingCart className="h-5 w-5" />
@@ -271,7 +306,11 @@ export const Header: React.FC = () => {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-full" style={{ color: 'var(--foreground)' }}
+            className="p-2 rounded-full" 
+            style={{ 
+              color: isHomepage && !isScrolled ? '#ffffff' : 'var(--foreground)',
+              filter: isHomepage && !isScrolled ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))' : 'none'
+            }}
             aria-label="Menu"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

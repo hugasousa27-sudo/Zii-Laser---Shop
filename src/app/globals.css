@@ -206,9 +206,9 @@ body::before {
     linear-gradient(
       137.48deg,
       #ffdb3b 10%,
-      #fe53bb 45%,
-      #8f51ea 67%,
-      #0044ff 87%
+      #ff9b17d7 45%,
+      #f9ff41 67%,
+      #feb200d7 87%
     );
   background-origin: border-box;
   background-clip: content-box, border-box;
@@ -251,11 +251,11 @@ body::before {
 }
 
 .galaxy-btn .circle:nth-of-type(1) {
-  background: rgba(254, 83, 186, 0.636);
+  background: rgba(255, 155, 23, 0.636);
 }
 
 .galaxy-btn .circle:nth-of-type(2) {
-  background: rgba(142, 81, 234, 0.704);
+  background: rgba(254, 178, 0, 0.704);
 }
 
 .galaxy-btn:hover #container-stars {
@@ -268,14 +268,14 @@ body::before {
 }
 
 .galaxy-btn:active {
-  border: double 4px #fe53bb;
+  border: double 4px #feb200;
   background-origin: border-box;
   background-clip: content-box, border-box;
   animation: none;
 }
 
 .galaxy-btn:active .circle {
-  background: #fe53bb;
+  background: #feb200;
 }
 
 #stars {
@@ -454,3 +454,97 @@ body::before {
   80%  { transform: scale(0.8); }
   100% { transform: scale(1);   }
 }
+
+/* Categories Dropdown styles (Uiverse inspired with custom brand colors) */
+.select-categories {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.select-categories .options-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  padding: 8px;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 250px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+/* When parent is hovered, show options */
+.select-categories:hover .options-container {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.select-categories .option-item {
+  border-radius: 12px;
+  padding: 8px 12px;
+  transition: 200ms;
+  background-color: transparent;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--foreground);
+  text-align: left;
+}
+
+.select-categories .option-item:hover {
+  background-color: var(--accent);
+}
+
+.select-categories .arrow-icon {
+  transition: transform 300ms ease;
+  transform: rotate(-90deg);
+}
+
+.select-categories:hover .arrow-icon {
+  transform: rotate(0deg);
+}
+
+.product-info-pattern-box {
+  background:
+    linear-gradient(135deg, #0000 20.5%, #2a1a1f 0 29.5%, #0000 0) 0 16px,
+    linear-gradient(45deg, #0000 8%, #2a1a1f 0 17%, #0000 0 58%) 32px 0,
+    linear-gradient(
+      135deg,
+      #0000 8%,
+      #2a1a1f 0 17%,
+      #0000 0 58%,
+      #2a1a1f 0 67%,
+      #0000 0
+    ),
+    linear-gradient(
+      45deg,
+      #0000 8%,
+      #2a1a1f 0 17%,
+      #0000 0 58%,
+      #2a1a1f 0 67%,
+      #0000 0 83%,
+      #2a1a1f 0 92%,
+      #0000 0
+    ),
+    #764134;
+  background-size: 64px 64px;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+

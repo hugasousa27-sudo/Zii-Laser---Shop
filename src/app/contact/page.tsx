@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useApp } from "../../context/AppContext";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, Navigation, Map, MessageCircle, X } from "lucide-react";
 
-const IconWhatsApp = (props: any) => <MessageCircle {...props} />;
+const IconWhatsApp = (props: any) => <MessageCircle {...props} className={`${props.className || ""} stroke-current fill-none`} />;
 const IconInstagram = (props: any) => (
   <svg {...props} className={`${props.className || ""} stroke-current fill-none`} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -17,7 +17,7 @@ const IconFacebook = (props: any) => (
     <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/>
   </svg>
 );
-const IconEmail = (props: any) => <Mail {...props} />;
+const IconEmail = (props: any) => <Mail {...props} className={`${props.className || ""} stroke-current fill-none`} />;
 
 interface FormFields {
   name: string;
@@ -170,7 +170,97 @@ export default function Contact() {
                 <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: 'var(--foreground)' }}>
                   {t("labelContactPreference")} *
                 </label>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                
+                <style dangerouslySetInnerHTML={{ __html: `
+                  .radio-tile-group {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.75rem;
+                  }
+
+                  .radio-tile-group .input-container {
+                    position: relative;
+                    height: 85px;
+                    width: 85px;
+                  }
+
+                  .radio-tile-group .input-container .radio-button {
+                    opacity: 0;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    margin: 0;
+                    cursor: pointer;
+                    z-index: 2;
+                  }
+
+                  .radio-tile-group .input-container .radio-tile {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                    border: 2px solid var(--border);
+                    background-color: var(--card);
+                    border-radius: 16px;
+                    padding: 0.5rem;
+                    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+                  }
+
+                  .radio-tile-group .input-container .icon svg {
+                    color: var(--muted);
+                    fill: none;
+                    width: 1.75rem;
+                    height: 1.75rem;
+                    transition: all 200ms ease;
+                  }
+
+                  .radio-tile-group .input-container .icon svg.fill-current {
+                    fill: var(--muted);
+                  }
+
+                  .radio-tile-group .input-container .radio-tile-label {
+                    text-align: center;
+                    font-size: 0.65rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    color: var(--muted);
+                    margin-top: 0.35rem;
+                    transition: all 200ms ease;
+                  }
+
+                  .radio-tile-group .input-container .radio-button:hover + .radio-tile {
+                    border-color: #B9844F;
+                  }
+
+                  .radio-tile-group .input-container .radio-button:checked + .radio-tile {
+                    background-color: #B9844F;
+                    border-color: #B9844F;
+                    box-shadow: 0 4px 12px rgba(185, 132, 79, 0.25);
+                    transform: scale(1.05);
+                  }
+
+                  .radio-tile-group .input-container .radio-button:checked + .radio-tile .icon svg {
+                    color: #ffffff;
+                    stroke: #ffffff;
+                    fill: none;
+                  }
+
+                  .radio-tile-group .input-container .radio-button:checked + .radio-tile .icon svg.fill-current {
+                    fill: #ffffff;
+                    stroke: none;
+                  }
+
+                  .radio-tile-group .input-container .radio-button:checked + .radio-tile .radio-tile-label {
+                    color: #ffffff;
+                  }
+                `}} />
+
+                <div className="radio-tile-group">
                   {[
                     { id: "whatsapp", label: "WhatsApp", icon: IconWhatsApp },
                     { id: "instagram", label: "Instagram", icon: IconInstagram },
@@ -178,29 +268,33 @@ export default function Contact() {
                     { id: "email", label: "Email", icon: IconEmail },
                   ].map((option) => {
                     const Icon = option.icon;
-                    const isSelected = form.contactPreference === option.id;
                     return (
-                      <button
-                        key={option.id}
-                        type="button"
-                        onClick={() => {
-                          setForm((prev) => {
-                            const nextHandle = option.id === "whatsapp" ? prev.contactHandle.replace(/[^\d+]/g, "") : prev.contactHandle;
-                            return { ...prev, contactPreference: option.id, contactHandle: nextHandle };
-                          });
-                          if (errors.contactPreference) {
-                            setErrors((prev) => ({ ...prev, contactPreference: undefined }));
-                          }
-                        }}
-                        className={`flex flex-col items-center justify-center p-3 rounded-xl border text-xs font-bold transition-all duration-200 active:scale-95 ${
-                          isSelected
-                            ? "bg-amber-50 dark:bg-amber-950/20 border-amber-700 text-amber-700 dark:text-amber-400 shadow-sm"
-                            : "bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-850 text-slate-500 hover:text-slate-850 dark:hover:text-white"
-                        }`}
-                      >
-                        <Icon className="h-5 w-5 mb-1" />
-                        <span>{option.label}</span>
-                      </button>
+                      <div className="input-container" key={option.id}>
+                        <input
+                          id={option.id}
+                          className="radio-button"
+                          type="radio"
+                          name="contactPreference"
+                          checked={form.contactPreference === option.id}
+                          onChange={() => {
+                            setForm((prev) => {
+                              const nextHandle = option.id === "whatsapp" ? prev.contactHandle.replace(/[^\d+]/g, "") : prev.contactHandle;
+                              return { ...prev, contactPreference: option.id, contactHandle: nextHandle };
+                            });
+                            if (errors.contactPreference) {
+                              setErrors((prev) => ({ ...prev, contactPreference: undefined }));
+                            }
+                          }}
+                        />
+                        <div className="radio-tile">
+                          <div className="icon">
+                            <Icon className="h-7 w-7 transition-all duration-200" />
+                          </div>
+                          <label htmlFor={option.id} className="radio-tile-label">
+                            {option.label}
+                          </label>
+                        </div>
+                      </div>
                     );
                   })}
                 </div>

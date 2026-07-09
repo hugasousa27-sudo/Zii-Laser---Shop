@@ -191,172 +191,173 @@ export default function ProductDetail() {
         </div>
 
         {/* Right Column: Info & Action Card */}
-        <div className="lg:col-span-5 flex flex-col justify-start space-y-6">
-          <div>
-            {/* Category */}
-            <span className="text-xs font-bold text-amber-700 dark:text-amber-400 tracking-widest uppercase">
-              {product.category}
-            </span>
-            {/* Name */}
-            <h1 className="text-3xl font-black mt-1 mb-2" style={{ color: '#272727' }}>
-              {name}
-            </h1>
-            {/* Price */}
-            <div className="text-2xl font-extrabold" style={{ color: '#272727' }}>
-              {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
-                style: "currency",
-                currency: "EUR",
-              })}
-            </div>
-          </div>
-
-          {/* Description */}
-          <div className="text-base leading-relaxed border-t border-slate-200 dark:border-slate-800/80 pt-4 font-semibold" style={{ color: '#272727' }}>
-            {description}
-          </div>
-
-          {/* Configurable Options */}
-          <div className="space-y-5 border-t border-slate-200 dark:border-slate-800/80 pt-5">
-            {/* Size Selector */}
-            {product.sizes.length > 0 && (
-              <div className="space-y-2">
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">
-                  {t("labelSize")}
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => {
-                        setSelectedSize(size);
-                        if (size !== "Personalizado") setCustomSizeText("");
-                      }}
-                      className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
-                        selectedSize === size
-                          ? "bg-amber-700 border-amber-700 text-white shadow-sm"
-                          : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-850 text-slate-800 dark:text-slate-200 hover:border-slate-300"
-                      }`}
-                    >
-                      {size === "Personalizado" ? t("customOption") : size}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Custom Size Text Input */}
-                {isSizeCustom && (
-                  <div className="pt-2 animate-fade-in-down">
-                    <input
-                      type="text"
-                      value={customSizeText}
-                      onChange={(e) => setCustomSizeText(e.target.value)}
-                      placeholder={t("customPlaceholder")}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-700 transition-colors"
-                      required
-                    />
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Color Selector */}
-            {product.colors.length > 0 && (
-              <div className="space-y-2">
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">
-                  {t("labelColor")}
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {product.colors.map((color) => {
-                    const isSelected = selectedColor === color;
-                    return (
-                      <button
-                        key={color}
-                        onClick={() => {
-                          setSelectedColor(color);
-                          if (color !== "Personalizado") setCustomColorText("");
-                        }}
-                        className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all flex items-center space-x-2 ${
-                          isSelected
-                            ? "bg-amber-700 border-amber-700 text-white shadow-sm"
-                            : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-850 text-slate-800 dark:text-slate-200 hover:border-slate-350"
-                        }`}
-                      >
-                        {color !== "Personalizado" && (
-                          <span className={`h-3 w-3 rounded-full flex-shrink-0 ${getColorBadgeClass(color)}`} />
-                        )}
-                        <span>{color === "Personalizado" ? t("customOption") : color}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Custom Color Text Input */}
-                {isColorCustom && (
-                  <div className="pt-2 animate-fade-in-down">
-                    <input
-                      type="text"
-                      value={customColorText}
-                      onChange={(e) => setCustomColorText(e.target.value)}
-                      placeholder={t("customPlaceholder")}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-700 transition-colors"
-                      required
-                    />
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Quantity Selector */}
-            <div className="space-y-2 pt-2">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">
-                {t("labelQuantity")}
+        <div className="lg:col-span-5 flex flex-col justify-start">
+          <div className="product-info-pattern-box text-white space-y-6">
+            <div>
+              {/* Category */}
+              <span className="text-xs font-bold text-amber-300 tracking-widest uppercase">
+                {product.category}
               </span>
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900">
-                  <button
-                    onClick={() => changeQuantity(-1)}
-                    className="p-3 text-slate-500 hover:text-slate-850 dark:hover:text-white transition-colors"
-                    disabled={quantity <= 1}
-                  >
-                    <Minus className="h-4 w-4" />
-                  </button>
-                  <span className="px-4 py-2 font-black text-sm text-slate-900 dark:text-slate-100 font-mono w-12 text-center select-none">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() => changeQuantity(1)}
-                    className="p-3 text-slate-500 hover:text-slate-850 dark:hover:text-white transition-colors"
-                  >
-                    <Plus className="h-4 w-4" />
-                  </button>
-                </div>
-
-                <div className="text-xs text-slate-400 font-medium">
-                  {quantity} x {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", { style: "currency", currency: "EUR" })}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Add to Cart Drawer/Card */}
-          <div className="border-t border-slate-200 dark:border-slate-800/80 pt-6 flex flex-col space-y-3">
-            <div className="flex items-baseline justify-between">
-              <span className="text-sm font-semibold text-slate-500">{t("summaryTotal")}</span>
-              <span className="text-2xl font-black text-slate-950 dark:text-slate-50">
-                {totalPrice.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
+              {/* Name */}
+              <h1 className="text-3xl font-black mt-1 mb-2 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                {name}
+              </h1>
+              {/* Price */}
+              <div className="text-2xl font-extrabold text-white">
+                {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                   style: "currency",
                   currency: "EUR",
                 })}
-              </span>
+              </div>
             </div>
 
-            <button
-              onClick={handleAddToCart}
-              className="w-full bg-amber-700 hover:bg-amber-800 text-white font-extrabold py-4 px-6 rounded-2xl shadow-lg hover:shadow-amber-500/20 active:scale-98 transition-all flex items-center justify-center space-x-2 text-base"
-            >
-              <ShoppingCart className="h-5 w-5" />
-              <span>{t("btnAddToCart")}</span>
-            </button>
+            {/* Description */}
+            <div className="text-base leading-relaxed border-t border-white/10 pt-4 font-semibold text-stone-100">
+              {description}
+            </div>
 
+            {/* Configurable Options */}
+            <div className="space-y-5 border-t border-white/10 pt-5">
+              {/* Size Selector */}
+              {product.sizes.length > 0 && (
+                <div className="space-y-2">
+                  <span className="text-xs font-bold text-stone-300 uppercase tracking-wide">
+                    {t("labelSize")}
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {product.sizes.map((size) => (
+                      <button
+                        key={size}
+                        onClick={() => {
+                          setSelectedSize(size);
+                          if (size !== "Personalizado") setCustomSizeText("");
+                        }}
+                        className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                          selectedSize === size
+                            ? "bg-amber-600 border-amber-600 text-white shadow-sm"
+                            : "bg-black/35 hover:bg-black/55 border-white/10 text-stone-200"
+                        }`}
+                      >
+                        {size === "Personalizado" ? t("customOption") : size}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Custom Size Text Input */}
+                  {isSizeCustom && (
+                    <div className="pt-2 animate-fade-in-down">
+                      <input
+                        type="text"
+                        value={customSizeText}
+                        onChange={(e) => setCustomSizeText(e.target.value)}
+                        placeholder={t("customPlaceholder")}
+                        className="w-full bg-black/45 border border-white/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-500 text-white transition-colors"
+                        required
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Color Selector */}
+              {product.colors.length > 0 && (
+                <div className="space-y-2">
+                  <span className="text-xs font-bold text-stone-300 uppercase tracking-wide">
+                    {t("labelColor")}
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {product.colors.map((color) => {
+                      const isSelected = selectedColor === color;
+                      return (
+                        <button
+                          key={color}
+                          onClick={() => {
+                            setSelectedColor(color);
+                            if (color !== "Personalizado") setCustomColorText("");
+                          }}
+                          className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all flex items-center space-x-2 ${
+                            isSelected
+                              ? "bg-amber-600 border-amber-600 text-white shadow-sm"
+                              : "bg-black/35 hover:bg-black/55 border-white/10 text-stone-200"
+                          }`}
+                        >
+                          {color !== "Personalizado" && (
+                            <span className={`h-3 w-3 rounded-full flex-shrink-0 ${getColorBadgeClass(color)}`} />
+                          )}
+                          <span>{color === "Personalizado" ? t("customOption") : color}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Custom Color Text Input */}
+                  {isColorCustom && (
+                    <div className="pt-2 animate-fade-in-down">
+                      <input
+                        type="text"
+                        value={customColorText}
+                        onChange={(e) => setCustomColorText(e.target.value)}
+                        placeholder={t("customPlaceholder")}
+                        className="w-full bg-black/45 border border-white/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-500 text-white transition-colors"
+                        required
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Quantity Selector */}
+              <div className="space-y-2 pt-2">
+                <span className="text-xs font-bold text-stone-300 uppercase tracking-wide">
+                  {t("labelQuantity")}
+                </span>
+                <div className="flex items-center space-x-3">
+                  <div className="flex items-center border border-white/10 rounded-xl bg-black/35">
+                    <button
+                      onClick={() => changeQuantity(-1)}
+                      className="p-3 text-stone-300 hover:text-white transition-colors"
+                      disabled={quantity <= 1}
+                    >
+                      <Minus className="h-4 w-4" />
+                    </button>
+                    <span className="px-4 py-2 font-black text-sm text-white font-mono w-12 text-center select-none">
+                      {quantity}
+                    </span>
+                    <button
+                      onClick={() => changeQuantity(1)}
+                      className="p-3 text-stone-300 hover:text-white transition-colors"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </button>
+                  </div>
+
+                  <div className="text-xs text-stone-300 font-medium">
+                    {quantity} x {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", { style: "currency", currency: "EUR" })}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Add to Cart Drawer/Card */}
+            <div className="border-t border-white/10 pt-6 flex flex-col space-y-3">
+              <div className="flex items-baseline justify-between">
+                <span className="text-sm font-semibold text-stone-300">{t("summaryTotal")}</span>
+                <span className="text-2xl font-black text-white">
+                  {totalPrice.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
+                    style: "currency",
+                    currency: "EUR",
+                  })}
+                </span>
+              </div>
+
+              <button
+                onClick={handleAddToCart}
+                className="w-full bg-amber-600 hover:bg-amber-700 text-white font-extrabold py-4 px-6 rounded-2xl shadow-lg hover:shadow-amber-500/20 active:scale-98 transition-all flex items-center justify-center space-x-2 text-base"
+              >
+                <ShoppingCart className="h-5 w-5" />
+                <span>{t("btnAddToCart")}</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
