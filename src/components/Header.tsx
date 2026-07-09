@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useApp } from "../context/AppContext";
-import { ShoppingCart, Sun, Moon, Menu, X, Globe, ChevronDown, Key, Heart, Briefcase, Home as HomeIcon, Gift, PawPrint, Package, Trees, Ghost } from "lucide-react";
+import { ShoppingCart, Menu, X, Globe, ChevronDown, Key, Heart, Briefcase, Home as HomeIcon, Gift, PawPrint, Package, Trees } from "lucide-react";
 
 const FlagPT: React.FC<{ className?: string }> = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 12" className={className} width="16" height="12">
@@ -65,18 +65,22 @@ export const Header: React.FC = () => {
 
   const isActive = (path: string) => pathname === path;
 
+  const isHomepage = pathname === '/';
+
   return (
     <header 
-      className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
-        isScrolled 
-          ? "backdrop-blur-md" 
-          : "bg-transparent border-transparent backdrop-blur-none"
+      className={`${
+        isHomepage ? 'fixed' : 'sticky'
+      } top-0 z-50 w-full border-b transition-all duration-500 ${
+        isHomepage && !isScrolled 
+          ? "bg-transparent border-transparent backdrop-blur-none" 
+          : "backdrop-blur-md"
       }`} 
       style={{ 
-        borderColor: isScrolled ? '#272727' : 'transparent', 
-        backgroundColor: isScrolled 
-          ? (theme === 'dark' ? 'rgba(28,14,7,0.88)' : 'rgba(245,237,227,0.88)') 
-          : 'transparent' 
+        borderColor: isHomepage && !isScrolled ? 'transparent' : '#272727', 
+        backgroundColor: isHomepage && !isScrolled 
+          ? 'transparent' 
+          : (theme === 'dark' ? 'rgba(28,14,7,0.88)' : 'rgba(245,237,227,0.88)') 
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -203,15 +207,35 @@ export const Header: React.FC = () => {
           </div>
 
           {/* Theme Toggle */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full transition-colors" style={{ color: 'var(--foreground)' }}
-            onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--accent)')}
-            onMouseLeave={e => (e.currentTarget.style.backgroundColor = '')}
-            aria-label="Alternar tema"
-          >
-            {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-          </button>
+          <label className="theme-switch" aria-label="Alternar tema">
+            <input
+              type="checkbox"
+              checked={theme === 'dark'}
+              onChange={toggleTheme}
+            />
+            <div className="theme-slider">
+              <div className="theme-sun-moon">
+                <svg id="theme-moon-dot-1" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                <svg id="theme-moon-dot-2" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                <svg id="theme-moon-dot-3" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                <svg id="theme-light-ray-1" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                <svg id="theme-light-ray-2" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                <svg id="theme-light-ray-3" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                <svg id="theme-cloud-1" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                <svg id="theme-cloud-2" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                <svg id="theme-cloud-3" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                <svg id="theme-cloud-4" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                <svg id="theme-cloud-5" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                <svg id="theme-cloud-6" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+              </div>
+              <div className="theme-stars">
+                <svg id="theme-star-1" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+                <svg id="theme-star-2" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+                <svg id="theme-star-3" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+                <svg id="theme-star-4" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+              </div>
+            </div>
+          </label>
 
           {/* Cart Icon */}
           <Link
@@ -276,22 +300,35 @@ export const Header: React.FC = () => {
             {/* Mobile Actions */}
             <div className="flex items-center justify-between px-3 py-2">
               <span className="text-sm" style={{ color: 'var(--muted)' }}>{t("labelColor")} / Theme</span>
-              <button
-                onClick={toggleTheme}
-                className="flex items-center space-x-2 px-3 py-1.5 rounded-md text-sm" style={{ backgroundColor: 'var(--accent)', color: 'var(--foreground)' }}
-              >
-                {theme === "light" ? (
-                  <>
-                    <Moon className="h-4 w-4" />
-                    <span>Dark Mode</span>
-                  </>
-                ) : (
-                  <>
-                    <Sun className="h-4 w-4" />
-                    <span>Light Mode</span>
-                  </>
-                )}
-              </button>
+              <label className="theme-switch" aria-label="Alternar tema">
+                <input
+                  type="checkbox"
+                  checked={theme === 'dark'}
+                  onChange={toggleTheme}
+                />
+                <div className="theme-slider">
+                  <div className="theme-sun-moon">
+                    <svg id="theme-moon-dot-1" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg id="theme-moon-dot-2" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg id="theme-moon-dot-3" className="theme-moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg id="theme-light-ray-1" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg id="theme-light-ray-2" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg id="theme-light-ray-3" className="theme-light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg id="theme-cloud-1" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg id="theme-cloud-2" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg id="theme-cloud-3" className="theme-cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg id="theme-cloud-4" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg id="theme-cloud-5" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg id="theme-cloud-6" className="theme-cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                  </div>
+                  <div className="theme-stars">
+                    <svg id="theme-star-1" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+                    <svg id="theme-star-2" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+                    <svg id="theme-star-3" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+                    <svg id="theme-star-4" className="theme-star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"/></svg>
+                  </div>
+                </div>
+              </label>
             </div>
 
             <div className="flex items-center justify-between px-3 py-2">

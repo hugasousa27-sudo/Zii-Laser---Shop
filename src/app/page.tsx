@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full pb-16">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[70vh] flex items-center bg-neutral-900 text-white overflow-hidden py-16">
+      <section className="relative w-full min-h-[100vh] flex items-center bg-neutral-900 text-white overflow-hidden pb-16">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img
