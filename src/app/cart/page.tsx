@@ -400,37 +400,131 @@ export default function Cart() {
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">
                     {t("labelContactPreference")} *
                   </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+
+                  <style dangerouslySetInnerHTML={{ __html: `
+                    .cart-radio-tile-group {
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 0.75rem;
+                    }
+
+                    .cart-radio-tile-group .input-container {
+                      position: relative;
+                      height: 85px;
+                      width: 85px;
+                    }
+
+                    .cart-radio-tile-group .input-container .radio-button {
+                      opacity: 0;
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      height: 100%;
+                      width: 100%;
+                      margin: 0;
+                      cursor: pointer;
+                      z-index: 2;
+                    }
+
+                    .cart-radio-tile-group .input-container .radio-tile {
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      justify-content: center;
+                      width: 100%;
+                      height: 100%;
+                      border: 2px solid var(--border);
+                      background-color: var(--card);
+                      border-radius: 16px;
+                      padding: 0.5rem;
+                      transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+                    }
+
+                    .cart-radio-tile-group .input-container .icon svg {
+                      color: var(--muted);
+                      fill: none;
+                      width: 1.75rem;
+                      height: 1.75rem;
+                      transition: all 200ms ease;
+                    }
+
+                    .cart-radio-tile-group .input-container .icon svg.fill-current {
+                      fill: var(--muted);
+                    }
+
+                    .cart-radio-tile-group .input-container .radio-tile-label {
+                      text-align: center;
+                      font-size: 0.65rem;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 0.5px;
+                      color: var(--muted);
+                      margin-top: 0.35rem;
+                      transition: all 200ms ease;
+                    }
+
+                    .cart-radio-tile-group .input-container .radio-button:hover + .radio-tile {
+                      border-color: #B9844F;
+                    }
+
+                    .cart-radio-tile-group .input-container .radio-button:checked + .radio-tile {
+                      background-color: #B9844F;
+                      border-color: #B9844F;
+                      box-shadow: 0 4px 12px rgba(185, 132, 79, 0.25);
+                      transform: scale(1.05);
+                    }
+
+                    .cart-radio-tile-group .input-container .radio-button:checked + .radio-tile .icon svg {
+                      color: #ffffff;
+                      stroke: #ffffff;
+                      fill: none;
+                    }
+
+                    .cart-radio-tile-group .input-container .radio-button:checked + .radio-tile .icon svg.fill-current {
+                      fill: #ffffff;
+                      stroke: none;
+                    }
+
+                    .cart-radio-tile-group .input-container .radio-button:checked + .radio-tile .radio-tile-label {
+                      color: #ffffff;
+                    }
+                  `}} />
+
+                  <div className="cart-radio-tile-group">
                     {[
-                      { id: "whatsapp", label: "WhatsApp", icon: IconWhatsApp },
-                      { id: "instagram", label: "Instagram", icon: IconInstagram },
-                      { id: "facebook", label: "Facebook", icon: IconFacebook },
-                      { id: "email", label: "Email", icon: IconEmail },
+                      { id: "cart-whatsapp", value: "whatsapp", label: "WhatsApp", icon: IconWhatsApp },
+                      { id: "cart-instagram", value: "instagram", label: "Instagram", icon: IconInstagram },
+                      { id: "cart-facebook", value: "facebook", label: "Facebook", icon: IconFacebook },
+                      { id: "cart-email", value: "email", label: "Email", icon: IconEmail },
                     ].map((option) => {
                       const Icon = option.icon;
-                      const isSelected = form.contactPreference === option.id;
                       return (
-                        <button
-                          key={option.id}
-                          type="button"
-                        onClick={() => {
-                          setForm((prev) => {
-                            const nextHandle = option.id === "whatsapp" ? prev.contactHandle.replace(/[^\d+]/g, "") : prev.contactHandle;
-                            return { ...prev, contactPreference: option.id, contactHandle: nextHandle };
-                          });
-                          if (errors.contactPreference) {
-                            setErrors((prev) => ({ ...prev, contactPreference: undefined }));
-                          }
-                        }}
-                          className={`flex flex-col items-center justify-center p-3 rounded-xl border text-xs font-bold transition-all duration-200 active:scale-95 ${
-                            isSelected
-                              ? "bg-amber-50 dark:bg-amber-950/20 border-amber-700 text-amber-700 dark:text-amber-400 shadow-sm"
-                              : "bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-850 text-slate-500 hover:text-slate-850 dark:hover:text-white"
-                          }`}
-                        >
-                          <Icon className="h-5 w-5 mb-1" />
-                          <span>{option.label}</span>
-                        </button>
+                        <div className="input-container" key={option.id}>
+                          <input
+                            id={option.id}
+                            className="radio-button"
+                            type="radio"
+                            name="cartContactPreference"
+                            checked={form.contactPreference === option.value}
+                            onChange={() => {
+                              setForm((prev) => {
+                                const nextHandle = option.value === "whatsapp" ? prev.contactHandle.replace(/[^\d+]/g, "") : prev.contactHandle;
+                                return { ...prev, contactPreference: option.value, contactHandle: nextHandle };
+                              });
+                              if (errors.contactPreference) {
+                                setErrors((prev) => ({ ...prev, contactPreference: undefined }));
+                              }
+                            }}
+                          />
+                          <div className="radio-tile">
+                            <div className="icon">
+                              <Icon className="h-7 w-7 transition-all duration-200" />
+                            </div>
+                            <label htmlFor={option.id} className="radio-tile-label">
+                              {option.label}
+                            </label>
+                          </div>
+                        </div>
                       );
                     })}
                   </div>
