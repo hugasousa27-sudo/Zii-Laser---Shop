@@ -116,7 +116,7 @@ export default function Home() {
       </section>
 
       {/* Trust Badges Section */}
-      <section className="w-full border-b bg-neutral-100 dark:bg-neutral-900/40" style={{ borderColor: '#272727' }}>
+      <section className="w-full border-b bg-transparent" style={{ borderColor: '#272727' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h2 className="text-center text-xl font-black uppercase tracking-widest mb-8" style={{ color: 'var(--muted)' }}>
             Porquê comprar na <span style={{ color: 'var(--primary)' }}>Zii Laser</span>

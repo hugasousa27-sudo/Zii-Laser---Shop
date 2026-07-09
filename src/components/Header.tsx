@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useApp } from "../context/AppContext";
@@ -32,6 +32,16 @@ export const Header: React.FC = () => {
   const [isCategoriesHovered, setIsCategoriesHovered] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
 
@@ -56,7 +66,19 @@ export const Header: React.FC = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b backdrop-blur-md transition-colors duration-300" style={{ borderColor: '#272727', backgroundColor: theme === 'dark' ? 'rgba(28,14,7,0.88)' : 'rgba(245,237,227,0.88)' }}>
+    <header 
+      className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
+        isScrolled 
+          ? "backdrop-blur-md" 
+          : "bg-transparent border-transparent backdrop-blur-none"
+      }`} 
+      style={{ 
+        borderColor: isScrolled ? '#272727' : 'transparent', 
+        backgroundColor: isScrolled 
+          ? (theme === 'dark' ? 'rgba(28,14,7,0.88)' : 'rgba(245,237,227,0.88)') 
+          : 'transparent' 
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">

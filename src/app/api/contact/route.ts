@@ -4,10 +4,10 @@ import nodemailer from "nodemailer";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, subject, message, contactPreference, contactHandle } = body;
+    const { name, subject, message, contactPreference, contactHandle } = body;
 
     // Check if fields are present
-    if (!name || !email || !message || !contactPreference || !contactHandle) {
+    if (!name || !message || !contactPreference || !contactHandle) {
       return NextResponse.json(
         { error: "Faltam campos obrigatórios." },
         { status: 400 }
@@ -27,13 +27,12 @@ export async function POST(request: Request) {
     };
 
     const friendlyPreference = preferenceMap[contactPreference.toLowerCase()] || contactPreference;
+    const email = contactPreference.toLowerCase() === "email" ? contactHandle : null;
 
     // Format owner notification email content
     const ownerMailHtml = `
       <h2>Novo Contacto da Loja Online</h2>
       <p><strong>Nome:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Telemóvel:</strong> ${phone || "Não fornecido"}</p>
       <p><strong>Assunto:</strong> ${subject || "Sem assunto"}</p>
       <p><strong>Preferência de Contacto:</strong> ${friendlyPreference} (${contactHandle})</p>
       <p><strong>Mensagem:</strong></p>
@@ -62,11 +61,13 @@ export async function POST(request: Request) {
         subject: `Novo Contacto: ${subject}`,
         html: ownerMailHtml
       });
-      console.log("Email para Cliente:", {
-        to: email,
-        subject: "Contacto Recebido - Zii Laser",
-        html: customerMailHtml
-      });
+      if (email) {
+        console.log("Email para Cliente:", {
+          to: email,
+          subject: "Contacto Recebido - Zii Laser",
+          html: customerMailHtml
+        });
+      }
 
       return NextResponse.json({
         success: true,
@@ -89,18 +90,20 @@ export async function POST(request: Request) {
     await transporter.sendMail({
       from: `"${name} (Loja Online)" <${user}>`,
       to: "ziilaserloja@gmail.com",
-      replyTo: email,
+      replyTo: email || undefined,
       subject: `[Contacto Loja] ${subject || "Nova mensagem"}`,
       html: ownerMailHtml,
     });
 
-    // 2. Send auto-reply to customer
-    await transporter.sendMail({
-      from: `"Zii Laser" <${user}>`,
-      to: email,
-      subject: "Recebemos o seu contacto - Zii Laser",
-      html: customerMailHtml,
-    });
+    // 2. Send auto-reply to customer (only if customer has an email address)
+    if (email) {
+      await transporter.sendMail({
+        from: `"Zii Laser" <${user}>`,
+        to: email,
+        subject: "Recebemos o seu contacto - Zii Laser",
+        html: customerMailHtml,
+      });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

@@ -21,8 +21,6 @@ const IconEmail = (props: any) => <Mail {...props} />;
 
 interface FormFields {
   name: string;
-  email: string;
-  phone: string;
   subject: string;
   message: string;
   contactPreference: string;
@@ -31,8 +29,6 @@ interface FormFields {
 
 interface FormErrors {
   name?: string;
-  email?: string;
-  phone?: string;
   subject?: string;
   message?: string;
   contactPreference?: string;
@@ -43,8 +39,6 @@ export default function Contact() {
   const { t, language } = useApp();
   const [form, setForm] = useState<FormFields>({
     name: "",
-    email: "",
-    phone: "",
     subject: "",
     message: "",
     contactPreference: "",
@@ -58,7 +52,7 @@ export default function Contact() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     let newValue = value;
-    if (name === "phone" || (name === "contactHandle" && form.contactPreference === "whatsapp")) {
+    if (name === "contactHandle" && form.contactPreference === "whatsapp") {
       newValue = value.replace(/[^\d+]/g, "");
     }
     setForm((prev) => ({ ...prev, [name]: newValue }));
@@ -73,17 +67,6 @@ export default function Contact() {
 
     if (!form.name.trim()) {
       tempErrors.name = t("inputRequired");
-      isValid = false;
-    }
-    if (!form.email.trim()) {
-      tempErrors.email = t("inputRequired");
-      isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
-      tempErrors.email = t("invalidEmail");
-      isValid = false;
-    }
-    if (!form.phone.trim()) {
-      tempErrors.phone = t("inputRequired");
       isValid = false;
     }
     if (!form.subject.trim()) {
@@ -128,8 +111,6 @@ export default function Contact() {
         setSuccess(true);
         setForm({
           name: "",
-          email: "",
-          phone: "",
           subject: "",
           message: "",
           contactPreference: "",
@@ -168,51 +149,19 @@ export default function Contact() {
         <div className="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-8 shadow-sm">
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                  {t("contactFormName")} *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.name ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                    }`}
-                />
-                {errors.name && <span className="text-red-500 text-xs mt-1 block">{errors.name}</span>}
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                  {t("contactFormPhone")} *
-                </label>
-                <input
-                  type="text"
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.phone ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                    }`}
-                />
-                {errors.phone && <span className="text-red-500 text-xs mt-1 block">{errors.phone}</span>}
-              </div>
-            </div>
-
             <div>
               <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                {t("contactFormEmail")} *
+                {t("contactFormName")} *
               </label>
               <input
-                type="email"
-                name="email"
-                value={form.email}
+                type="text"
+                name="name"
+                value={form.name}
                 onChange={handleInputChange}
-                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.email ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.name ? "border-red-500" : "border-slate-200 dark:border-slate-850"
                   }`}
               />
-              {errors.email && <span className="text-red-500 text-xs mt-1 block">{errors.email}</span>}
+              {errors.name && <span className="text-red-500 text-xs mt-1 block">{errors.name}</span>}
             </div>
 
             {/* Preferred Contact Method */}
