@@ -164,10 +164,44 @@ export default function Contact() {
               {errors.name && <span className="text-red-500 text-xs mt-1 block">{errors.name}</span>}
             </div>
 
-            {/* Preferred Contact Method */}
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                {t("contactFormSubject")} *
+              </label>
+              <input
+                type="text"
+                name="subject"
+                value={form.subject}
+                onChange={handleInputChange}
+                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.subject ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  }`}
+              />
+              {errors.subject && <span className="text-red-500 text-xs mt-1 block">{errors.subject}</span>}
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                {t("contactFormMsg")} *
+              </label>
+              <textarea
+                name="message"
+                value={form.message}
+                onChange={handleInputChange}
+                placeholder={t("contactFormMsgPlaceholder")}
+                rows={5}
+                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.message ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  }`}
+              />
+              {errors.message && <span className="text-red-500 text-xs mt-1 block">{errors.message}</span>}
+            </div>
+
+            {/* Preferred Contact Method area */}
             <div className="grid grid-cols-1 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: 'var(--foreground)' }}>
+                <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide mb-2" style={{ color: 'var(--foreground)' }}>
+                  <span className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-1.5 rounded-lg flex-shrink-0 shadow-inner">
+                    <MessageCircle className="h-3.5 w-3.5" />
+                  </span>
                   {t("labelContactPreference")} *
                 </label>
                 
@@ -176,6 +210,7 @@ export default function Contact() {
                     display: flex;
                     flex-wrap: wrap;
                     gap: 0.75rem;
+                    margin-bottom: 0.75rem;
                   }
 
                   .radio-tile-group .input-container {
@@ -260,6 +295,11 @@ export default function Contact() {
                   }
                 `}} />
 
+                {/* Warning Alert */}
+                <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-4 text-amber-800 dark:text-amber-300 text-xs leading-relaxed font-semibold mb-4">
+                  {t("contactAlert")}
+                </div>
+
                 <div className="radio-tile-group">
                   {[
                     { id: "whatsapp", label: "WhatsApp", icon: IconWhatsApp },
@@ -298,7 +338,7 @@ export default function Contact() {
                     );
                   })}
                 </div>
-                {errors.contactPreference && <span className="text-red-500 text-xs mt-1 block">{errors.contactPreference}</span>}
+                {errors.contactPreference && <span className="text-red-500 text-xs mt-1 block mb-4">{errors.contactPreference}</span>}
               </div>
 
               <div>
@@ -324,42 +364,6 @@ export default function Contact() {
                 />
                 {errors.contactHandle && <span className="text-red-500 text-xs mt-1 block">{errors.contactHandle}</span>}
               </div>
-            </div>
-
-            {/* Warning Alert */}
-            <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-4 text-amber-800 dark:text-amber-300 text-xs leading-relaxed font-semibold">
-              {t("contactAlert")}
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                {t("contactFormSubject")} *
-              </label>
-              <input
-                type="text"
-                name="subject"
-                value={form.subject}
-                onChange={handleInputChange}
-                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.subject ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                  }`}
-              />
-              {errors.subject && <span className="text-red-500 text-xs mt-1 block">{errors.subject}</span>}
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                {t("contactFormMsg")} *
-              </label>
-              <textarea
-                name="message"
-                value={form.message}
-                onChange={handleInputChange}
-                placeholder={t("contactFormMsgPlaceholder")}
-                rows={5}
-                className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${errors.message ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                  }`}
-              />
-              {errors.message && <span className="text-red-500 text-xs mt-1 block">{errors.message}</span>}
             </div>
 
             <button

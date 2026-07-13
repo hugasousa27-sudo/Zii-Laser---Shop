@@ -10,7 +10,7 @@ import { Sparkles, RefreshCw } from "lucide-react";
 export default function Home() {
   const { t } = useApp();
   const [shuffledProducts, setShuffledProducts] = useState<Product[]>([]);
-  const [visibleCount, setVisibleCount] = useState(4);
+  const [visibleCount, setVisibleCount] = useState(3);
   const observerTarget = useRef<HTMLDivElement>(null);
 
   // Shuffle products on mount to show random products
@@ -33,7 +33,7 @@ export default function Home() {
         if (entries[0].isIntersecting && visibleCount < shuffledProducts.length) {
           // Add delay to simulate database load latency and show loading spinner
           setTimeout(() => {
-            setVisibleCount((prev) => Math.min(prev + 4, shuffledProducts.length));
+            setVisibleCount((prev) => Math.min(prev + 3, shuffledProducts.length));
           }, 600);
         }
       },
@@ -50,9 +50,9 @@ export default function Home() {
   const hasMore = visibleCount < shuffledProducts.length;
 
   return (
-    <div className="flex flex-col w-full pb-16">
+    <div className="flex flex-col w-full pb-10">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[50vh] md:min-h-[60vh] lg:min-h-[65vh] flex items-center bg-neutral-900 text-white overflow-hidden pt-20 pb-12 md:pb-16">
+      <section className="relative w-full min-h-[50vh] md:min-h-[60vh] lg:min-h-[65vh] flex items-center bg-neutral-900 text-white overflow-hidden pt-12 pb-12 md:pb-16">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img
@@ -117,7 +117,7 @@ export default function Home() {
 
       {/* Trust Badges Section */}
       <section className="w-full border-b bg-transparent" style={{ borderColor: '#272727' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
           <h2 className="text-center text-xl font-black uppercase tracking-widest mb-8" style={{ color: 'var(--muted)' }}>
             Porquê comprar na <span style={{ color: 'var(--primary)' }}>Zii Laser</span>
           </h2>
@@ -187,7 +187,7 @@ export default function Home() {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {shuffledProducts.slice(0, visibleCount).map((product) => (
             <div key={product.id} className="animate-fade-in-up">
               <ProductCard product={product} imageOnly={true} />

@@ -3,10 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import productsData from "../../../data/products.json";
-import { Viewer360 } from "../../../components/Viewer360";
+import { ProductCard, Product } from "../../../components/ProductCard";
 import { useApp } from "../../../context/AppContext";
-import { Product } from "../../../components/ProductCard";
-import { ShoppingCart, Plus, Minus, ArrowLeft, RefreshCw, CheckCircle, RotateCw, X } from "lucide-react";
+import { ShoppingCart, Plus, Minus, ArrowLeft, RefreshCw, CheckCircle, RotateCw, X, ZoomIn } from "lucide-react";
 
 export default function ProductDetail() {
   const params = useParams();
@@ -21,7 +20,8 @@ export default function ProductDetail() {
   const [customColorText, setCustomColorText] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [addedMessage, setAddedMessage] = useState(false);
-  const [is360ModalOpen, setIs360ModalOpen] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState("");
 
   useEffect(() => {
     const foundProduct = productsData.find((p) => p.id === params.id) as Product;
@@ -31,39 +31,28 @@ export default function ProductDetail() {
       
       // Select first options by default
       if (foundProduct.sizes.length > 0) {
-        setSelectedSize(foundProduct.sizes[0]);
+         setSelectedSize(foundProduct.sizes[0]);
       }
       if (foundProduct.colors.length > 0) {
-        setSelectedColor(foundProduct.colors[0]);
+         setSelectedColor(foundProduct.colors[0]);
       }
 
     }
   }, [params.id]);
 
   useEffect(() => {
-    if (is360ModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [is360ModalOpen]);
-
-  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setIs360ModalOpen(false);
+        setIsLightboxOpen(false);
       }
     };
-    if (is360ModalOpen) {
+    if (isLightboxOpen) {
       window.addEventListener("keydown", handleKeyDown);
     }
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [is360ModalOpen]);
+  }, [isLightboxOpen]);
 
   if (!product) {
     return (
@@ -128,6 +117,11 @@ export default function ProductDetail() {
   // Fallback images including teamwork/car placeholder
   const productImages = [...product.images, "/images/florest.jpg", "/teamwork.jpeg"];
 
+  // Related products: same category, exclude current
+  const relatedProducts = (productsData as Product[])
+    .filter((p) => p.category === product.category && p.id !== product.id)
+    .slice(0, 4);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
       {/* Back Link */}
@@ -140,31 +134,22 @@ export default function ProductDetail() {
       </button>
 
       {/* Main Details layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
         {/* Left Column: Media (Gallery & 360 Viewer) */}
-        <div className="lg:col-span-7 flex flex-col space-y-6">
+        <div className="lg:col-span-8 flex flex-col space-y-6">
           {/* Viewer area */}
           <div className="w-full flex justify-center">
-            <div className="relative w-full aspect-square max-w-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-sm flex items-center justify-center">
+            <div className="relative w-full aspect-[100/85] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-sm flex items-center justify-center cursor-pointer group"
+              onClick={() => {
+                setLightboxImage(selectedImage);
+                setIsLightboxOpen(true);
+              }}
+            >
               <img
                 src={selectedImage}
                 alt={name}
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
               />
-              
-              {product.has360 && (
-                <button
-                  onClick={() => setIs360ModalOpen(true)}
-                  className="absolute bottom-4 right-4 z-10 flex items-center justify-center bg-white/95 hover:bg-amber-700 dark:bg-slate-900/95 dark:hover:bg-amber-700 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-amber-500/20 px-4 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-850 dark:text-slate-100 hover:text-white dark:hover:text-white group font-extrabold text-xs tracking-wider gap-2 cursor-pointer"
-                  title={t("btnOpen360")}
-                >
-                  {/* Símbolo anterior do 360 */}
-                  <svg className="h-4 w-4 animate-spin-slow group-hover:rotate-185 transition-transform duration-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.5" />
-                  </svg>
-                  <span>360°</span>
-                </button>
-              )}
             </div>
           </div>
 
@@ -173,7 +158,7 @@ export default function ProductDetail() {
             {productImages.map((img, idx) => (
               <button
                 key={idx}
-                onClick={() => setSelectedImage(img)}
+                onClick={(e) => { e.stopPropagation(); setSelectedImage(img); }}
                 className={`relative w-20 h-20 bg-white dark:bg-slate-900 border-2 rounded-xl overflow-hidden transition-all flex-shrink-0 ${
                   selectedImage === img
                     ? "border-amber-700 dark:border-amber-500 scale-105"
@@ -191,7 +176,7 @@ export default function ProductDetail() {
         </div>
 
         {/* Right Column: Info & Action Card */}
-        <div className="lg:col-span-5 flex flex-col justify-start">
+        <div className="lg:col-span-4 flex flex-col justify-start">
           <div className="product-info-pattern-box text-white space-y-6">
             <div>
               {/* Category */}
@@ -401,29 +386,85 @@ export default function ProductDetail() {
         </div>
       )}
 
-      {/* 360 Interactive Modal Overlay */}
-      {is360ModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-slate-950/90 backdrop-blur-sm transition-opacity duration-300">
-          {/* Backdrop clickable zone */}
-          <div
-            className="absolute inset-0 cursor-default"
-            onClick={() => setIs360ModalOpen(false)}
-          />
+      {/* Related Products Section */}
+      {relatedProducts.length > 0 && (
+        <section className="mt-16 border-t border-slate-200 dark:border-slate-800 pt-10">
+          <div className="mb-8">
+            <h2 className="text-2xl font-extrabold tracking-tight" style={{ color: 'var(--foreground)' }}>
+              Produtos Relacionados
+            </h2>
+            <p className="text-sm mt-1 font-medium" style={{ color: 'var(--muted)' }}>
+              Mais artigos da categoria <span className="font-bold" style={{ color: 'var(--primary)' }}>{product.category}</span>
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {relatedProducts.map((relProduct) => (
+              <div key={relProduct.id} className="animate-fade-in-up">
+                <ProductCard product={relProduct} imageOnly={true} />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
-          {/* Close button in the top-right corner */}
+      {/* Image Lightbox */}
+      {isLightboxOpen && (
+        <div
+          className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-sm flex items-center justify-center p-0 animate-fade-in"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          {/* Close button */}
           <button
-            onClick={() => setIs360ModalOpen(false)}
-            className="absolute top-6 right-6 z-50 p-2 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+            onClick={() => setIsLightboxOpen(false)}
+            className="absolute top-4 right-4 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
             title={t("close")}
           >
-            <X className="h-8 w-8" />
+            <X className="h-7 w-7" />
           </button>
 
-          {/* Modal Container */}
-          <div className="relative w-full max-w-[95vw] lg:max-w-6xl flex flex-col items-center justify-center z-10 max-h-[90vh]">
-            {/* Content Body: Large 360 Viewer */}
-            <div className="w-full flex-grow flex flex-col items-center justify-center">
-              <Viewer360 productId={product.id} productName={name} isModal={true} />
+          {/* Image and navigation wrapper */}
+          <div className="relative w-full h-full flex flex-col items-center justify-between py-6">
+            {/* Top spacing to keep image centered */}
+            <div className="h-10" />
+
+            {/* Image */}
+            <div
+              className="relative max-w-[90vw] max-h-[75vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={lightboxImage}
+                alt={name}
+                className="max-w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl transition-all duration-300"
+              />
+            </div>
+
+            {/* Bottom thumbnail gallery & Hint */}
+            <div className="w-full flex flex-col items-center gap-4 z-10" onClick={(e) => e.stopPropagation()}>
+              {productImages.length > 1 && (
+                <div className="flex justify-center gap-2.5 overflow-x-auto px-4 py-1.5 max-w-[80vw] bg-black/60 rounded-full backdrop-blur-md border border-white/10">
+                  {productImages.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setLightboxImage(img)}
+                      className={`relative w-12 h-12 rounded-lg overflow-hidden transition-all flex-shrink-0 ${
+                        lightboxImage === img
+                          ? "border-2 border-amber-500 scale-110"
+                          : "border border-white/20 opacity-60 hover:opacity-100 hover:scale-105"
+                      }`}
+                    >
+                      <img
+                        src={img}
+                        alt={`${name} preview ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+              <p className="text-white/40 text-[10px] uppercase font-bold tracking-widest">
+                Clique fora da imagem para fechar
+              </p>
             </div>
           </div>
         </div>

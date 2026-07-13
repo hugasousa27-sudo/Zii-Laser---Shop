@@ -18,6 +18,8 @@ export async function POST(request: Request) {
     const port = parseInt(process.env.SMTP_PORT || "465");
     const user = process.env.SMTP_USER;
     const pass = process.env.SMTP_PASS;
+    // CONTACT_EMAIL is where owner notifications are sent; defaults to SMTP_USER
+    const ownerEmail = process.env.CONTACT_EMAIL || user || "ziilaserloja@gmail.com";
 
     const preferenceMap: Record<string, string> = {
       whatsapp: "WhatsApp",
@@ -57,7 +59,7 @@ export async function POST(request: Request) {
     if (!user || !pass) {
       console.warn("SMTP_USER e/ou SMTP_PASS não configurados em .env.local. Simulação do envio de email:");
       console.log("Email para Proprietário:", {
-        to: "ziilaserloja@gmail.com",
+        to: ownerEmail,
         subject: `Novo Contacto: ${subject}`,
         html: ownerMailHtml
       });
@@ -84,14 +86,20 @@ export async function POST(request: Request) {
         user,
         pass,
       },
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
+
+    // Verify SMTP connection before sending
+    await transporter.verify();
 
     // 1. Send email to owner
     await transporter.sendMail({
-      from: `"${name} (Loja Online)" <${user}>`,
-      to: "ziilaserloja@gmail.com",
+      from: `"Loja Zii Laser" <${user}>`,
+      to: ownerEmail,
       replyTo: email || undefined,
-      subject: `[Contacto Loja] ${subject || "Nova mensagem"}`,
+      subject: `[Contacto Loja] ${subject || "Nova mensagem"} - de ${name}`,
       html: ownerMailHtml,
     });
 
@@ -107,9 +115,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
-    console.error("Erro ao enviar email:", error);
+    console.error("Erro ao enviar email:", error?.message || error);
     return NextResponse.json(
-      { error: "Erro interno ao processar e enviar emails." },
+      { error: "Erro interno ao processar e enviar emails.", detail: error?.message },
       { status: 500 }
     );
   }

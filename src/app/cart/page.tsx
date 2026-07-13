@@ -57,7 +57,7 @@ export default function Cart() {
     address: "",
     zip: "",
     city: "",
-    country: language === "pt" ? "Portugal" : "United Kingdom",
+    country: "",
     contactPreference: "",
     contactHandle: "",
   });
@@ -193,7 +193,7 @@ export default function Cart() {
       address: "",
       zip: "",
       city: "",
-      country: language === "pt" ? "Portugal" : "United Kingdom",
+      country: "",
       contactPreference: "",
       contactHandle: "",
     });
@@ -323,20 +323,6 @@ export default function Cart() {
             </div>
           </div>
 
-          {/* Order Notes Area */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-            <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 mb-3">
-              {t("cartNotes")}
-            </h2>
-            <textarea
-              value={orderNotes}
-              onChange={(e) => setOrderNotes(e.target.value)}
-              placeholder={t("cartNotesPlaceholder")}
-              rows={3}
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors"
-            />
-          </div>
-
           {/* Client Shipping Form */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
             <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 mb-6">
@@ -394,6 +380,73 @@ export default function Cart() {
                 </div>
               </div>
 
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  {t("custAddress")} *
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  value={form.address}
+                  onChange={handleInputChange}
+                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
+                    errors.address ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                  }`}
+                />
+                {errors.address && <span className="text-red-500 text-xs mt-1 block">{errors.address}</span>}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                    {t("custZip")} *
+                  </label>
+                  <input
+                    type="text"
+                    name="zip"
+                    value={form.zip}
+                    onChange={handleInputChange}
+                    placeholder="e.g. 1000-000"
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
+                      errors.zip ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
+                  />
+                  {errors.zip && <span className="text-red-500 text-xs mt-1 block">{errors.zip}</span>}
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                    {t("custCity")} *
+                  </label>
+                  <input
+                    type="text"
+                    name="city"
+                    value={form.city}
+                    onChange={handleInputChange}
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
+                      errors.city ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
+                  />
+                  {errors.city && <span className="text-red-500 text-xs mt-1 block">{errors.city}</span>}
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                    {t("custCountry")} *
+                  </label>
+                  <input
+                    type="text"
+                    name="country"
+                    value={form.country}
+                    onChange={handleInputChange}
+                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
+                      errors.country ? "border-red-500" : "border-slate-200 dark:border-slate-850"
+                    }`}
+                  />
+                  {errors.country && <span className="text-red-500 text-xs mt-1 block">{errors.country}</span>}
+                </div>
+              </div>
+
               {/* Preferred Contact Method */}
               <div className="grid grid-cols-1 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
                 <div>
@@ -406,6 +459,7 @@ export default function Cart() {
                       display: flex;
                       flex-wrap: wrap;
                       gap: 0.75rem;
+                      margin-bottom: 0.75rem;
                     }
 
                     .cart-radio-tile-group .input-container {
@@ -490,6 +544,11 @@ export default function Cart() {
                     }
                   `}} />
 
+                  {/* Warning Alert */}
+                  <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-4 text-amber-800 dark:text-amber-300 text-xs leading-relaxed font-semibold mb-4">
+                    {t("contactAlert")}
+                  </div>
+
                   <div className="cart-radio-tile-group">
                     {[
                       { id: "cart-whatsapp", value: "whatsapp", label: "WhatsApp", icon: IconWhatsApp },
@@ -528,7 +587,7 @@ export default function Cart() {
                       );
                     })}
                   </div>
-                  {errors.contactPreference && <span className="text-red-500 text-xs mt-1 block">{errors.contactPreference}</span>}
+                  {errors.contactPreference && <span className="text-red-500 text-xs mt-1 block mb-4">{errors.contactPreference}</span>}
                 </div>
 
                 <div>
@@ -556,85 +615,47 @@ export default function Cart() {
                   {errors.contactHandle && <span className="text-red-500 text-xs mt-1 block">{errors.contactHandle}</span>}
                 </div>
               </div>
-
-              {/* Warning Alert */}
-              <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-4 text-amber-800 dark:text-amber-300 text-xs leading-relaxed font-semibold">
-                {t("contactAlert")}
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
-                  {t("custAddress")} *
-                </label>
-                <input
-                  type="text"
-                  name="address"
-                  value={form.address}
-                  onChange={handleInputChange}
-                  className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
-                    errors.address ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                  }`}
-                />
-                {errors.address && <span className="text-red-500 text-xs mt-1 block">{errors.address}</span>}
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
-                    {t("custZip")} *
-                  </label>
-                  <input
-                    type="text"
-                    name="zip"
-                    value={form.zip}
-                    onChange={handleInputChange}
-                    placeholder="e.g. 1000-000"
-                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
-                      errors.zip ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                    }`}
-                  />
-                  {errors.zip && <span className="text-red-500 text-xs mt-1 block">{errors.zip}</span>}
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
-                    {t("custCity")} *
-                  </label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={form.city}
-                    onChange={handleInputChange}
-                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
-                      errors.city ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                    }`}
-                  />
-                  {errors.city && <span className="text-red-500 text-xs mt-1 block">{errors.city}</span>}
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
-                    {t("custCountry")} *
-                  </label>
-                  <input
-                    type="text"
-                    name="country"
-                    value={form.country}
-                    onChange={handleInputChange}
-                    className={`w-full bg-slate-50 dark:bg-slate-950 border rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors ${
-                      errors.country ? "border-red-500" : "border-slate-200 dark:border-slate-850"
-                    }`}
-                  />
-                  {errors.country && <span className="text-red-500 text-xs mt-1 block">{errors.country}</span>}
-                </div>
-              </div>
               <button type="submit" id="hidden-submit" className="hidden" />
             </form>
+          </div>
+
+          {/* Order Notes Area */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 mb-3">
+              {t("cartNotes")}
+            </h2>
+            <textarea
+              value={orderNotes}
+              onChange={(e) => setOrderNotes(e.target.value)}
+              placeholder={t("cartNotesPlaceholder")}
+              rows={3}
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-700 transition-colors"
+            />
           </div>
         </div>
 
         {/* Right Side: Order Summary Card (Sticky) */}
-        <div className="lg:col-span-5 sticky top-24">
+        <div className="lg:col-span-5 sticky top-24 space-y-6">
+          {/* Opções de Pagamento Box */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
+            <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 border-b border-slate-100 dark:border-slate-800 pb-3">
+              Opções de Pagamento
+            </h2>
+            <div className="space-y-3.5 text-sm font-semibold">
+              <div className="flex flex-col gap-1 p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-850">
+                <span className="text-xs uppercase text-amber-750 dark:text-amber-400 font-extrabold">Transferência Bancária</span>
+                <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-350 select-all">IBAN: PT50 0003 0000 0000 0000 0000 0</span>
+              </div>
+              <div className="flex flex-col gap-1 p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-850">
+                <span className="text-xs uppercase text-amber-750 dark:text-amber-400 font-extrabold">MB WAY</span>
+                <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-350 select-all">+351 913 625 082</span>
+              </div>
+              <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-xl p-3.5 text-amber-800 dark:text-amber-300 text-xs leading-relaxed font-bold">
+                ⚠️ Após confirmação do pagamento a sua encomenda será enviada.
+              </div>
+            </div>
+          </div>
+
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
             <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 border-b border-slate-100 dark:border-slate-800 pb-4">
               {t("summaryTitle")}
