@@ -257,17 +257,22 @@ export default function Cart() {
                       </h3>
                       
                       {/* Configuration Details */}
-                      <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-400 mt-1 font-medium">
+                      <div className="mt-1.5 space-y-0.5">
                         {item.selectedSize && (
-                          <span>
-                            {t("labelSize")}: <span className="text-slate-600 dark:text-slate-350">{item.selectedSize}</span>
-                          </span>
+                          <div className="text-xs text-slate-400 font-medium">
+                            {t("labelSize")}: <span className="text-slate-600 dark:text-slate-300">{item.selectedSize}</span>
+                          </div>
                         )}
                         {item.selectedColor && (
-                          <span>
-                            {t("labelColor")}: <span className="text-slate-600 dark:text-slate-350">{item.selectedColor}</span>
-                          </span>
+                          <div className="text-xs text-slate-400 font-medium">
+                            {t("labelColor")}: <span className="text-slate-600 dark:text-slate-300">{item.selectedColor}</span>
+                          </div>
                         )}
+                        {item.customText && item.customText.split(" | ").filter(Boolean).map((part, i) => (
+                          <div key={i} className="text-xs text-slate-400 font-medium">
+                            <span className="text-slate-600 dark:text-slate-300">{part}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
