@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import productsData from "../../../data/products.json";
 import { ProductCard, Product } from "../../../components/ProductCard";
 import { useApp } from "../../../context/AppContext";
-import { ShoppingCart, Plus, Minus, ArrowLeft, RefreshCw, CheckCircle, X, Upload, ImagePlus, Trash2 } from "lucide-react";
+import { ShoppingCart, Plus, Minus, ArrowLeft, RefreshCw, CheckCircle, X, Upload, ImagePlus, Trash2, ChevronDown } from "lucide-react";
 
 export default function ProductDetail() {
   const params = useParams();
@@ -30,6 +30,7 @@ export default function ProductDetail() {
   const [secondaryText, setSecondaryText] = useState("");
   const [orderNote, setOrderNote] = useState("");
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const [isCustomizationOpen, setIsCustomizationOpen] = useState(false);
 
   useEffect(() => {
     const foundProduct = productsData.find((p) => p.id === params.id) as Product;
@@ -358,11 +359,20 @@ export default function ProductDetail() {
 
             {/* ── Personalização do artigo ── */}
             <div className="border-t border-white/10 pt-5 space-y-5">
-              <span className="text-xs font-black text-amber-300 uppercase tracking-widest block">
-                {language === "pt" ? "Personalização do Artigo" : "Item Customization"}
-              </span>
+              <button 
+                type="button"
+                onClick={() => setIsCustomizationOpen(!isCustomizationOpen)}
+                className="w-full flex items-center justify-between focus:outline-none"
+              >
+                <span className="text-xs font-black text-amber-300 uppercase tracking-widest block text-left">
+                  {language === "pt" ? "Personalização do Artigo" : "Item Customization"}
+                </span>
+                <ChevronDown className={`h-4 w-4 text-amber-300 transition-transform ${isCustomizationOpen ? "rotate-180" : ""}`} />
+              </button>
 
-              {/* 1 – Image upload */}
+              {isCustomizationOpen && (
+                <div className="space-y-5 animate-fade-in-down">
+                  {/* 1 – Image upload */}
               <div className="space-y-2">
                 <span className="text-xs font-bold text-stone-300 uppercase tracking-wide block">
                   {language === "pt" ? "1. Imagem de Referência" : "1. Reference Image"}
@@ -452,6 +462,8 @@ export default function ProductDetail() {
                 />
                 <div className="text-right text-[10px] text-stone-500">{orderNote.length}/300</div>
               </div>
+                </div>
+              )}
             </div>
 
             {/* Customization Warning */}

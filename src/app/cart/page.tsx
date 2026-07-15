@@ -214,7 +214,7 @@ export default function Cart() {
         </p>
         <Link
           href="/categories"
-          className="bg-amber-700 hover:bg-amber-800 text-white font-bold py-3.5 px-8 rounded-full shadow-md hover:shadow-amber-500/20 transition-all flex items-center space-x-2 text-sm"
+          className="bg-[#F2C879] hover:bg-[#d9b265] text-[#2A1713] font-bold py-3.5 px-8 rounded-full shadow-md hover:shadow-amber-500/20 transition-all flex items-center space-x-2 text-sm"
         >
           <span>{t("btnContinue")}</span>
           <ArrowRight className="h-4 w-4" />
@@ -706,7 +706,7 @@ export default function Cart() {
                 const submitBtn = document.getElementById("hidden-submit");
                 if (submitBtn) submitBtn.click();
               }}
-              className="w-full bg-amber-700 hover:bg-amber-800 text-white font-black py-4 px-6 rounded-xl shadow-lg hover:shadow-amber-500/20 transition-all flex items-center justify-center space-x-2 text-base"
+              className="w-full bg-[#F2C879] hover:bg-[#d9b265] text-[#2A1713] font-black py-4 px-6 rounded-xl shadow-lg hover:shadow-amber-500/20 transition-all flex items-center justify-center space-x-2 text-base"
             >
               <span>{t("btnCheckout")}</span>
               <ArrowRight className="h-5 w-5" />

@@ -89,7 +89,7 @@ function CategoriesContent() {
           </div>
           <button
             onClick={() => setIsPopupOpen(true)}
-            className="bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-amber-500/20 active:scale-95 transition-all text-sm whitespace-nowrap self-center md:self-auto"
+            className="bg-[#F2C879] hover:bg-[#d9b265] text-[#2A1713] font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-amber-500/20 active:scale-95 transition-all text-sm whitespace-nowrap self-center md:self-auto"
           >
             Selecionar Categoria
           </button>
