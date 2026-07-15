@@ -519,27 +519,27 @@ body::before {
 
 .product-info-pattern-box {
   background:
-    linear-gradient(135deg, #0000 20.5%, #2a1a1f 0 29.5%, #0000 0) 0 16px,
-    linear-gradient(45deg, #0000 8%, #2a1a1f 0 17%, #0000 0 58%) 32px 0,
+    linear-gradient(135deg, #0000 20.5%, #2A1713 0 29.5%, #0000 0) 0 16px,
+    linear-gradient(45deg, #0000 8%, #2A1713 0 17%, #0000 0 58%) 32px 0,
     linear-gradient(
       135deg,
       #0000 8%,
-      #2a1a1f 0 17%,
+      #2A1713 0 17%,
       #0000 0 58%,
-      #2a1a1f 0 67%,
+      #2A1713 0 67%,
       #0000 0
     ),
     linear-gradient(
       45deg,
       #0000 8%,
-      #2a1a1f 0 17%,
+      #2A1713 0 17%,
       #0000 0 58%,
-      #2a1a1f 0 67%,
+      #2A1713 0 67%,
       #0000 0 83%,
-      #2a1a1f 0 92%,
+      #2A1713 0 92%,
       #0000 0
     ),
-    #764134;
+    #3A241C;
   background-size: 64px 64px;
   border-radius: 24px;
   padding: 24px;
@@ -547,4 +547,347 @@ body::before {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* From Uiverse.io by 00Kubi - customized for the theme */ 
+/* Customized Add to Cart Button (from Uiverse.io by andrew-demchenk0) */
+.btn-add-to-cart {
+  position: relative;
+  width: 100%;
+  height: 54px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d9b265;
+  background-color: #F2C879;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(242, 200, 121, 0.15);
+}
+
+.btn-add-to-cart, 
+.btn-add-to-cart__icon, 
+.btn-add-to-cart__text {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-add-to-cart .btn-add-to-cart__text {
+  transform: translateX(-15px);
+  color: #2A1713;
+  font-weight: 800;
+}
+
+.btn-add-to-cart .btn-add-to-cart__icon {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 54px;
+  background-color: #d9b265;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 1rem 1rem 0;
+}
+
+.btn-add-to-cart .svg {
+  width: 20px;
+  height: 20px;
+  stroke: #2A1713;
+}
+
+.btn-add-to-cart:hover {
+  background: #d9b265;
+}
+
+.btn-add-to-cart:hover .btn-add-to-cart__text {
+  color: transparent;
+}
+
+.btn-add-to-cart:hover .btn-add-to-cart__icon {
+  width: 100%;
+  transform: translateX(0);
+  border-radius: 1rem;
+}
+
+.btn-add-to-cart:active .btn-add-to-cart__icon {
+  background-color: #c29d53;
+}
+
+.btn-add-to-cart:active {
+  border: 1px solid #c29d53;
+  transform: scale(0.98);
+}
+/* From Uiverse.io by Satwinder04 - customized for theme */
+.input-container {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  min-width: 180px;
+  max-width: 220px;
+}
+
+.input-container input[type="text"] {
+  font-size: 14px;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 0 5px 0;
+  background-color: transparent;
+  outline: none;
+  color: #fff;
+}
+
+.input-container .label {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  font-size: 14px;
+}
+
+.input-container input[type="text"]:focus ~ .label,
+.input-container input[type="text"]:valid ~ .label,
+.input-container input[type="text"]:not(:placeholder-shown) ~ .label {
+  top: -12px;
+  font-size: 11px;
+  color: #F2C879;
+}
+
+.input-container .underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #F2C879;
+  transform: scaleX(0);
+  transition: all 0.3s ease;
+}
+
+.input-container input[type="text"]:focus ~ .underline,
+.input-container input[type="text"]:valid ~ .underline {
+  transform: scaleX(1);
+}
+.radio-inputs {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.25rem;
+  width: 100%;
+  max-width: 350px;
+  font-size: 13px;
+}
+
+.radio-inputs .radio {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.radio-inputs .radio input {
+  display: none;
+}
+
+.radio-inputs .radio .name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem 0;
+  color: rgba(214, 211, 209, 0.9);
+  font-weight: 700;
+  transition: all 0.15s ease-in-out;
+}
+
+.radio-inputs .radio input:checked + .name {
+  background-color: #F2C879;
+  color: #2A1713;
+  font-weight: 800;
+}
+
+/* Hover effect */
+.radio-inputs .radio:hover .name {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Animation */
+.radio-inputs .radio input:checked + .name {
+  position: relative;
+  box-shadow: 0 4px 12px rgba(242, 200, 121, 0.15);
+  animation: select 0.3s ease;
+}
+
+@keyframes select {
+  0% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Particles */
+.radio-inputs .radio input:checked + .name::before,
+.radio-inputs .radio input:checked + .name::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #F2C879;
+  opacity: 0;
+  animation: particles 0.5s ease forwards;
+}
+
+.radio-inputs .radio input:checked + .name::before {
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.radio-inputs .radio input:checked + .name::after {
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes particles {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(var(--direction));
+  }
+}
+
+.radio-inputs .radio input:checked + .name::before {
+  --direction: -10px;
+}
+
+.radio-inputs .radio input:checked + .name::after {
+  --direction: 10px;
+}
+
+
+/* CTA "Entre em contacto" Button */
+.btn-contact-cta {
+  font-family: inherit;
+  font-size: 15px;
+  background: #2A1713;
+  color: #F2C879;
+  padding: 0.75em 1.2em;
+  padding-left: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  border: 1px solid #F2C879;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn-contact-cta span {
+  display: block;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-contact-cta svg {
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+  stroke: none;
+}
+
+.btn-contact-cta:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+.btn-contact-cta:hover svg {
+  transform: translateX(0.6em) rotate(45deg) scale(1.1);
+}
+
+.btn-contact-cta:hover {
+  background: #3A241C;
+  box-shadow: 0 4px 16px rgba(242, 200, 121, 0.2);
+}
+
+.btn-contact-cta:active {
+  transform: scale(0.96);
+}
+
+/* Animated Send Message Button (from Uiverse.io by adamgiebl - adapted) */
+.btn-send-msg {
+  font-family: inherit;
+  font-size: 16px;
+  background: #B9844F;
+  color: white;
+  padding: 0.75em 1.4em;
+  padding-left: 1.1em;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: none;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-weight: 700;
+  width: 100%;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(185, 132, 79, 0.25);
+}
+
+.btn-send-msg span {
+  display: block;
+  margin-left: 0.4em;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-send-msg svg {
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.btn-send-msg:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+.btn-send-msg:hover svg {
+  transform: translateX(1em) rotate(45deg) scale(1.1);
+}
+
+.btn-send-msg:hover span {
+  transform: translateX(4em);
+}
+
+.btn-send-msg:hover {
+  background: #a0703e;
+}
+
+.btn-send-msg:active {
+  transform: scale(0.96);
+}
+
+@keyframes fly-1 {
+  from { transform: translateY(0.1em); }
+  to   { transform: translateY(-0.1em); }
+}
 

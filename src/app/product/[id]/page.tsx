@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import productsData from "../../../data/products.json";
 import { ProductCard, Product } from "../../../components/ProductCard";
 import { useApp } from "../../../context/AppContext";
-import { ShoppingCart, Plus, Minus, ArrowLeft, RefreshCw, CheckCircle, RotateCw, X, ZoomIn } from "lucide-react";
+import { ShoppingCart, Plus, Minus, ArrowLeft, RefreshCw, CheckCircle, X, Upload, ImagePlus, Trash2 } from "lucide-react";
 
 export default function ProductDetail() {
   const params = useParams();
@@ -22,6 +22,14 @@ export default function ProductDetail() {
   const [addedMessage, setAddedMessage] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxImage, setLightboxImage] = useState("");
+
+  // Customization fields
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [uploadedFileName, setUploadedFileName] = useState("");
+  const [mainText, setMainText] = useState("");
+  const [secondaryText, setSecondaryText] = useState("");
+  const [orderNote, setOrderNote] = useState("");
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const foundProduct = productsData.find((p) => p.id === params.id) as Product;
@@ -71,11 +79,35 @@ export default function ProductDetail() {
     setQuantity((prev) => Math.max(1, prev + val));
   };
 
+  // Handles image upload
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadedFileName(file.name);
+    const reader = new FileReader();
+    reader.onload = (ev) => setUploadedImage(ev.target?.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const removeUploadedImage = () => {
+    setUploadedImage(null);
+    setUploadedFileName("");
+    if (imageInputRef.current) imageInputRef.current.value = "";
+  };
+
   // Handles adding to cart
   const handleAddToCart = () => {
     const finalSize = selectedSize === "Personalizado" ? `${t("customOption")} (${customSizeText.trim() || "N/A"})` : selectedSize;
     const finalColor = selectedColor === "Personalizado" ? `${t("customOption")} (${customColorText.trim() || "N/A"})` : selectedColor;
-    const customText = customSizeText || customColorText ? `${customSizeText} / ${customColorText}` : "";
+    const parts = [
+      customSizeText ? `Tamanho: ${customSizeText}` : "",
+      customColorText ? `Cor: ${customColorText}` : "",
+      mainText ? `Texto principal: ${mainText}` : "",
+      secondaryText ? `Texto secundário: ${secondaryText}` : "",
+      orderNote ? `Anotação: ${orderNote}` : "",
+      uploadedFileName ? `Imagem: ${uploadedFileName}` : "",
+    ].filter(Boolean);
+    const customText = parts.join(" | ");
 
     addToCart({
       id: product.id,
@@ -90,9 +122,7 @@ export default function ProductDetail() {
     });
 
     setAddedMessage(true);
-    setTimeout(() => {
-      setAddedMessage(false);
-    }, 8000);
+    setTimeout(() => setAddedMessage(false), 8000);
   };
 
   // Size helper
@@ -188,7 +218,7 @@ export default function ProductDetail() {
                 {name}
               </h1>
               {/* Price */}
-              <div className="text-2xl font-extrabold text-white">
+              <div className="text-2xl font-extrabold text-[#F2C879]">
                 {product.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                   style: "currency",
                   currency: "EUR",
@@ -209,38 +239,40 @@ export default function ProductDetail() {
                   <span className="text-xs font-bold text-stone-300 uppercase tracking-wide">
                     {t("labelSize")}
                   </span>
-                  <div className="flex flex-wrap gap-2">
-                    {product.sizes.map((size) => (
-                      <button
-                        key={size}
-                        onClick={() => {
-                          setSelectedSize(size);
-                          if (size !== "Personalizado") setCustomSizeText("");
-                        }}
-                        className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
-                          selectedSize === size
-                            ? "bg-amber-600 border-amber-600 text-white shadow-sm"
-                            : "bg-black/35 hover:bg-black/55 border-white/10 text-stone-200"
-                        }`}
-                      >
-                        {size === "Personalizado" ? t("customOption") : size}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Custom Size Text Input */}
-                  {isSizeCustom && (
-                    <div className="pt-2 animate-fade-in-down">
-                      <input
-                        type="text"
-                        value={customSizeText}
-                        onChange={(e) => setCustomSizeText(e.target.value)}
-                        placeholder={t("customPlaceholder")}
-                        className="w-full bg-black/45 border border-white/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-500 text-white transition-colors"
-                        required
-                      />
+                  <div className="flex flex-wrap items-end gap-4">
+                    <div className="radio-inputs">
+                      {product.sizes.map((size) => (
+                        <label key={size} className="radio">
+                          <input
+                            type="radio"
+                            name="size-option"
+                            checked={selectedSize === size}
+                            onChange={() => {
+                              setSelectedSize(size);
+                              if (size !== "Personalizado") setCustomSizeText("");
+                            }}
+                          />
+                          <span className="name">{size === "Personalizado" ? t("customOption") : size}</span>
+                        </label>
+                      ))}
                     </div>
-                  )}
+
+                    {/* Custom Size Text Input */}
+                    {isSizeCustom && (
+                      <div className="input-container animate-fade-in-down mb-1">
+                        <input
+                          type="text"
+                          id="customSizeInput"
+                          value={customSizeText}
+                          onChange={(e) => setCustomSizeText(e.target.value)}
+                          placeholder=" "
+                          required
+                        />
+                        <label htmlFor="customSizeInput" className="label">{t("customPlaceholder")}</label>
+                        <div className="underline"></div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
 
@@ -250,44 +282,45 @@ export default function ProductDetail() {
                   <span className="text-xs font-bold text-stone-300 uppercase tracking-wide">
                     {t("labelColor")}
                   </span>
-                  <div className="flex flex-wrap gap-2">
-                    {product.colors.map((color) => {
-                      const isSelected = selectedColor === color;
-                      return (
-                        <button
-                          key={color}
-                          onClick={() => {
-                            setSelectedColor(color);
-                            if (color !== "Personalizado") setCustomColorText("");
-                          }}
-                          className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all flex items-center space-x-2 ${
-                            isSelected
-                              ? "bg-amber-600 border-amber-600 text-white shadow-sm"
-                              : "bg-black/35 hover:bg-black/55 border-white/10 text-stone-200"
-                          }`}
-                        >
-                          {color !== "Personalizado" && (
-                            <span className={`h-3 w-3 rounded-full flex-shrink-0 ${getColorBadgeClass(color)}`} />
-                          )}
-                          <span>{color === "Personalizado" ? t("customOption") : color}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* Custom Color Text Input */}
-                  {isColorCustom && (
-                    <div className="pt-2 animate-fade-in-down">
-                      <input
-                        type="text"
-                        value={customColorText}
-                        onChange={(e) => setCustomColorText(e.target.value)}
-                        placeholder={t("customPlaceholder")}
-                        className="w-full bg-black/45 border border-white/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-500 text-white transition-colors"
-                        required
-                      />
+                  <div className="flex flex-wrap items-end gap-4">
+                    <div className="radio-inputs">
+                      {product.colors.map((color) => (
+                        <label key={color} className="radio">
+                          <input
+                            type="radio"
+                            name="color-option"
+                            checked={selectedColor === color}
+                            onChange={() => {
+                              setSelectedColor(color);
+                              if (color !== "Personalizado") setCustomColorText("");
+                            }}
+                          />
+                          <span className="name flex items-center justify-center space-x-1.5">
+                            {color !== "Personalizado" && (
+                              <span className={`h-2.5 w-2.5 rounded-full flex-shrink-0 ${getColorBadgeClass(color)}`} />
+                            )}
+                            <span>{color === "Personalizado" ? t("customOption") : color}</span>
+                          </span>
+                        </label>
+                      ))}
                     </div>
-                  )}
+
+                    {/* Custom Color Text Input */}
+                    {isColorCustom && (
+                      <div className="input-container animate-fade-in-down mb-1">
+                        <input
+                          type="text"
+                          id="customColorInput"
+                          value={customColorText}
+                          onChange={(e) => setCustomColorText(e.target.value)}
+                          placeholder=" "
+                          required
+                        />
+                        <label htmlFor="customColorInput" className="label">{t("customPlaceholder")}</label>
+                        <div className="underline"></div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
 
@@ -323,11 +356,119 @@ export default function ProductDetail() {
               </div>
             </div>
 
+            {/* ── Personalização do artigo ── */}
+            <div className="border-t border-white/10 pt-5 space-y-5">
+              <span className="text-xs font-black text-amber-300 uppercase tracking-widest block">
+                {language === "pt" ? "Personalização do Artigo" : "Item Customization"}
+              </span>
+
+              {/* 1 – Image upload */}
+              <div className="space-y-2">
+                <span className="text-xs font-bold text-stone-300 uppercase tracking-wide block">
+                  {language === "pt" ? "1. Imagem de Referência" : "1. Reference Image"}
+                </span>
+                {!uploadedImage ? (
+                  <button
+                    type="button"
+                    onClick={() => imageInputRef.current?.click()}
+                    className="w-full border-2 border-dashed border-white/20 hover:border-amber-400/60 rounded-xl p-4 flex flex-col items-center justify-center gap-2 transition-all cursor-pointer group bg-black/20 hover:bg-black/30"
+                  >
+                    <ImagePlus className="h-7 w-7 text-stone-400 group-hover:text-amber-400 transition-colors" />
+                    <span className="text-xs text-stone-400 group-hover:text-amber-300 font-semibold transition-colors text-center">
+                      {language === "pt" ? "Clique para carregar imagem" : "Click to upload image"}
+                    </span>
+                    <span className="text-[10px] text-stone-500">
+                      PNG, JPG, SVG (máx. 10MB)
+                    </span>
+                  </button>
+                ) : (
+                  <div className="relative rounded-xl overflow-hidden border border-white/15 animate-fade-in-down">
+                    <img src={uploadedImage} alt="Preview" className="w-full h-36 object-cover object-center" />
+                    <div className="absolute inset-0 bg-black/40 flex items-end justify-between p-2.5">
+                      <span className="text-[10px] text-white/80 font-bold truncate max-w-[70%]">{uploadedFileName}</span>
+                      <button
+                        type="button"
+                        onClick={removeUploadedImage}
+                        className="p-1.5 bg-red-500/80 hover:bg-red-600 rounded-lg transition-colors"
+                      >
+                        <Trash2 className="h-3.5 w-3.5 text-white" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+                <input
+                  ref={imageInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageUpload}
+                />
+              </div>
+
+              {/* 2 – Main text */}
+              <div className="space-y-1.5">
+                <span className="text-xs font-bold text-stone-300 uppercase tracking-wide block">
+                  {language === "pt" ? "2. Texto Principal" : "2. Main Text"}
+                </span>
+                <input
+                  type="text"
+                  value={mainText}
+                  onChange={(e) => setMainText(e.target.value)}
+                  placeholder={language === "pt" ? "Ex: Nome, frase, logótipo..." : "E.g. Name, phrase, logo..."}
+                  className="w-full bg-black/40 border border-white/15 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-amber-400/60 text-white placeholder:text-stone-500 transition-colors"
+                  maxLength={80}
+                />
+                <div className="text-right text-[10px] text-stone-500">{mainText.length}/80</div>
+              </div>
+
+              {/* 3 – Secondary text */}
+              <div className="space-y-1.5">
+                <span className="text-xs font-bold text-stone-300 uppercase tracking-wide block">
+                  {language === "pt" ? "3. Texto Secundário" : "3. Secondary Text"}
+                </span>
+                <input
+                  type="text"
+                  value={secondaryText}
+                  onChange={(e) => setSecondaryText(e.target.value)}
+                  placeholder={language === "pt" ? "Ex: Data, subtítulo, lema..." : "E.g. Date, subtitle, motto..."}
+                  className="w-full bg-black/40 border border-white/15 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-amber-400/60 text-white placeholder:text-stone-500 transition-colors"
+                  maxLength={80}
+                />
+                <div className="text-right text-[10px] text-stone-500">{secondaryText.length}/80</div>
+              </div>
+
+              {/* 4 – Order note */}
+              <div className="space-y-1.5">
+                <span className="text-xs font-bold text-stone-300 uppercase tracking-wide block">
+                  {language === "pt" ? "4. Anotação do Pedido" : "4. Order Note"}
+                </span>
+                <textarea
+                  value={orderNote}
+                  onChange={(e) => setOrderNote(e.target.value)}
+                  placeholder={language === "pt" ? "Informações adicionais, preferências, dúvidas..." : "Additional information, preferences, questions..."}
+                  rows={3}
+                  className="w-full bg-black/40 border border-white/15 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-amber-400/60 text-white placeholder:text-stone-500 transition-colors resize-none"
+                  maxLength={300}
+                />
+                <div className="text-right text-[10px] text-stone-500">{orderNote.length}/300</div>
+              </div>
+            </div>
+
+            {/* Customization Warning */}
+            {(isSizeCustom || isColorCustom) && (
+              <div className="text-xs border border-amber-500/25 bg-black/40 rounded-xl p-3.5 text-amber-200/90 leading-relaxed animate-fade-in-down">
+                ⚠️ <span className="font-extrabold text-amber-400">{language === "pt" ? "Nota de Personalização:" : "Customization Note:"}</span>{" "}
+                {language === "pt" 
+                  ? "Ao personalizar o artigo, o preço poderá sofrer alterações. Será enviado um orçamento por email após submeter o pedido."
+                  : "By customizing the item, the price may vary. A budget/quote will be sent by email after placing your order."}
+              </div>
+            )}
+
             {/* Add to Cart Drawer/Card */}
             <div className="border-t border-white/10 pt-6 flex flex-col space-y-3">
               <div className="flex items-baseline justify-between">
                 <span className="text-sm font-semibold text-stone-300">{t("summaryTotal")}</span>
-                <span className="text-2xl font-black text-white">
+                <span className="text-2xl font-black text-[#F2C879]">
                   {totalPrice.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                     style: "currency",
                     currency: "EUR",
@@ -336,11 +477,14 @@ export default function ProductDetail() {
               </div>
 
               <button
+                type="button"
                 onClick={handleAddToCart}
-                className="w-full bg-amber-600 hover:bg-amber-700 text-white font-extrabold py-4 px-6 rounded-2xl shadow-lg hover:shadow-amber-500/20 active:scale-98 transition-all flex items-center justify-center space-x-2 text-base"
+                className="btn-add-to-cart text-base"
               >
-                <ShoppingCart className="h-5 w-5" />
-                <span>{t("btnAddToCart")}</span>
+                <span className="btn-add-to-cart__text">{t("btnAddToCart")}</span>
+                <span className="btn-add-to-cart__icon">
+                  <ShoppingCart className="h-5 w-5 svg" />
+                </span>
               </button>
             </div>
           </div>
