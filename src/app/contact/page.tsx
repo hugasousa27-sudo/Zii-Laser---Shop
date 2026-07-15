@@ -85,10 +85,20 @@ export default function Contact() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://formsubmit.co/ajax/ziilaserloja@gmail.com", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        headers: { 
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          _subject: `Novo Contacto Loja Online: ${form.subject}`,
+          "Nome": form.name,
+          "Assunto": form.subject,
+          "Preferência de Contacto": form.contactPreference,
+          "Identificação do Contacto": form.contactHandle,
+          "Mensagem": form.message
+        }),
       });
 
       if (response.ok) {
@@ -96,8 +106,7 @@ export default function Contact() {
         setForm({ name: "", subject: "", message: "", contactPreference: "", contactHandle: "" });
         setTimeout(() => setSuccess(false), 8000);
       } else {
-        const errorData = await response.json();
-        alert(errorData.error || "Erro ao enviar a mensagem.");
+        alert("Erro ao enviar a mensagem.");
       }
     } catch (err) {
       console.error(err);
