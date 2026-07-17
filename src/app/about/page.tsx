@@ -11,10 +11,10 @@ export default function About() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full flex-grow space-y-16">
       {/* Page Title & Intro */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <h1 className="text-4xl font-extrabold tracking-tight" style={{ color: "#272727" }}>
+        <h1 className="text-4xl font-extrabold tracking-tight">
           {t("aboutTitle")}
         </h1>
-        <p className="text-lg leading-relaxed font-semibold" style={{ color: "#272727" }}>
+        <p className="text-lg leading-relaxed font-semibold">
           {t("aboutIntro")}
         </p>
       </div>
@@ -25,16 +25,16 @@ export default function About() {
         style={{ borderColor: "var(--border)" }}
       >
         <div className="lg:col-span-7 space-y-4">
-          <h2 className="text-2xl font-black" style={{ color: "#272727" }}>
+          <h2 className="text-2xl font-black">
             {t("aboutHistoryTitle")}
           </h2>
-          <p className="text-base leading-relaxed font-medium" style={{ color: "#272727" }}>
+          <p className="text-base leading-relaxed font-medium">
             {t("aboutHistoryText1")}
           </p>
-          <p className="text-base leading-relaxed font-medium" style={{ color: "#272727" }}>
+          <p className="text-base leading-relaxed font-medium">
             {t("aboutHistoryText2")}
           </p>
-          <p className="text-base leading-relaxed font-medium" style={{ color: "#272727" }}>
+          <p className="text-base leading-relaxed font-medium">
             {t("aboutHistoryText3")}
           </p>
         </div>
