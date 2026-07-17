@@ -158,27 +158,31 @@ export default function Cart() {
       `- ${(item.price * item.quantity).toFixed(2)}€`
     ).join('\n');
 
-    // Send email via formsubmit.co
-    fetch("https://formsubmit.co/ajax/ziilaserloja@gmail.com", {
+    // Build FormData to support file attachments
+    const fd = new FormData();
+    fd.append("orderId",           generatedOrderId);
+    fd.append("customerName",      form.name);
+    fd.append("customerEmail",     form.email);
+    fd.append("customerPhone",     form.phone);
+    fd.append("contactPreference", form.contactPreference);
+    fd.append("contactHandle",     form.contactHandle);
+    fd.append("address",           `${form.address}, ${form.zip} ${form.city}, ${form.country}`);
+    fd.append("orderDetails",      orderDetails);
+    fd.append("orderNotes",        orderNotes || "Nenhuma");
+    fd.append("totalAmount",       `${cartTotal.toFixed(2)}€`);
+
+    // Attach reference image from the first cart item that has one
+    const itemWithImage = cart.find(item => item.uploadedImageFile);
+    if (itemWithImage?.uploadedImageFile) {
+      fd.append("referenceImage", itemWithImage.uploadedImageFile, itemWithImage.uploadedImageFile.name);
+    }
+
+    // Send to our Next.js API route (supports multipart/form-data with file attachments)
+    fetch("/api/order", {
       method: "POST",
-      headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-          _subject: `Nova Encomenda Loja Online: ${generatedOrderId}`,
-          "ID da Encomenda": generatedOrderId,
-          "Nome do Cliente": form.name,
-          "Email do Cliente": form.email,
-          "Telefone": form.phone,
-          "Preferência de Contacto": form.contactPreference,
-          "Identificação do Contacto": form.contactHandle,
-          "Morada": `${form.address}, ${form.zip} ${form.city}, ${form.country}`,
-          "Notas Adicionais": orderNotes || "Nenhuma",
-          "Total a Pagar": `${cartTotal.toFixed(2)}€`,
-          "Produtos Escolhidos": "\n" + orderDetails
-      })
-    }).catch(error => console.error("Erro ao enviar email:", error));
+      body: fd,
+      // Do NOT set Content-Type header — the browser sets it automatically with the correct boundary
+    }).catch(error => console.error("Erro ao enviar encomenda:", error));
 
     setSuccessModalOpen(true);
   };

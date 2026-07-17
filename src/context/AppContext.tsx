@@ -15,6 +15,8 @@ export interface CartItem {
   selectedSize: string;
   selectedColor: string;
   customText: string;
+  uploadedImageFile?: File | null;  // The actual File object (not serializable to localStorage)
+  uploadedImageName?: string;       // Name of the uploaded file for display
 }
 
 export interface CartItemInput {
@@ -27,6 +29,8 @@ export interface CartItemInput {
   selectedSize: string;
   selectedColor: string;
   customText: string;
+  uploadedImageFile?: File | null;
+  uploadedImageName?: string;
 }
 
 type Language = "pt" | "en";
@@ -129,7 +133,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updatedCart = [...prevCart, { ...input, cartItemId }];
       }
 
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      // Note: File objects are not JSON-serializable; we omit them from localStorage
+      // They are kept in memory only for the current session.
+      const serializableCart = updatedCart.map(({ uploadedImageFile, ...rest }) => rest);
+      localStorage.setItem("cart", JSON.stringify(serializableCart));
       return updatedCart;
     });
   };

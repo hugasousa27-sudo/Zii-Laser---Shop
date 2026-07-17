@@ -26,6 +26,7 @@ export default function ProductDetail() {
   // Customization fields
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [uploadedFileName, setUploadedFileName] = useState("");
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null); // The actual File object
   const [mainText, setMainText] = useState("");
   const [secondaryText, setSecondaryText] = useState("");
   const [orderNote, setOrderNote] = useState("");
@@ -85,6 +86,7 @@ export default function ProductDetail() {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploadedFileName(file.name);
+    setUploadedFile(file); // Store the actual File object
     const reader = new FileReader();
     reader.onload = (ev) => setUploadedImage(ev.target?.result as string);
     reader.readAsDataURL(file);
@@ -93,6 +95,7 @@ export default function ProductDetail() {
   const removeUploadedImage = () => {
     setUploadedImage(null);
     setUploadedFileName("");
+    setUploadedFile(null);
     if (imageInputRef.current) imageInputRef.current.value = "";
   };
 
@@ -119,7 +122,9 @@ export default function ProductDetail() {
       quantity: quantity,
       selectedSize: finalSize,
       selectedColor: finalColor,
-      customText: customText
+      customText: customText,
+      uploadedImageFile: uploadedFile,
+      uploadedImageName: uploadedFileName || undefined,
     });
 
     setAddedMessage(true);
