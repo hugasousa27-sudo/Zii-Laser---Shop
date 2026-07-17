@@ -21,18 +21,18 @@
 }
 
 .dark {
-  --background: #1C0E07;
+  --background: #1A0C06;
   --foreground: #F5EDE3;
-  --card: #2A1710;
+  --card: #2E1A12;
   --card-foreground: #F5EDE3;
-  --border: #5A3520;
-  --primary: #B9844F;
-  --primary-hover: #C99660;
+  --border: #4A2E1E;
+  --primary: #C99660;
+  --primary-hover: #D4A870;
   --accent: #3D2415;
-  --muted: #C4A882;
+  --muted: #D4B896;
   --success: #34d399;
   /* Footer theme colors in dark mode - match dark wallpaper palette */
-  --footer-bg: #1C0E07;
+  --footer-bg: #150A04;
   --footer-text: #C4A882;
 }
 
@@ -890,4 +890,64 @@ body::before {
   from { transform: translateY(0.1em); }
   to   { transform: translateY(-0.1em); }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   DARK MODE — Remap Tailwind slate greys → warm brown palette
+   Ensures all components use the castanho theme instead of blue-grey
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Background overrides */
+.dark .dark\:bg-slate-900  { background-color: #25140D !important; }
+.dark .dark\:bg-slate-950  { background-color: #1A0C06 !important; }
+.dark .dark\:bg-slate-800  { background-color: #2E1A12 !important; }
+.dark .dark\:bg-slate-850  { background-color: #25140D !important; }
+
+/* Border overrides */
+.dark .dark\:border-slate-800   { border-color: #4A2E1E !important; }
+.dark .dark\:border-slate-850   { border-color: #3E2518 !important; }
+.dark .dark\:border-slate-700   { border-color: #5A3A26 !important; }
+
+/* Text overrides — make text fully white for maximum readability on dark brown */
+.dark .dark\:text-slate-50   { color: #ffffff !important; }
+.dark .dark\:text-slate-100  { color: #ffffff !important; }
+.dark .dark\:text-slate-200  { color: #ffffff !important; }
+.dark .dark\:text-slate-350  { color: #ffffff !important; }
+.dark .dark\:text-slate-300  { color: #ffffff !important; }
+.dark .dark\:text-slate-400  { color: #ffffff !important; }
+.dark .dark\:text-slate-450  { color: #ffffff !important; }
+.dark .text-slate-500        { color: #ffffff !important; }
+.dark .text-slate-400        { color: #ffffff !important; }
+.dark .text-slate-650        { color: #ffffff !important; }
+.dark .text-slate-600        { color: #ffffff !important; }
+.dark .text-slate-700        { color: #ffffff !important; }
+
+/* Divide line overrides */
+.dark .dark\:divide-slate-800 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #4A2E1E !important;
+}
+
+/* Hover background overrides */
+.dark .dark\:hover\:bg-slate-700:hover { background-color: #4A2E1E !important; }
+.dark .dark\:hover\:bg-slate-800:hover { background-color: #2E1A12 !important; }
+.dark .dark\:hover\:text-slate-200:hover { color: #ffffff !important; }
+
+/* Focus ring override */
+.dark .dark\:focus\:border-slate-700:focus { border-color: #4A2E1E !important; }
+
+/* Amber overrides — keep brand gold in dark mode */
+.dark .dark\:text-amber-400  { color: #F2C879 !important; }
+.dark .dark\:text-amber-300  { color: #F5D090 !important; }
+.dark .dark\:border-amber-900\/50 { border-color: rgba(120, 60, 10, 0.5) !important; }
+.dark .dark\:bg-amber-950\/20    { background-color: rgba(100, 45, 5, 0.2) !important; }
+.dark .dark\:text-amber-300      { color: #F5D090 !important; }
+
+/* Emerald keep as-is (success states) */
+.dark .dark\:text-emerald-400  { color: #34d399 !important; }
+.dark .dark\:bg-emerald-950\/20 { background-color: rgba(6, 78, 59, 0.2) !important; }
+.dark .dark\:border-emerald-800\/50 { border-color: rgba(6, 95, 70, 0.5) !important; }
+
+/* Red keep as-is (error states) */
+.dark .dark\:bg-red-950\/20    { background-color: rgba(69, 10, 10, 0.2) !important; }
+.dark .dark\:border-red-900\/50 { border-color: rgba(127, 29, 29, 0.5) !important; }
+.dark .dark\:text-red-400      { color: #f87171 !important; }
 
