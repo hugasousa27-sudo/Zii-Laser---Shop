@@ -49,6 +49,8 @@ export default function Cart() {
   const [orderNotes, setOrderNotes] = useState("");
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [orderId, setOrderId] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const [form, setForm] = useState<FormFields>({
     name: "",
@@ -141,9 +143,12 @@ export default function Cart() {
     return isValid;
   };
 
-  const handleCheckoutSubmit = (e: React.FormEvent) => {
+  const handleCheckoutSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
+
+    setIsSubmitting(true);
+    setSubmitError("");
 
     // Simulate ordering
     const generatedOrderId = "VG-" + Math.floor(100000 + Math.random() * 900000);
@@ -178,13 +183,28 @@ export default function Cart() {
     }
 
     // Send to our Next.js API route (supports multipart/form-data with file attachments)
-    fetch("/api/order", {
-      method: "POST",
-      body: fd,
-      // Do NOT set Content-Type header — the browser sets it automatically with the correct boundary
-    }).catch(error => console.error("Erro ao enviar encomenda:", error));
+    try {
+      const res = await fetch("/api/order", {
+        method: "POST",
+        body: fd,
+        // Do NOT set Content-Type header — the browser sets it automatically with the correct boundary
+      });
 
-    setSuccessModalOpen(true);
+      const json = await res.json();
+
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || "Erro desconhecido ao enviar a encomenda.");
+      }
+
+      setSuccessModalOpen(true);
+    } catch (error: any) {
+      console.error("Erro ao enviar encomenda:", error);
+      setSubmitError(
+        "Ocorreu um erro ao enviar a sua encomenda. Por favor tente novamente ou contacte-nos diretamente."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const closeSuccessModal = () => {
@@ -710,11 +730,31 @@ export default function Cart() {
                 const submitBtn = document.getElementById("hidden-submit");
                 if (submitBtn) submitBtn.click();
               }}
-              className="w-full bg-[#F2C879] hover:bg-[#d9b265] text-[#2A1713] font-black py-4 px-6 rounded-xl shadow-lg hover:shadow-amber-500/20 transition-all flex items-center justify-center space-x-2 text-base"
+              disabled={isSubmitting}
+              className="w-full bg-[#F2C879] hover:bg-[#d9b265] disabled:opacity-60 disabled:cursor-not-allowed text-[#2A1713] font-black py-4 px-6 rounded-xl shadow-lg hover:shadow-amber-500/20 transition-all flex items-center justify-center space-x-2 text-base"
             >
-              <span>{t("btnCheckout")}</span>
-              <ArrowRight className="h-5 w-5" />
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin h-5 w-5 text-[#2A1713]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                  </svg>
+                  <span>A enviar encomenda...</span>
+                </>
+              ) : (
+                <>
+                  <span>{t("btnCheckout")}</span>
+                  <ArrowRight className="h-5 w-5" />
+                </>
+              )}
             </button>
+
+            {/* Error message */}
+            {submitError && (
+              <div className="mt-3 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 rounded-xl p-3.5 text-red-700 dark:text-red-400 text-xs font-semibold leading-relaxed">
+                ❌ {submitError}
+              </div>
+            )}
           </div>
         </div>
       </div>
