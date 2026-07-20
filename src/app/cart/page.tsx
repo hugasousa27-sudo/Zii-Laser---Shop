@@ -227,7 +227,7 @@ export default function Cart() {
   if (cart.length === 0) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-24 flex flex-col items-center justify-center text-center">
-        <div className="bg-amber-50 dark:bg-slate-900 p-6 rounded-full text-amber-700 dark:text-amber-400 mb-6">
+        <div className="bg-[#F2C879]/10 p-6 rounded-full text-[#F2C879] mb-6">
           <ShoppingBag className="h-12 w-12" />
         </div>
         <h1 className="text-3xl font-extrabold text-slate-950 dark:text-slate-50 mb-3">
@@ -250,7 +250,7 @@ export default function Cart() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full flex-grow relative">
       <h1 className="text-3xl font-black text-slate-950 dark:text-slate-50 mb-8 flex items-center gap-2">
-        <ShoppingBag className="h-7 w-7 text-amber-700 dark:text-amber-400" />
+        <ShoppingBag className="h-7 w-7 text-[#F2C879]" />
         <span>{t("cartTitle")}</span>
       </h1>
 
@@ -715,7 +715,7 @@ export default function Cart() {
 
               <div className="flex justify-between items-baseline text-slate-900 dark:text-white font-extrabold">
                 <span className="text-base">{t("summaryTotal")}</span>
-                <span className="text-2xl font-black font-mono text-amber-700 dark:text-amber-400">
+                <span className="text-2xl font-black font-mono text-[#F2C879]">
                   {cartTotal.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                     style: "currency",
                     currency: "EUR",

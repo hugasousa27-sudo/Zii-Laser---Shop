@@ -66,7 +66,7 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-24 flex flex-col items-center justify-center text-amber-700 dark:text-amber-400">
+      <div className="max-w-7xl mx-auto px-4 py-24 flex flex-col items-center justify-center text-[#F2C879]">
         <RefreshCw className="h-10 w-10 animate-spin mb-4" />
         <p className="text-slate-500 font-semibold">Carregando produto...</p>
       </div>
@@ -367,12 +367,12 @@ export default function ProductDetail() {
               <button 
                 type="button"
                 onClick={() => setIsCustomizationOpen(!isCustomizationOpen)}
-                className="w-full flex items-center justify-between focus:outline-none"
+                className="w-full flex items-center justify-between focus:outline-none bg-[#F2C879]/10 hover:bg-[#F2C879]/15 border border-[#F2C879]/30 hover:border-[#F2C879]/60 px-5 py-3.5 rounded-xl transition-all active:scale-[0.98]"
               >
-                <span className="text-xs font-black text-amber-300 uppercase tracking-widest block text-left">
-                  {language === "pt" ? "Personalização do Artigo" : "Item Customization"}
+                <span className="text-xs font-black text-[#F2C879] uppercase tracking-widest block text-left">
+                  ✨ {language === "pt" ? "Personalização do Artigo" : "Item Customization"}
                 </span>
-                <ChevronDown className={`h-4 w-4 text-amber-300 transition-transform ${isCustomizationOpen ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-4 w-4 text-[#F2C879] transition-transform duration-300 ${isCustomizationOpen ? "rotate-180" : ""}`} />
               </button>
 
               {isCustomizationOpen && (

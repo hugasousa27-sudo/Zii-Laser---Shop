@@ -8,7 +8,7 @@ export default function About() {
   const { t } = useApp();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full flex-grow space-y-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-32 w-full flex-grow space-y-16">
       {/* Page Title & Intro */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
         <h1 className="text-4xl font-extrabold tracking-tight">
@@ -21,8 +21,7 @@ export default function About() {
 
       {/* History Section */}
       <section
-        className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-t pt-12"
-        style={{ borderColor: "var(--border)" }}
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-t border-slate-300 dark:border-white pt-12"
       >
         <div className="lg:col-span-7 space-y-4">
           <h2 className="text-2xl font-black">

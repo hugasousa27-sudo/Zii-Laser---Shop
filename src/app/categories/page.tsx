@@ -80,7 +80,7 @@ function CategoriesContent() {
         <div className="mb-10 text-center md:text-left flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
             <h1 className="text-4xl font-extrabold tracking-tight flex items-center justify-center md:justify-start gap-2">
-              <Layers className="h-8 w-8 text-amber-700 dark:text-amber-400" />
+              <Layers className="h-8 w-8 text-[#F2C879]" />
               <span>{t("navCategories")}</span>
             </h1>
             <p className="mt-2 max-w-xl font-medium">
@@ -97,12 +97,12 @@ function CategoriesContent() {
 
         {/* Filter Header & Products */}
         <div>
-          <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-5 mb-8">
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-white pb-5 mb-8">
             <h2 className="text-2xl font-extrabold flex items-center gap-2">
               <Filter className="h-5 w-5 text-slate-400" />
               {selectedCategory ? (
                 <span>
-                  {t("navCategories")}: <span className="text-amber-700 dark:text-amber-400">{selectedCategory}</span>
+                  {t("navCategories")}: <span className="text-[#F2C879]">{selectedCategory}</span>
                 </span>
               ) : (
                 <span>Todos os Produtos</span>
@@ -113,7 +113,7 @@ function CategoriesContent() {
             {selectedCategory && (
               <button
                 onClick={() => setSelectedCategory(null)}
-                className="text-xs font-bold text-slate-500 hover:text-amber-700 dark:text-slate-400 dark:hover:text-amber-400 flex items-center gap-1 bg-slate-100 dark:bg-slate-850 px-3 py-1.5 rounded-full"
+                className="text-xs font-bold text-slate-500 hover:text-[#F2C879] flex items-center gap-1 bg-slate-100 dark:bg-slate-850 px-3 py-1.5 rounded-full"
               >
                 Clear Filter
               </button>
@@ -191,7 +191,7 @@ function CategoriesContent() {
 
                     {/* Title */}
                     <div className="p-4 bg-white dark:bg-slate-900 flex justify-between items-center">
-                      <span className="font-bold text-sm text-slate-900 dark:text-slate-50 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">
+                      <span className="font-bold text-sm text-slate-900 dark:text-slate-50 group-hover:text-[#F2C879] transition-colors">
                         {t(cat.nameKey)}
                       </span>
                       <ArrowRight className="h-4 w-4 text-slate-300 dark:text-slate-600 group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />

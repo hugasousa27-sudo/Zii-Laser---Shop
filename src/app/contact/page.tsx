@@ -181,7 +181,7 @@ export default function Contact() {
             <div className="grid grid-cols-1 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
               <div>
                 <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide mb-2" style={{ color: 'var(--foreground)' }}>
-                  <span className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-1.5 rounded-lg flex-shrink-0 shadow-inner">
+                  <span className="bg-[#F2C879]/10 text-[#F2C879] p-1.5 rounded-lg flex-shrink-0 shadow-inner">
                     <MessageCircle className="h-3.5 w-3.5" />
                   </span>
                   {t("labelContactPreference")} *
@@ -351,7 +351,7 @@ export default function Contact() {
 
             <ul className="space-y-4 text-sm font-semibold" style={{ color: 'var(--foreground)' }}>
               <li className="flex items-start space-x-3">
-                <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
+                <div className="bg-[#F2C879]/10 text-[#F2C879] p-2 rounded-lg flex-shrink-0 shadow-inner">
                   <Phone className="h-4 w-4" />
                 </div>
                 <div>
@@ -361,19 +361,19 @@ export default function Contact() {
               </li>
 
               <li className="flex items-start space-x-3">
-                <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
+                <div className="bg-[#F2C879]/10 text-[#F2C879] p-2 rounded-lg flex-shrink-0 shadow-inner">
                   <Mail className="h-4 w-4" />
                 </div>
                 <div>
                   <span className="block text-[10px] uppercase font-bold tracking-wider mb-0.5" style={{ color: 'var(--foreground)' }}>Email</span>
-                  <a href="mailto:ziilaserloja@gmail.com" className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors" style={{ color: 'var(--foreground)' }}>
+                  <a href="mailto:ziilaserloja@gmail.com" className="hover:text-[#F2C879] transition-colors" style={{ color: 'var(--foreground)' }}>
                     ziilaserloja@gmail.com
                   </a>
                 </div>
               </li>
 
               <li className="flex items-start space-x-3">
-                <div className="bg-amber-50 dark:bg-slate-950 text-amber-700 dark:text-amber-400 p-2 rounded-lg flex-shrink-0 shadow-inner">
+                <div className="bg-[#F2C879]/10 text-[#F2C879] p-2 rounded-lg flex-shrink-0 shadow-inner">
                   <MapPin className="h-4 w-4" />
                 </div>
                 <div>

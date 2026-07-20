@@ -125,13 +125,13 @@ export const Header: React.FC = () => {
                     }`}
                   style={{ 
                     color: isActive(link.href) 
-                      ? '#B9844F' 
+                      ? (isHomepage && !isScrolled ? '#ffffff' : '#F2C879') 
                       : (isHomepage && !isScrolled ? '#ffffff' : 'var(--foreground)'),
                     textShadow: isHomepage && !isScrolled ? '0 2px 4px rgba(0,0,0,0.8)' : 'none'
                   }}
                 >
                   {t(link.labelKey)}
-                  <ChevronDown className="arrow-icon h-4 w-4" style={{ color: isActive(link.href) ? '#B9844F' : (isHomepage && !isScrolled ? '#ffffff' : 'var(--foreground)') }} />
+                  <ChevronDown className="arrow-icon h-4 w-4" style={{ color: isActive(link.href) ? (isHomepage && !isScrolled ? '#ffffff' : '#F2C879') : (isHomepage && !isScrolled ? '#ffffff' : 'var(--foreground)') }} />
                 </Link>
 
                 {/* Dropdown Menu */}
@@ -176,7 +176,7 @@ export const Header: React.FC = () => {
                 className={`text-base font-bold tracking-wide transition-all duration-200 h-full flex items-center ${isActive(link.href) ? 'font-semibold' : ''}`}
                 style={{ 
                   color: isActive(link.href) 
-                    ? '#B9844F' 
+                    ? (isHomepage && !isScrolled ? '#ffffff' : '#F2C879') 
                     : (isHomepage && !isScrolled ? '#ffffff' : 'var(--foreground)'),
                   textShadow: isHomepage && !isScrolled ? '0 2px 4px rgba(0,0,0,0.8)' : 'none'
                 }}
@@ -328,7 +328,7 @@ export const Header: React.FC = () => {
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-3 py-2 rounded-md text-base font-medium transition-colors`}
-                style={{ color: isActive(link.href) ? '#B9844F' : 'var(--foreground)', backgroundColor: isActive(link.href) ? 'var(--accent)' : 'transparent' }}
+                style={{ color: isActive(link.href) ? '#F2C879' : 'var(--foreground)', backgroundColor: isActive(link.href) ? 'var(--accent)' : 'transparent' }}
               >
                 {t(link.labelKey)}
               </Link>

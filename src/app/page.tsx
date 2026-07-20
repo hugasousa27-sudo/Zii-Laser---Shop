@@ -116,11 +116,9 @@ export default function Home() {
       </section>
 
       {/* Trust Badges Section */}
-      <section className="w-full border-b bg-transparent" style={{ borderColor: '#272727' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
-          <h2 className="text-center text-xl font-black uppercase tracking-widest mb-8" style={{ color: 'var(--muted)' }}>
-            Porquê comprar na <span style={{ color: 'var(--primary)' }}>Zii Laser</span>
-          </h2>
+      <section className="w-full bg-transparent pt-12 pb-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Badge 1 */}
             <div className="group flex flex-col items-center text-center p-6 rounded-2xl border hover:shadow-lg hover:-translate-y-1 transition-all duration-300" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--card)' }}>
@@ -170,8 +168,8 @@ export default function Home() {
       </section>
 
       {/* Featured Products Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 w-full">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-5 border-b animate-fade-in" style={{ borderColor: '#272727' }}>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 w-full">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-5 border-b border-slate-200 dark:border-white animate-fade-in">
           <div className="flex flex-col gap-1 w-full">
             <div>
               <h2 className="text-3xl font-extrabold tracking-tight on-bg-blur" style={{ color: 'var(--foreground)' }}>
@@ -198,7 +196,7 @@ export default function Home() {
         {/* Observer Trigger Element / Loading Indicator */}
         <div ref={observerTarget} className="mt-12 flex justify-center py-6">
           {hasMore ? (
-            <div className="flex flex-col items-center space-y-2 text-amber-700 dark:text-amber-400">
+            <div className="flex flex-col items-center space-y-2 text-[#F2C879]">
               <RefreshCw className="h-8 w-8 animate-spin" />
               <span className="text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--foreground)' }}>
                 A carregar mais produtos...
