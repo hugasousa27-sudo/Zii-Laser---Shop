@@ -239,7 +239,7 @@ export default function Cart() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full flex-grow relative">
-      <h1 className="text-3xl font-black text-slate-950 dark:text-slate-50 mb-8 flex items-center gap-2">
+      <h1 className="text-3xl font-black text-slate-500 dark:text-slate-400 mb-8 flex items-center gap-2">
         <ShoppingBag className="h-7 w-7 text-[#F2C879]" />
         <span>{t("cartTitle")}</span>
       </h1>
@@ -250,7 +250,7 @@ export default function Cart() {
           {/* Cart Items List */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
             <div className="p-6 border-b border-slate-100 dark:border-slate-800">
-              <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50">
+              <h2 className="font-extrabold text-lg text-slate-500 dark:text-slate-400">
                 Produtos selecionados ({cart.length})
               </h2>
             </div>
@@ -266,7 +266,7 @@ export default function Cart() {
                       className="w-16 h-16 object-cover rounded-xl border border-slate-200 dark:border-slate-800 flex-shrink-0"
                     />
                     <div>
-                      <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 line-clamp-1">
+                      <h3 className="font-bold text-sm text-slate-500 dark:text-slate-400 line-clamp-1">
                         {language === "pt" ? item.namePt : item.nameEn}
                       </h3>
                       
@@ -301,7 +301,7 @@ export default function Cart() {
                       >
                         <Minus className="h-3.5 w-3.5" />
                       </button>
-                      <span className="px-3 text-xs font-bold font-mono text-slate-800 dark:text-slate-100 min-w-8 text-center">
+                      <span className="px-3 text-xs font-bold font-mono text-slate-500 dark:text-slate-450 min-w-8 text-center">
                         {item.quantity}
                       </span>
                       <button
@@ -315,7 +315,7 @@ export default function Cart() {
                     {/* Price and removal */}
                     <div className="flex items-center space-x-4">
                       <div className="text-right">
-                        <span className="block text-sm font-bold text-slate-900 dark:text-slate-100 font-mono">
+                        <span className="block text-sm font-bold text-emerald-600 dark:text-emerald-500 font-mono">
                           {(item.price * item.quantity).toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                             style: "currency",
                             currency: "EUR",
@@ -344,7 +344,7 @@ export default function Cart() {
 
           {/* Client Shipping Form */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-            <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 mb-6">
+            <h2 className="font-extrabold text-lg text-slate-500 dark:text-slate-400 mb-6">
               {t("custDataTitle")}
             </h2>
 
@@ -518,6 +518,7 @@ export default function Cart() {
                       height: 1.75rem;
                       transition: all 200ms ease;
                       object-fit: contain;
+                      filter: grayscale(100%) opacity(60%);
                     }
 
                     .cart-radio-tile-group .input-container .radio-tile-label {
@@ -531,28 +532,82 @@ export default function Cart() {
                       transition: all 200ms ease;
                     }
 
-                    .cart-radio-tile-group .input-container .radio-button:hover + .radio-tile {
-                      border-color: #B9844F;
+                    .cart-radio-tile-group .input-container .radio-button:hover + .cart-radio-tile-group .input-container .radio-tile .icon img,
+                    .cart-radio-tile-group .input-container .radio-button:hover + .radio-tile .icon img {
+                      filter: grayscale(0%) opacity(100%);
                     }
 
-                    .cart-radio-tile-group .input-container .radio-button:checked + .radio-tile {
-                      background-color: #B9844F;
-                      border-color: #B9844F;
-                      box-shadow: 0 4px 12px rgba(185, 132, 79, 0.25);
+                    /* WhatsApp Branded Checked State */
+                    .cart-radio-tile-group .input-container #cart-whatsapp:checked + .radio-tile {
+                      background-color: rgba(37, 211, 102, 0.1);
+                      border-color: #25D366;
+                      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.15);
                       transform: scale(1.05);
                     }
-
-                    .cart-radio-tile-group .input-container .radio-button:checked + .radio-tile .icon img {
-                      filter: brightness(0) invert(1);
+                    .cart-radio-tile-group .input-container #cart-whatsapp:checked + .radio-tile .icon img {
+                      filter: grayscale(0%) opacity(100%);
+                    }
+                    .cart-radio-tile-group .input-container #cart-whatsapp:checked + .radio-tile .radio-tile-label {
+                      color: #128C7E;
+                    }
+                    .dark .cart-radio-tile-group .input-container #cart-whatsapp:checked + .radio-tile .radio-tile-label {
+                      color: #25D366;
                     }
 
-                    .cart-radio-tile-group .input-container .radio-button:checked + .radio-tile .radio-tile-label {
-                      color: #ffffff;
+                    /* Instagram Branded Checked State */
+                    .cart-radio-tile-group .input-container #cart-instagram:checked + .radio-tile {
+                      background-color: rgba(225, 48, 108, 0.1);
+                      border-color: #E1306C;
+                      box-shadow: 0 4px 12px rgba(225, 48, 108, 0.15);
+                      transform: scale(1.05);
+                    }
+                    .cart-radio-tile-group .input-container #cart-instagram:checked + .radio-tile .icon img {
+                      filter: grayscale(0%) opacity(100%);
+                    }
+                    .cart-radio-tile-group .input-container #cart-instagram:checked + .radio-tile .radio-tile-label {
+                      color: #C13584;
+                    }
+                    .dark .cart-radio-tile-group .input-container #cart-instagram:checked + .radio-tile .radio-tile-label {
+                      color: #fd5c63;
+                    }
+
+                    /* Facebook Branded Checked State */
+                    .cart-radio-tile-group .input-container #cart-facebook:checked + .radio-tile {
+                      background-color: rgba(24, 119, 242, 0.15);
+                      border-color: #1877F2;
+                      box-shadow: 0 4px 12px rgba(24, 119, 242, 0.15);
+                      transform: scale(1.05);
+                    }
+                    .cart-radio-tile-group .input-container #cart-facebook:checked + .radio-tile .icon img {
+                      filter: grayscale(0%) opacity(100%);
+                    }
+                    .cart-radio-tile-group .input-container #cart-facebook:checked + .radio-tile .radio-tile-label {
+                      color: #0d47a1;
+                    }
+                    .dark .cart-radio-tile-group .input-container #cart-facebook:checked + .radio-tile .radio-tile-label {
+                      color: #1877F2;
+                    }
+
+                    /* Email Branded Checked State */
+                    .cart-radio-tile-group .input-container #cart-email:checked + .radio-tile {
+                      background-color: rgba(234, 67, 53, 0.1);
+                      border-color: #EA4335;
+                      box-shadow: 0 4px 12px rgba(234, 67, 53, 0.15);
+                      transform: scale(1.05);
+                    }
+                    .cart-radio-tile-group .input-container #cart-email:checked + .radio-tile .icon img {
+                      filter: grayscale(0%) opacity(100%);
+                    }
+                    .cart-radio-tile-group .input-container #cart-email:checked + .radio-tile .radio-tile-label {
+                      color: #c62828;
+                    }
+                    .dark .cart-radio-tile-group .input-container #cart-email:checked + .radio-tile .radio-tile-label {
+                      color: #ef5350;
                     }
                   `}} />
 
                   {/* Warning Alert */}
-                  <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-4 text-amber-800 dark:text-amber-300 text-xs leading-relaxed font-semibold mb-4">
+                  <div className="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40 rounded-2xl p-4 text-[#5c3a21] dark:text-amber-200 text-xs leading-relaxed font-semibold mb-4">
                     {t("contactAlert")}
                   </div>
 
@@ -628,7 +683,7 @@ export default function Cart() {
 
           {/* Order Notes Area */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-            <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 mb-3">
+            <h2 className="font-extrabold text-lg text-slate-500 dark:text-slate-400 mb-3">
               {t("cartNotes")}
             </h2>
             <textarea
@@ -645,26 +700,26 @@ export default function Cart() {
         <div className="lg:col-span-5 sticky top-24 space-y-6">
           {/* Opções de Pagamento Box */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-            <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 border-b border-slate-100 dark:border-slate-800 pb-3">
+            <h2 className="font-extrabold text-lg text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-3">
               Opções de Pagamento
             </h2>
             <div className="space-y-3.5 text-sm font-semibold">
               <div className="flex flex-col gap-1 p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-850">
-                <span className="text-xs uppercase text-amber-750 dark:text-amber-400 font-extrabold">Transferência Bancária</span>
-                <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-350 select-all">IBAN: PT50 0003 0000 0000 0000 0000 0</span>
+                <span className="text-xs uppercase text-[#5c3a21] dark:text-amber-400 font-extrabold">Transferência Bancária</span>
+                <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 select-all">IBAN: PT50 0003 0000 0000 0000 0000 0</span>
               </div>
               <div className="flex flex-col gap-1 p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-850">
-                <span className="text-xs uppercase text-amber-750 dark:text-amber-400 font-extrabold">MB WAY</span>
-                <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-350 select-all">+351 913 625 082</span>
+                <span className="text-xs uppercase text-[#5c3a21] dark:text-amber-400 font-extrabold">MB WAY</span>
+                <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 select-all">+351 913 625 082</span>
               </div>
-              <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-xl p-3.5 text-amber-800 dark:text-amber-300 text-xs leading-relaxed font-bold">
+              <div className="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40 rounded-xl p-3.5 text-[#5c3a21] dark:text-amber-200 text-xs leading-relaxed font-bold">
                 ⚠️ Após confirmação do pagamento a sua encomenda será enviada.
               </div>
             </div>
           </div>
 
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
-            <h2 className="font-extrabold text-lg text-slate-950 dark:text-slate-50 border-b border-slate-100 dark:border-slate-800 pb-4">
+            <h2 className="font-extrabold text-lg text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-4">
               {t("summaryTitle")}
             </h2>
 

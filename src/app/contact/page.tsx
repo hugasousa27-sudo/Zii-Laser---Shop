@@ -217,6 +217,7 @@ export default function Contact() {
                     width: 1.75rem; height: 1.75rem;
                     transition: all 200ms ease;
                     object-fit: contain;
+                    filter: grayscale(100%) opacity(60%);
                   }
                   .radio-tile-group .input-container .radio-tile-label {
                     text-align: center;
@@ -225,17 +226,76 @@ export default function Contact() {
                     color: var(--muted); margin-top: 0.35rem;
                     transition: all 200ms ease;
                   }
-                  .radio-tile-group .input-container .radio-button:hover + .radio-tile { border-color: #B9844F; }
-                  .radio-tile-group .input-container .radio-button:checked + .radio-tile {
-                    background-color: #B9844F; border-color: #B9844F;
-                    box-shadow: 0 4px 12px rgba(185,132,79,0.25);
+                  .radio-tile-group .input-container .radio-button:hover + .radio-tile .icon img {
+                    filter: grayscale(0%) opacity(100%);
+                  }
+                  
+                  /* WhatsApp Branded Checked State */
+                  .radio-tile-group .input-container #whatsapp:checked + .radio-tile {
+                    background-color: rgba(37, 211, 102, 0.1);
+                    border-color: #25D366;
+                    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.15);
                     transform: scale(1.05);
                   }
-                  .radio-tile-group .input-container .radio-button:checked + .radio-tile .icon img {
-                    filter: brightness(0) invert(1);
+                  .radio-tile-group .input-container #whatsapp:checked + .radio-tile .icon img {
+                    filter: grayscale(0%) opacity(100%);
                   }
-                  .radio-tile-group .input-container .radio-button:checked + .radio-tile .radio-tile-label {
-                    color: #ffffff;
+                  .radio-tile-group .input-container #whatsapp:checked + .radio-tile .radio-tile-label {
+                    color: #128C7E;
+                  }
+                  .dark .radio-tile-group .input-container #whatsapp:checked + .radio-tile .radio-tile-label {
+                    color: #25D366;
+                  }
+
+                  /* Instagram Branded Checked State */
+                  .radio-tile-group .input-container #instagram:checked + .radio-tile {
+                    background-color: rgba(225, 48, 108, 0.1);
+                    border-color: #E1306C;
+                    box-shadow: 0 4px 12px rgba(225, 48, 108, 0.15);
+                    transform: scale(1.05);
+                  }
+                  .radio-tile-group .input-container #instagram:checked + .radio-tile .icon img {
+                    filter: grayscale(0%) opacity(100%);
+                  }
+                  .radio-tile-group .input-container #instagram:checked + .radio-tile .radio-tile-label {
+                    color: #C13584;
+                  }
+                  .dark .radio-tile-group .input-container #instagram:checked + .radio-tile .radio-tile-label {
+                    color: #fd5c63;
+                  }
+
+                  /* Facebook Branded Checked State */
+                  .radio-tile-group .input-container #facebook:checked + .radio-tile {
+                    background-color: rgba(24, 119, 242, 0.15);
+                    border-color: #1877F2;
+                    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.15);
+                    transform: scale(1.05);
+                  }
+                  .radio-tile-group .input-container #facebook:checked + .radio-tile .icon img {
+                    filter: grayscale(0%) opacity(100%);
+                  }
+                  .radio-tile-group .input-container #facebook:checked + .radio-tile .radio-tile-label {
+                    color: #0d47a1;
+                  }
+                  .dark .radio-tile-group .input-container #facebook:checked + .radio-tile .radio-tile-label {
+                    color: #1877F2;
+                  }
+
+                  /* Email Branded Checked State */
+                  .radio-tile-group .input-container #email:checked + .radio-tile {
+                    background-color: rgba(234, 67, 53, 0.1);
+                    border-color: #EA4335;
+                    box-shadow: 0 4px 12px rgba(234, 67, 53, 0.15);
+                    transform: scale(1.05);
+                  }
+                  .radio-tile-group .input-container #email:checked + .radio-tile .icon img {
+                    filter: grayscale(0%) opacity(100%);
+                  }
+                  .radio-tile-group .input-container #email:checked + .radio-tile .radio-tile-label {
+                    color: #c62828;
+                  }
+                  .dark .radio-tile-group .input-container #email:checked + .radio-tile .radio-tile-label {
+                    color: #ef5350;
                   }
                 `}} />
 
