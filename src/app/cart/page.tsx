@@ -239,7 +239,7 @@ export default function Cart() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full flex-grow relative">
-      <h1 className="text-3xl font-black text-slate-500 dark:text-slate-400 mb-8 flex items-center gap-2">
+      <h1 className="text-3xl font-black mb-8 flex items-center gap-2" style={{ color: 'var(--foreground)' }}>
         <ShoppingBag className="h-7 w-7 text-[#F2C879]" />
         <span>{t("cartTitle")}</span>
       </h1>
@@ -250,7 +250,7 @@ export default function Cart() {
           {/* Cart Items List */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
             <div className="p-6 border-b border-slate-100 dark:border-slate-800">
-              <h2 className="font-extrabold text-lg text-slate-500 dark:text-slate-400">
+              <h2 className="font-extrabold text-lg" style={{ color: 'var(--foreground)' }}>
                 Produtos selecionados ({cart.length})
               </h2>
             </div>
@@ -266,25 +266,25 @@ export default function Cart() {
                       className="w-16 h-16 object-cover rounded-xl border border-slate-200 dark:border-slate-800 flex-shrink-0"
                     />
                     <div>
-                      <h3 className="font-bold text-sm text-slate-500 dark:text-slate-400 line-clamp-1">
+                      <h3 className="font-bold text-sm line-clamp-1" style={{ color: 'var(--foreground)' }}>
                         {language === "pt" ? item.namePt : item.nameEn}
                       </h3>
                       
                       {/* Configuration Details */}
                       <div className="mt-1.5 space-y-0.5">
                         {item.selectedSize && (
-                          <div className="text-xs text-slate-400 font-medium">
-                            {t("labelSize")}: <span className="text-slate-600 dark:text-slate-300">{item.selectedSize}</span>
+                          <div className="text-xs font-medium" style={{ color: 'var(--foreground)' }}>
+                            {t("labelSize")}: <span style={{ color: 'var(--foreground)' }}>{item.selectedSize}</span>
                           </div>
                         )}
                         {item.selectedColor && (
-                          <div className="text-xs text-slate-400 font-medium">
-                            {t("labelColor")}: <span className="text-slate-600 dark:text-slate-300">{item.selectedColor}</span>
+                          <div className="text-xs font-medium" style={{ color: 'var(--foreground)' }}>
+                            {t("labelColor")}: <span style={{ color: 'var(--foreground)' }}>{item.selectedColor}</span>
                           </div>
                         )}
                         {item.customText && item.customText.split(" | ").filter(Boolean).map((part, i) => (
-                          <div key={i} className="text-xs text-slate-400 font-medium">
-                            <span className="text-slate-600 dark:text-slate-300">{part}</span>
+                          <div key={i} className="text-xs font-medium" style={{ color: 'var(--foreground)' }}>
+                            <span style={{ color: 'var(--foreground)' }}>{part}</span>
                           </div>
                         ))}
                       </div>
@@ -297,16 +297,16 @@ export default function Cart() {
                     <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-lg">
                       <button
                         onClick={() => updateCartQuantity(item.cartItemId, item.quantity - 1)}
-                        className="p-1.5 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors"
+                        className="p-1.5 transition-colors" style={{ color: 'var(--foreground)' }}
                       >
                         <Minus className="h-3.5 w-3.5" />
                       </button>
-                      <span className="px-3 text-xs font-bold font-mono text-slate-500 dark:text-slate-450 min-w-8 text-center">
+                      <span className="px-3 text-xs font-bold font-mono min-w-8 text-center" style={{ color: 'var(--foreground)' }}>
                         {item.quantity}
                       </span>
                       <button
                         onClick={() => updateCartQuantity(item.cartItemId, item.quantity + 1)}
-                        className="p-1.5 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors"
+                        className="p-1.5 transition-colors" style={{ color: 'var(--foreground)' }}
                       >
                         <Plus className="h-3.5 w-3.5" />
                       </button>
@@ -315,14 +315,14 @@ export default function Cart() {
                     {/* Price and removal */}
                     <div className="flex items-center space-x-4">
                       <div className="text-right">
-                        <span className="block text-sm font-bold text-slate-500 dark:text-slate-400 font-mono">
+                        <span className="block text-sm font-bold font-mono" style={{ color: 'var(--foreground)' }}>
                           {(item.price * item.quantity).toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                             style: "currency",
                             currency: "EUR",
                           })}
                         </span>
                         {item.quantity > 1 && (
-                          <span className="block text-[10px] text-slate-400 font-mono mt-0.5">
+                          <span className="block text-[10px] font-mono mt-0.5" style={{ color: 'var(--foreground)' }}>
                             {item.price.toLocaleString(language === "pt" ? "pt-PT" : "en-US", { style: "currency", currency: "EUR" })} / un
                           </span>
                         )}
@@ -344,13 +344,13 @@ export default function Cart() {
 
           {/* Client Shipping Form */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-            <h2 className="font-extrabold text-lg text-slate-500 dark:text-slate-400 mb-6">
+            <h2 className="font-extrabold text-lg mb-6" style={{ color: 'var(--foreground)' }}>
               {t("custDataTitle")}
             </h2>
 
             <form onSubmit={handleCheckoutSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                   {t("custName")} *
                 </label>
                 <input
@@ -367,7 +367,7 @@ export default function Cart() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                     {t("custEmail")} *
                   </label>
                   <input
@@ -383,7 +383,7 @@ export default function Cart() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                     {t("custPhone")} *
                   </label>
                   <input
@@ -400,7 +400,7 @@ export default function Cart() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                   {t("custAddress")} *
                 </label>
                 <input
@@ -417,7 +417,7 @@ export default function Cart() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                     {t("custZip")} *
                   </label>
                   <input
@@ -434,7 +434,7 @@ export default function Cart() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                     {t("custCity")} *
                   </label>
                   <input
@@ -450,7 +450,7 @@ export default function Cart() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                     {t("custCountry")} *
                   </label>
                   <input
@@ -469,7 +469,7 @@ export default function Cart() {
               {/* Preferred Contact Method */}
               <div className="grid grid-cols-1 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">
+                  <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: 'var(--foreground)' }}>
                     {t("labelContactPreference")} *
                   </label>
 
@@ -610,7 +610,7 @@ export default function Cart() {
                   `}} />
 
                   {/* Warning Alert */}
-                  <div className="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40 rounded-2xl p-4 text-[#5c3a21] dark:text-amber-200 text-xs leading-relaxed font-semibold mb-4">
+                  <div className="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40 rounded-2xl p-4 text-[#5c3a21] dark:text-amber-300 text-xs leading-relaxed font-semibold mb-4">
                     {t("contactAlert")}
                   </div>
 
@@ -656,7 +656,7 @@ export default function Cart() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
                     {t("labelContactHandle")} *
                   </label>
                   <input
@@ -686,7 +686,7 @@ export default function Cart() {
 
           {/* Order Notes Area */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-            <h2 className="font-extrabold text-lg text-slate-500 dark:text-slate-400 mb-3">
+            <h2 className="font-extrabold text-lg mb-3" style={{ color: 'var(--foreground)' }}>
               {t("cartNotes")}
             </h2>
             <textarea
@@ -703,32 +703,32 @@ export default function Cart() {
         <div className="lg:col-span-5 sticky top-24 space-y-6">
           {/* Opções de Pagamento Box */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-            <h2 className="font-extrabold text-lg text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-3">
+            <h2 className="font-extrabold text-lg border-b border-slate-100 dark:border-slate-800 pb-3" style={{ color: 'var(--foreground)' }}>
               Opções de Pagamento
             </h2>
             <div className="space-y-3.5 text-sm font-semibold">
               <div className="flex flex-col gap-1 p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-850">
-                <span className="text-xs uppercase text-[#5c3a21] dark:text-amber-400 font-extrabold">Transferência Bancária</span>
-                <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 select-all">IBAN: PT50 0003 0000 0000 0000 0000 0</span>
+                <span className="text-xs uppercase font-extrabold" style={{ color: 'var(--foreground)' }}>Transferência Bancária</span>
+                <span className="text-xs font-mono font-bold select-all" style={{ color: 'var(--foreground)' }}>IBAN: PT50 0003 0000 0000 0000 0000 0</span>
               </div>
               <div className="flex flex-col gap-1 p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-850">
-                <span className="text-xs uppercase text-[#5c3a21] dark:text-amber-400 font-extrabold">MB WAY</span>
-                <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 select-all">+351 913 625 082</span>
+                <span className="text-xs uppercase font-extrabold" style={{ color: 'var(--foreground)' }}>MB WAY</span>
+                <span className="text-xs font-mono font-bold select-all" style={{ color: 'var(--foreground)' }}>+351 913 625 082</span>
               </div>
-              <div className="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40 rounded-xl p-3.5 text-[#5c3a21] dark:text-amber-200 text-xs leading-relaxed font-bold">
+              <div className="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40 rounded-xl p-3.5 text-xs leading-relaxed font-bold text-[#5c3a21] dark:text-amber-300">
                 ⚠️ Após confirmação do pagamento a sua encomenda será enviada.
               </div>
             </div>
           </div>
 
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
-            <h2 className="font-extrabold text-lg text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-4">
+            <h2 className="font-extrabold text-lg border-b border-slate-100 dark:border-slate-800 pb-4" style={{ color: 'var(--foreground)' }}>
               {t("summaryTitle")}
             </h2>
 
             {/* Calculations details */}
             <div className="space-y-3 text-sm font-medium">
-              <div className="flex justify-between text-slate-500">
+              <div className="flex justify-between" style={{ color: 'var(--foreground)' }}>
                 <span>{t("summarySubtotal")} (Excl. IVA)</span>
                 <span className="font-mono">
                   {subtotalExclVat.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
@@ -737,7 +737,7 @@ export default function Cart() {
                   })}
                 </span>
               </div>
-              <div className="flex justify-between text-slate-500">
+              <div className="flex justify-between" style={{ color: 'var(--foreground)' }}>
                 <span>{t("summaryVat")}</span>
                 <span className="font-mono">
                   {vatAmount.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
@@ -749,7 +749,7 @@ export default function Cart() {
               
               <hr className="border-slate-100 dark:border-slate-800 my-4" />
 
-              <div className="flex justify-between items-baseline text-slate-500 dark:text-slate-400 font-bold">
+              <div className="flex justify-between items-baseline font-bold" style={{ color: 'var(--foreground)' }}>
                 <span className="text-base">{t("summaryTotal")}</span>
                 <span className="text-2xl font-black font-mono text-emerald-600 dark:text-emerald-500">
                   {cartTotal.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
