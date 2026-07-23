@@ -5,20 +5,10 @@ import Link from "next/link";
 import { useApp } from "../../context/AppContext";
 import { Trash2, ShoppingBag, Plus, Minus, CheckCircle, ArrowRight, ClipboardCopy, MessageCircle, Mail } from "lucide-react";
 
-const IconWhatsApp = (props: any) => <MessageCircle {...props} />;
-const IconInstagram = (props: any) => (
-  <svg {...props} className={`${props.className || ""} stroke-current fill-none`} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-  </svg>
-);
-const IconFacebook = (props: any) => (
-  <svg {...props} className={`${props.className || ""} fill-current`} viewBox="0 0 24 24">
-    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/>
-  </svg>
-);
-const IconEmail = (props: any) => <Mail {...props} />;
+const IconWhatsApp = (props: any) => <img src="/wpp.png" alt="WhatsApp" {...props} />;
+const IconInstagram = (props: any) => <img src="/instagram.png" alt="Instagram" {...props} />;
+const IconFacebook = (props: any) => <img src="/facebook.png" alt="Facebook" {...props} />;
+const IconEmail = (props: any) => <img src="/email.png" alt="Email" {...props} />;
 
 interface FormFields {
   name: string;
@@ -523,16 +513,11 @@ export default function Cart() {
                       transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
                     }
 
-                    .cart-radio-tile-group .input-container .icon svg {
-                      color: var(--muted);
-                      fill: none;
+                    .cart-radio-tile-group .input-container .icon img {
                       width: 1.75rem;
                       height: 1.75rem;
                       transition: all 200ms ease;
-                    }
-
-                    .cart-radio-tile-group .input-container .icon svg.fill-current {
-                      fill: var(--muted);
+                      object-fit: contain;
                     }
 
                     .cart-radio-tile-group .input-container .radio-tile-label {
@@ -557,15 +542,8 @@ export default function Cart() {
                       transform: scale(1.05);
                     }
 
-                    .cart-radio-tile-group .input-container .radio-button:checked + .radio-tile .icon svg {
-                      color: #ffffff;
-                      stroke: #ffffff;
-                      fill: none;
-                    }
-
-                    .cart-radio-tile-group .input-container .radio-button:checked + .radio-tile .icon svg.fill-current {
-                      fill: #ffffff;
-                      stroke: none;
+                    .cart-radio-tile-group .input-container .radio-button:checked + .radio-tile .icon img {
+                      filter: brightness(0) invert(1);
                     }
 
                     .cart-radio-tile-group .input-container .radio-button:checked + .radio-tile .radio-tile-label {
@@ -713,9 +691,9 @@ export default function Cart() {
               
               <hr className="border-slate-100 dark:border-slate-800 my-4" />
 
-              <div className="flex justify-between items-baseline text-slate-900 dark:text-white font-extrabold">
+              <div className="flex justify-between items-baseline text-slate-500 dark:text-slate-400 font-bold">
                 <span className="text-base">{t("summaryTotal")}</span>
-                <span className="text-2xl font-black font-mono text-[#F2C879]">
+                <span className="text-2xl font-black font-mono text-emerald-600 dark:text-emerald-500">
                   {cartTotal.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                     style: "currency",
                     currency: "EUR",

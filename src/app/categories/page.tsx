@@ -109,15 +109,7 @@ function CategoriesContent() {
               )}
             </h2>
 
-            {/* Reset Filter Button */}
-            {selectedCategory && (
-              <button
-                onClick={() => setSelectedCategory(null)}
-                className="text-xs font-bold text-slate-500 hover:text-[#F2C879] flex items-center gap-1 bg-slate-100 dark:bg-slate-850 px-3 py-1.5 rounded-full"
-              >
-                Clear Filter
-              </button>
-            )}
+
           </div>
 
           {/* Dynamic Products Grid */}

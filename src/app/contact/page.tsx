@@ -4,20 +4,10 @@ import React, { useState } from "react";
 import { useApp } from "../../context/AppContext";
 import { Phone, Mail, MapPin, CheckCircle, MessageCircle } from "lucide-react";
 
-const IconWhatsApp = (props: any) => <MessageCircle {...props} className={`${props.className || ""} stroke-current fill-none`} />;
-const IconInstagram = (props: any) => (
-  <svg {...props} className={`${props.className || ""} stroke-current fill-none`} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-  </svg>
-);
-const IconFacebook = (props: any) => (
-  <svg {...props} className={`${props.className || ""} fill-current`} viewBox="0 0 24 24">
-    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/>
-  </svg>
-);
-const IconEmail = (props: any) => <Mail {...props} className={`${props.className || ""} stroke-current fill-none`} />;
+const IconWhatsApp = (props: any) => <img src="/wpp.png" alt="WhatsApp" {...props} />;
+const IconInstagram = (props: any) => <img src="/instagram.png" alt="Instagram" {...props} />;
+const IconFacebook = (props: any) => <img src="/facebook.png" alt="Facebook" {...props} />;
+const IconEmail = (props: any) => <img src="/email.png" alt="Email" {...props} />;
 
 interface FormFields {
   name: string;
@@ -223,13 +213,10 @@ export default function Contact() {
                     padding: 0.5rem;
                     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
                   }
-                  .radio-tile-group .input-container .icon svg {
-                    color: var(--muted); fill: none;
+                  .radio-tile-group .input-container .icon img {
                     width: 1.75rem; height: 1.75rem;
                     transition: all 200ms ease;
-                  }
-                  .radio-tile-group .input-container .icon svg.fill-current {
-                    fill: var(--muted);
+                    object-fit: contain;
                   }
                   .radio-tile-group .input-container .radio-tile-label {
                     text-align: center;
@@ -244,21 +231,13 @@ export default function Contact() {
                     box-shadow: 0 4px 12px rgba(185,132,79,0.25);
                     transform: scale(1.05);
                   }
-                  .radio-tile-group .input-container .radio-button:checked + .radio-tile .icon svg {
-                    color: #ffffff; stroke: #ffffff; fill: none;
-                  }
-                  .radio-tile-group .input-container .radio-button:checked + .radio-tile .icon svg.fill-current {
-                    fill: #ffffff; stroke: none;
+                  .radio-tile-group .input-container .radio-button:checked + .radio-tile .icon img {
+                    filter: brightness(0) invert(1);
                   }
                   .radio-tile-group .input-container .radio-button:checked + .radio-tile .radio-tile-label {
                     color: #ffffff;
                   }
                 `}} />
-
-                {/* Warning Alert */}
-                <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-4 text-amber-800 dark:text-amber-300 text-xs leading-relaxed font-semibold mb-4">
-                  {t("contactAlert")}
-                </div>
 
                 <div className="radio-tile-group">
                   {[
