@@ -315,7 +315,7 @@ export default function Cart() {
                     {/* Price and removal */}
                     <div className="flex items-center space-x-4">
                       <div className="text-right">
-                        <span className="block text-sm font-bold text-emerald-600 dark:text-emerald-500 font-mono">
+                        <span className="block text-sm font-bold text-slate-500 dark:text-slate-400 font-mono">
                           {(item.price * item.quantity).toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
                             style: "currency",
                             currency: "EUR",
@@ -485,6 +485,9 @@ export default function Cart() {
                       position: relative;
                       height: 85px;
                       width: 85px;
+                      margin: 0;
+                      min-width: unset;
+                      max-width: unset;
                     }
 
                     .cart-radio-tile-group .input-container .radio-button {
