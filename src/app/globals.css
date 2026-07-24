@@ -15,6 +15,9 @@
   --accent: #EAD9C5;
   --muted: #8B6A4A;
   --success: #10b981;
+  /* Brown text colors */
+  --brown-text: #3B1A0A;
+  --brown-value: #6B2D0E;
   /* Footer theme colors */
   --footer-bg: #272727;
   --footer-text: #ffffff;
@@ -31,6 +34,9 @@
   --accent: #3D2415;
   --muted: #D4B896;
   --success: #34d399;
+  /* Brown text colors - lighter for dark mode readability */
+  --brown-text: #C8956A;
+  --brown-value: #D4A574;
   /* Footer theme colors in dark mode - match dark wallpaper palette */
   --footer-bg: #150A04;
   --footer-text: #ffffff;
@@ -82,7 +88,15 @@ body::before {
   background-position: 0 0, 10px 10px;
 }
 
+/* Dark mode placeholder — bege claro em vez de cinzento */
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #C8A882;
+  opacity: 1;
+}
+
 /* Blur ONLY behind text — no visible box */
+
 .on-bg-blur {
   position: relative;
   display: inline-block;

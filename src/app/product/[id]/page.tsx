@@ -377,6 +377,22 @@ export default function ProductDetail() {
 
               {isCustomizationOpen && (
                 <div className="space-y-5 animate-fade-in-down">
+
+                  {/* Personalization Info Notice */}
+                  <div className="flex gap-3 bg-[#F2C879]/10 border border-[#F2C879]/30 rounded-xl p-4">
+                    <span className="text-[#F2C879] text-lg flex-shrink-0 mt-0.5">💡</span>
+                    <div className="space-y-1.5">
+                      <p className="text-xs font-extrabold text-[#F2C879] tracking-wide">
+                        {language === "pt" ? "Como funciona a personalização?" : "How does customization work?"}
+                      </p>
+                      <p className="text-[11px] text-amber-100/80 leading-relaxed font-medium">
+                        {language === "pt"
+                          ? "Ao personalizar o artigo poderá escolher outras opções como o tipo de letra, disposição dos elementos e muito mais. Para garantir que fica completamente satisfeito com o resultado, enviamos-lhe um modelo/prévia de como vai ficar — antes de qualquer pagamento. Basta aguardar que entremos em contacto consigo para apresentarmos a prévia e confirmarmos todos os detalhes."
+                          : "When customizing the item, you can choose additional options such as font type, element layout and more. To ensure you are fully satisfied with the result, we will send you a preview/mock-up of how it will look — before any payment. Just wait for us to get in touch with you to present the preview and confirm all the details."}
+                      </p>
+                    </div>
+                  </div>
+
                   {/* 1 – Image upload */}
               <div className="space-y-2">
                 <span className="text-xs font-bold text-stone-300 uppercase tracking-wide block">

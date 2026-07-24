@@ -125,8 +125,8 @@ export default function Contact() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                {t("contactFormName")} *
+              <label className="block text-xs font-bold capitalize tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                {t("contactFormName")}
               </label>
               <input
                 type="text"
@@ -139,8 +139,8 @@ export default function Contact() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                {t("contactFormSubject")} *
+              <label className="block text-xs font-bold capitalize tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                {t("contactFormSubject")}
               </label>
               <input
                 type="text"
@@ -153,8 +153,8 @@ export default function Contact() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                {t("contactFormMsg")} *
+              <label className="block text-xs font-bold capitalize tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                {t("contactFormMsg")}
               </label>
               <textarea
                 name="message"
@@ -170,11 +170,11 @@ export default function Contact() {
             {/* Preferred Contact Method area */}
             <div className="grid grid-cols-1 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
               <div>
-                <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide mb-2" style={{ color: 'var(--foreground)' }}>
+                <label className="flex items-center gap-2 text-xs font-bold capitalize tracking-wide mb-2" style={{ color: 'var(--foreground)' }}>
                   <span className="bg-[#F2C879]/10 text-[#F2C879] p-1.5 rounded-lg flex-shrink-0 shadow-inner">
                     <MessageCircle className="h-3.5 w-3.5" />
                   </span>
-                  {t("labelContactPreference")} *
+                  {t("labelContactPreference")}
                 </label>
 
                 <style dangerouslySetInnerHTML={{ __html: `
@@ -217,7 +217,7 @@ export default function Contact() {
                     width: 1.75rem; height: 1.75rem;
                     transition: all 200ms ease;
                     object-fit: contain;
-                    filter: grayscale(100%) opacity(60%);
+                    filter: grayscale(0%) opacity(100%);
                   }
                   .radio-tile-group .input-container .radio-tile-label {
                     text-align: center;

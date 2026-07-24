@@ -274,17 +274,17 @@ export default function Cart() {
                       <div className="mt-1.5 space-y-0.5">
                         {item.selectedSize && (
                           <div className="text-xs font-medium" style={{ color: 'var(--foreground)' }}>
-                            {t("labelSize")}: <span style={{ color: 'var(--foreground)' }}>{item.selectedSize}</span>
+                            {t("labelSize")}: <span style={{ color: 'var(--brown-value)' }} className="font-bold">{item.selectedSize}</span>
                           </div>
                         )}
                         {item.selectedColor && (
                           <div className="text-xs font-medium" style={{ color: 'var(--foreground)' }}>
-                            {t("labelColor")}: <span style={{ color: 'var(--foreground)' }}>{item.selectedColor}</span>
+                            {t("labelColor")}: <span style={{ color: 'var(--brown-value)' }} className="font-bold">{item.selectedColor}</span>
                           </div>
                         )}
                         {item.customText && item.customText.split(" | ").filter(Boolean).map((part, i) => (
                           <div key={i} className="text-xs font-medium" style={{ color: 'var(--foreground)' }}>
-                            <span style={{ color: 'var(--foreground)' }}>{part}</span>
+                            <span style={{ color: 'var(--brown-value)' }} className="font-bold">{part}</span>
                           </div>
                         ))}
                       </div>
@@ -330,7 +330,7 @@ export default function Cart() {
 
                       <button
                         onClick={() => removeFromCart(item.cartItemId)}
-                        className="p-2 text-slate-400 hover:text-red-500 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors"
+                        className="p-2 text-[#F2C879] hover:text-[#d9b265] rounded-lg hover:bg-amber-50 dark:hover:bg-amber-950/20 transition-colors"
                         title="Remover produto"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -350,8 +350,8 @@ export default function Cart() {
 
             <form onSubmit={handleCheckoutSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                  {t("custName")} *
+                <label className="block text-xs font-bold capitalize tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                  {t("custName")}
                 </label>
                 <input
                   type="text"
@@ -367,8 +367,8 @@ export default function Cart() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                    {t("custEmail")} *
+                  <label className="block text-xs font-bold capitalize tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                    {t("custEmail")}
                   </label>
                   <input
                     type="email"
@@ -383,8 +383,8 @@ export default function Cart() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                    {t("custPhone")} *
+                  <label className="block text-xs font-bold capitalize tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                    {t("custPhone")}
                   </label>
                   <input
                     type="tel"
@@ -400,8 +400,8 @@ export default function Cart() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                  {t("custAddress")} *
+                <label className="block text-xs font-bold capitalize tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                  {t("custAddress")}
                 </label>
                 <input
                   type="text"
@@ -417,8 +417,8 @@ export default function Cart() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                    {t("custZip")} *
+                  <label className="block text-xs font-bold capitalize tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                    {t("custZip")}
                   </label>
                   <input
                     type="text"
@@ -434,8 +434,8 @@ export default function Cart() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                    {t("custCity")} *
+                  <label className="block text-xs font-bold capitalize tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                    {t("custCity")}
                   </label>
                   <input
                     type="text"
@@ -450,8 +450,8 @@ export default function Cart() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                    {t("custCountry")} *
+                  <label className="block text-xs font-bold capitalize tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                    {t("custCountry")}
                   </label>
                   <input
                     type="text"
@@ -469,8 +469,8 @@ export default function Cart() {
               {/* Preferred Contact Method */}
               <div className="grid grid-cols-1 gap-4 border-t border-slate-100 dark:border-slate-800/60 pt-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: 'var(--foreground)' }}>
-                    {t("labelContactPreference")} *
+                  <label className="block text-xs font-bold capitalize tracking-wide mb-2" style={{ color: 'var(--foreground)' }}>
+                    {t("labelContactPreference")}
                   </label>
 
                   <style dangerouslySetInnerHTML={{ __html: `
@@ -521,7 +521,7 @@ export default function Cart() {
                       height: 1.75rem;
                       transition: all 200ms ease;
                       object-fit: contain;
-                      filter: grayscale(100%) opacity(60%);
+                      filter: grayscale(0%) opacity(100%);
                     }
 
                     .cart-radio-tile-group .input-container .radio-tile-label {
@@ -656,8 +656,8 @@ export default function Cart() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
-                    {t("labelContactHandle")} *
+                  <label className="block text-xs font-bold capitalize tracking-wide mb-1.5" style={{ color: 'var(--foreground)' }}>
+                    {t("labelContactHandle")}
                   </label>
                   <input
                     type="text"
@@ -709,11 +709,11 @@ export default function Cart() {
             <div className="space-y-3.5 text-sm font-semibold">
               <div className="flex flex-col gap-1 p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-850">
                 <span className="text-xs uppercase font-extrabold" style={{ color: 'var(--foreground)' }}>Transferência Bancária</span>
-                <span className="text-xs font-mono font-bold select-all" style={{ color: 'var(--foreground)' }}>IBAN: PT50 0003 0000 0000 0000 0000 0</span>
+                <span className="text-xs font-mono font-bold select-all" style={{ color: 'var(--brown-text)' }}>IBAN: PT50 0003 0000 0000 0000 0000 0</span>
               </div>
               <div className="flex flex-col gap-1 p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-850">
                 <span className="text-xs uppercase font-extrabold" style={{ color: 'var(--foreground)' }}>MB WAY</span>
-                <span className="text-xs font-mono font-bold select-all" style={{ color: 'var(--foreground)' }}>+351 913 625 082</span>
+                <span className="text-xs font-mono font-bold select-all" style={{ color: 'var(--brown-text)' }}>+351 913 625 082</span>
               </div>
               <div className="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40 rounded-xl p-3.5 text-xs leading-relaxed font-bold text-[#5c3a21] dark:text-amber-300">
                 ⚠️ Após confirmação do pagamento a sua encomenda será enviada.
@@ -728,7 +728,7 @@ export default function Cart() {
 
             {/* Calculations details */}
             <div className="space-y-3 text-sm font-medium">
-              <div className="flex justify-between" style={{ color: 'var(--foreground)' }}>
+              <div className="flex justify-between" style={{ color: 'var(--brown-text)' }}>
                 <span>{t("summarySubtotal")} (Excl. IVA)</span>
                 <span className="font-mono">
                   {subtotalExclVat.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
@@ -737,7 +737,7 @@ export default function Cart() {
                   })}
                 </span>
               </div>
-              <div className="flex justify-between" style={{ color: 'var(--foreground)' }}>
+              <div className="flex justify-between" style={{ color: 'var(--brown-text)' }}>
                 <span>{t("summaryVat")}</span>
                 <span className="font-mono">
                   {vatAmount.toLocaleString(language === "pt" ? "pt-PT" : "en-US", {
